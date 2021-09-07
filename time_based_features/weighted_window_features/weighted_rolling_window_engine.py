@@ -1,6 +1,7 @@
 from weighted_window_features import caluclate_barthann_feature, caluclate_bartlett_feature, caluclate_equal_feature, caluclate_blackman_feature
 import numpy as np
 import pandas as pd
+from typing import Union
 
 
 class weighted_rolling_window_engine():
@@ -9,22 +10,23 @@ class weighted_rolling_window_engine():
         self.function_mapper = {'equal': caluclate_equal_feature,
                                 'barthann': caluclate_barthann_feature,
                                 'bartlett': caluclate_bartlett_feature,
-                                'blackman':caluclate_blackman_feature}
+                                'blackman': caluclate_blackman_feature}
 
-    def fit(self, dataframe, payload):
-        """[summary]
-
+    def fit(self,
+            dataframe: Union[pd.DataFrame, pd.Series],
+            payload: dict):
+        """
         Parameters
         ----------
-        dataframe : [type]
-            [description]
-        payload : [type]
-            [description]
+        dataframe :  Union[pd.DataFrame,pd.Series]
+            dataframe/series over which barthann weighted rolling window feature is to be constructed 
+        payload : dict
+            payload containing feature generation information
 
         Returns
         -------
-        [type]
-            [description]
+        dict
+
         """
         self.output_dict = {}
         self.dataframe = dataframe
@@ -40,7 +42,8 @@ class weighted_rolling_window_engine():
                     if (_window_keys in self.function_mapper.keys()):
                         self.output_dict[_column_key]['weighted_window_features'][_window_keys] = {
                         }
-                        dict_dataframe = pd.DataFrame(self.payload[_column_key]['weighted_window_features'][_window_keys])
+                        dict_dataframe = pd.DataFrame(
+                            self.payload[_column_key]['weighted_window_features'][_window_keys])
                         feature_generated = []
                         for _iter in range(len(dict_dataframe)):
                             resulting_feature = self.function_mapper[_window_keys](
@@ -53,23 +56,23 @@ class weighted_rolling_window_engine():
 df = pd.DataFrame({'a': np.arange(10), 'b': np.arange(10)*2})
 payload = {'a': {'weighted_window_features':
                  {
-                    'barthann': {'window': [3, 4],
+                     'barthann': {'window': [3, 4],
                                   'min_periods': [1, 2],
                                   'symmetric': [False, True],
                                   'operation': [np.mean, np.sum]
                                   },
-                    'bartlett': {'window': [3, 4],
+                     'bartlett': {'window': [3, 4],
                                   'min_periods': [1, 2],
                                   'symmetric': [False, True],
                                   'operation': [np.mean, np.sum]
                                   },
-                    'equal':    {'window': 3,
+                     'equal':    {'window': 3,
                                   'min_periods': 1,
                                   'symmetric': False,
                                   'operation': [np.mean]
                                   },
-                    'blackman': {'window': [3,6],
-                                  'min_periods': [2,1],
+                     'blackman': {'window': [3, 6],
+                                  'min_periods': [2, 1],
                                   'symmetric': [False, True],
                                   'operation': [np.mean, np.sum]
                                   }
