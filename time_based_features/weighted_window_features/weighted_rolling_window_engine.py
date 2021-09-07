@@ -1,5 +1,5 @@
-from weighted_window_features import caluclate_equal_feature, caluclate_barthann_feature, caluclate_bartlett_feature,caluclate_blackman_feature, caluclate_blackmanharris_feature,\
-    caluclate_bohman_feature
+from weighted_window_features import caluclate_equal_feature, caluclate_barthann_feature, caluclate_bartlett_feature, caluclate_blackman_feature, caluclate_blackmanharris_feature,\
+    caluclate_bohman_feature, caluclate_cosine_feature, caluclate_exponential_feature, caluclate_flattop_feature, caluclate_gaussian_feature
 
 import numpy as np
 import pandas as pd
@@ -14,7 +14,11 @@ class weighted_rolling_window_engine():
                                 'bartlett': caluclate_bartlett_feature,
                                 'blackman': caluclate_blackman_feature,
                                 'blackmanharris': caluclate_blackmanharris_feature,
-                                'bohman': caluclate_bohman_feature}
+                                'bohman': caluclate_bohman_feature,
+                                'cosine': caluclate_cosine_feature,
+                                'exponential': caluclate_exponential_feature,
+                                'flattop': caluclate_flattop_feature,
+                                'gaussian': caluclate_gaussian_feature}
 
     def fit(self,
             dataframe: Union[pd.DataFrame, pd.Series],
@@ -85,11 +89,34 @@ payload = {'a': {'weighted_window_features':
                                         'symmetric': [False, True],
                                         'operation': [np.mean, np.sum]
                                         },
-                    'bohman': {'window': [3, 6],
-                                        'min_periods': [2, 1],
-                                        'symmetric': [False, True],
-                                        'operation': [np.mean, np.sum]
-                                        }
+                     'bohman': {'window': [3, 6],
+                                'min_periods': [2, 1],
+                                'symmetric': [False, True],
+                                'operation': [np.mean, np.sum]
+                                },
+                     'cosine': {'window': [3, 6],
+                                'min_periods': [2, 1],
+                                'symmetric': [False, True],
+                                'operation': [np.mean, np.sum]
+                                },
+                     'exponential': {'window': [3, 6],
+                                     'min_periods': [2, 1],
+                                     'symmetric': [False, True],
+                                     'center': [1, None],
+                                     'tau': [1, 0.5],
+                                     'operation': [np.mean, np.sum]
+                                     },
+                     'flattop': {'window': [3, 6],
+                                 'min_periods': [2, 1],
+                                 'symmetric': [False, True],
+                                 'operation': [np.mean, np.sum]
+                                 },
+                     'gaussian': {'window': [3, 6],
+                                  'min_periods': [2, 1],
+                                  'symmetric': [False, True],
+                                  'std': [1, 2],
+                                  'operation': [np.mean, np.sum]
+                                  }
                  }
                  }
            }
