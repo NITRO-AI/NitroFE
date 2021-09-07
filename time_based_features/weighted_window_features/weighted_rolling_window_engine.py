@@ -1,4 +1,6 @@
-from weighted_window_features import caluclate_barthann_feature, caluclate_bartlett_feature, caluclate_equal_feature, caluclate_blackman_feature
+from weighted_window_features import caluclate_equal_feature, caluclate_barthann_feature, caluclate_bartlett_feature,caluclate_blackman_feature, caluclate_blackmanharris_feature,\
+    caluclate_bohman_feature
+
 import numpy as np
 import pandas as pd
 from typing import Union
@@ -10,7 +12,9 @@ class weighted_rolling_window_engine():
         self.function_mapper = {'equal': caluclate_equal_feature,
                                 'barthann': caluclate_barthann_feature,
                                 'bartlett': caluclate_bartlett_feature,
-                                'blackman': caluclate_blackman_feature}
+                                'blackman': caluclate_blackman_feature,
+                                'blackmanharris': caluclate_blackmanharris_feature,
+                                'bohman': caluclate_bohman_feature}
 
     def fit(self,
             dataframe: Union[pd.DataFrame, pd.Series],
@@ -75,7 +79,17 @@ payload = {'a': {'weighted_window_features':
                                   'min_periods': [2, 1],
                                   'symmetric': [False, True],
                                   'operation': [np.mean, np.sum]
-                                  }
+                                  },
+                     'blackmanharris': {'window': [3, 6],
+                                        'min_periods': [2, 1],
+                                        'symmetric': [False, True],
+                                        'operation': [np.mean, np.sum]
+                                        },
+                    'bohman': {'window': [3, 6],
+                                        'min_periods': [2, 1],
+                                        'symmetric': [False, True],
+                                        'operation': [np.mean, np.sum]
+                                        }
                  }
                  }
            }

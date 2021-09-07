@@ -1,7 +1,6 @@
 from scipy import signal
 import numpy as np
-import pandas as pd
-from typing import Union, Callable
+
 
 
 def _weighted_window_operation(data,
@@ -31,6 +30,7 @@ def _bartlett_symmetric_window(data,
                                window_size):
     return _weighted_window_operation(data, window_size, signal.windows.bartlett(window_size, sym=True))
 
+
 def _blackman_non_symmetric_window(data,
                                    window_size):
     return _weighted_window_operation(data, window_size, signal.windows.blackman(window_size, sym=False))
@@ -39,6 +39,26 @@ def _blackman_non_symmetric_window(data,
 def _blackman_symmetric_window(data,
                                window_size):
     return _weighted_window_operation(data, window_size, signal.windows.blackman(window_size, sym=True))
+
+
+def _blackmanharris_non_symmetric_window(data,
+                                         window_size):
+    return _weighted_window_operation(data, window_size, signal.windows.blackmanharris(window_size, sym=False))
+
+
+def _blackmanharris_symmetric_window(data,
+                                     window_size):
+    return _weighted_window_operation(data, window_size, signal.windows.blackmanharris(window_size, sym=True))
+
+def _bohman_non_symmetric_window(data,
+                                         window_size):
+    return _weighted_window_operation(data, window_size, signal.windows.bohman(window_size, sym=False))
+
+
+def _bohman_symmetric_window(data,
+                                     window_size):
+    return _weighted_window_operation(data, window_size, signal.windows.bohman(window_size, sym=True))
+
 
 def _equal_window(data,
                   window_size):

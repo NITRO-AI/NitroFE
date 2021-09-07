@@ -1,5 +1,7 @@
 from weighted_windows import _barthann_non_symmetric_window, _barthann_symmetric_window, _bartlett_non_symmetric_window,\
-    _bartlett_symmetric_window, _equal_window, _blackman_symmetric_window, _blackman_non_symmetric_window
+    _bartlett_symmetric_window, _equal_window, _blackman_symmetric_window, _blackman_non_symmetric_window, _blackmanharris_non_symmetric_window,\
+    _blackmanharris_symmetric_window,_bohman_non_symmetric_window,_bohman_symmetric_window
+
 import numpy as np
 import pandas as pd
 from typing import Union, Callable
@@ -16,7 +18,7 @@ def caluclate_barthann_feature(dataframe: Union[pd.DataFrame, pd.Series],
     Parameters
     ----------
     dataframe : Union[pd.DataFrame,pd.Series]
-        dataframe/series over which barthann weighted rolling window feature is to be constructed 
+        dataframe/series over which Bartlett–Hann weighted rolling window feature is to be constructed 
     window : int, optional
         Size of the rolling window, by default 3
     min_periods : int, optional
@@ -34,19 +36,9 @@ def caluclate_barthann_feature(dataframe: Union[pd.DataFrame, pd.Series],
     Notes
     -----
     Make sure the dataframe/Series is sorted. 
-    The Bartlett window is defined as
-    .. math:: w(n) = \\frac{2}{M-1} \\left(
-              \\frac{M-1}{2} - \\left|n - \\frac{M-1}{2}\\right|
-              \\right)
-    Most references to the Bartlett window come from the signal
-    processing literature, where it is used as one of many windowing
-    functions for smoothing values.  Note that convolution with this
-    window produces linear interpolation.  It is also known as an
-    apodization (which means"removing the foot", i.e. smoothing
-    discontinuities at the beginning and end of the sampled signal) or
-    tapering function. The fourier transform of the Bartlett is the product
-    of two sinc functions.
-
+    The Bartlett–Hann window is defined as
+    
+    .. math:: w(n) = 0.62 - 0.48 \left |\frac{n}{N}-\frac{1}{2} \right| - 0.38 \cos \left (\frac{2 \pi n}{N}\right )
     """
     win_function = _barthann_symmetric_window if symmetric else _barthann_non_symmetric_window
     return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
@@ -63,7 +55,7 @@ def caluclate_bartlett_feature(dataframe: Union[pd.DataFrame, pd.Series],
     Parameters
     ----------
     dataframe : Union[pd.DataFrame,pd.Series]
-        dataframe/series over which barthann weighted rolling window feature is to be constructed 
+        dataframe/series over which bartlett weighted rolling window feature is to be constructed 
     window : int, optional
         Size of the rolling window, by default 3
     min_periods : int, optional
@@ -109,7 +101,7 @@ def caluclate_equal_feature(dataframe: Union[pd.DataFrame, pd.Series],
     Parameters
     ----------
     dataframe : Union[pd.DataFrame,pd.Series]
-        dataframe/series over which barthann weighted rolling window feature is to be constructed 
+        dataframe/series over which equally weighted rolling window feature is to be constructed 
     window : int, optional
         Size of the rolling window, by default 3
     min_periods : int, optional
@@ -144,7 +136,7 @@ def caluclate_blackman_feature(dataframe: Union[pd.DataFrame, pd.Series],
     Parameters
     ----------
     dataframe : Union[pd.DataFrame,pd.Series]
-        dataframe/series over which barthann weighted rolling window feature is to be constructed 
+        dataframe/series over which blackman weighted rolling window feature is to be constructed 
     window : int, optional
         Size of the rolling window, by default 3
     min_periods : int, optional
@@ -177,4 +169,70 @@ def caluclate_blackman_feature(dataframe: Union[pd.DataFrame, pd.Series],
     as the Kaiser window.
     """
     win_function = _blackman_symmetric_window if symmetric else _blackman_non_symmetric_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+
+
+def caluclate_blackmanharris_feature(dataframe: Union[pd.DataFrame, pd.Series],
+                                     window: int = 3,
+                                     min_periods: int = 1,
+                                     symmetric: bool = False,
+                                     operation: Callable = np.mean):
+    """
+    Create blackman-harris weighted rolling window feature
+
+    Parameters
+    ----------
+    dataframe : Union[pd.DataFrame,pd.Series]
+        dataframe/series over which blackman-harris weighted rolling window feature is to be constructed 
+    window : int, optional
+        Size of the rolling window, by default 3
+    min_periods : int, optional
+        Minimum number of observations in window required to have a value, by default 1
+    symmetric : bool, optional
+        When True , generates a symmetric window, for use in filter design. When False,
+        generates a periodic window, for use in spectral analysis, by default False
+    operation : Callable, optional
+        operation to perform over the weighted rolling window values, by default np.mean
+
+    Returns
+    -------
+        final value after operation
+
+    Notes
+    -----
+     The blackman-harris window is defined as
+    .. math::  w(n) = 1 - 1.942604 \cos(2\pi n/M) + 1.340318 \cos(4\pi n/M)
+               - 0.440811 \cos(6\pi n/M) + 0.043097 \cos(8\pi n/M)  
+    """
+    win_function = _blackmanharris_symmetric_window if symmetric else _blackmanharris_non_symmetric_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+
+def caluclate_bohman_feature(dataframe: Union[pd.DataFrame, pd.Series],
+                                     window: int = 3,
+                                     min_periods: int = 1,
+                                     symmetric: bool = False,
+                                     operation: Callable = np.mean):
+    """
+    Create bohman weighted rolling window feature
+
+    Parameters
+    ----------
+    dataframe : Union[pd.DataFrame,pd.Series]
+        dataframe/series over which bohman weighted rolling window feature is to be constructed 
+    window : int, optional
+        Size of the rolling window, by default 3
+    min_periods : int, optional
+        Minimum number of observations in window required to have a value, by default 1
+    symmetric : bool, optional
+        When True , generates a symmetric window, for use in filter design. When False,
+        generates a periodic window, for use in spectral analysis, by default False
+    operation : Callable, optional
+        operation to perform over the weighted rolling window values, by default np.mean
+
+    Returns
+    -------
+        final value after operation
+
+    """
+    win_function = _bohman_symmetric_window if symmetric else _bohman_non_symmetric_window
     return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
