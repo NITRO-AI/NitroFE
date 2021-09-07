@@ -1,6 +1,5 @@
 from weighted_windows import _barthann_non_symmetric_window, _barthann_symmetric_window, _bartlett_non_symmetric_window,\
     _bartlett_symmetric_window, _equal_window, _blackman_symmetric_window, _blackman_non_symmetric_window
-from scipy import signal
 import numpy as np
 import pandas as pd
 from typing import Union, Callable

@@ -4,8 +4,6 @@ import pandas as pd
 
 
 class weighted_rolling_window_engine():
-    """[summary]
-    """
 
     def __init__(self):
         self.function_mapper = {'equal': caluclate_equal_feature,
