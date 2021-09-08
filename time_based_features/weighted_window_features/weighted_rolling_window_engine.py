@@ -1,32 +1,47 @@
-from weighted_window_features import caluclate_barthann_feature, caluclate_bartlett_feature, caluclate_equal_feature, caluclate_blackman_feature
+from weighted_window_features import caluclate_equal_feature, caluclate_barthann_feature, caluclate_bartlett_feature, caluclate_blackman_feature, caluclate_blackmanharris_feature,\
+    caluclate_bohman_feature, caluclate_cosine_feature, caluclate_exponential_feature, caluclate_flattop_feature, caluclate_gaussian_feature,caluclate_hamming_feature,\
+        caluclate_hann_feature,caluclate_kaiser_feature, caluclate_parzen_feature,caluclate_triang_feature
+
+
 import numpy as np
 import pandas as pd
+from typing import Union
 
 
 class weighted_rolling_window_engine():
-    """[summary]
-    """
 
     def __init__(self):
         self.function_mapper = {'equal': caluclate_equal_feature,
                                 'barthann': caluclate_barthann_feature,
                                 'bartlett': caluclate_bartlett_feature,
-                                'blackman':caluclate_blackman_feature}
+                                'blackman': caluclate_blackman_feature,
+                                'blackmanharris': caluclate_blackmanharris_feature,
+                                'bohman': caluclate_bohman_feature,
+                                'cosine': caluclate_cosine_feature,
+                                'exponential': caluclate_exponential_feature,
+                                'flattop': caluclate_flattop_feature,
+                                'gaussian': caluclate_gaussian_feature,
+                                'hamming':caluclate_hamming_feature,
+                                'hann':caluclate_hann_feature,
+                                'kaiser':caluclate_kaiser_feature,
+                                'parzen':caluclate_parzen_feature,
+                                'triang':caluclate_triang_feature}
 
-    def fit(self, dataframe, payload):
-        """[summary]
-
+    def fit(self,
+            dataframe: Union[pd.DataFrame, pd.Series],
+            payload: dict):
+        """
         Parameters
         ----------
-        dataframe : [type]
-            [description]
-        payload : [type]
-            [description]
+        dataframe :  Union[pd.DataFrame,pd.Series]
+            dataframe/series over which barthann weighted rolling window feature is to be constructed 
+        payload : dict
+            payload containing feature generation information
 
         Returns
         -------
-        [type]
-            [description]
+        dict
+
         """
         self.output_dict = {}
         self.dataframe = dataframe
@@ -42,7 +57,8 @@ class weighted_rolling_window_engine():
                     if (_window_keys in self.function_mapper.keys()):
                         self.output_dict[_column_key]['weighted_window_features'][_window_keys] = {
                         }
-                        dict_dataframe = pd.DataFrame(self.payload[_column_key]['weighted_window_features'][_window_keys])
+                        dict_dataframe = pd.DataFrame(
+                            self.payload[_column_key]['weighted_window_features'][_window_keys])
                         feature_generated = []
                         for _iter in range(len(dict_dataframe)):
                             resulting_feature = self.function_mapper[_window_keys](
@@ -55,23 +71,82 @@ class weighted_rolling_window_engine():
 df = pd.DataFrame({'a': np.arange(10), 'b': np.arange(10)*2})
 payload = {'a': {'weighted_window_features':
                  {
-                    'barthann': {'window': [3, 4],
+                     'barthann': {'window': [3, 4],
                                   'min_periods': [1, 2],
                                   'symmetric': [False, True],
                                   'operation': [np.mean, np.sum]
                                   },
-                    'bartlett': {'window': [3, 4],
+                     'bartlett': {'window': [3, 4],
                                   'min_periods': [1, 2],
                                   'symmetric': [False, True],
                                   'operation': [np.mean, np.sum]
                                   },
-                    'equal':    {'window': 3,
+                     'equal':    {'window': 3,
                                   'min_periods': 1,
                                   'symmetric': False,
                                   'operation': [np.mean]
                                   },
-                    'blackman': {'window': [3,6],
-                                  'min_periods': [2,1],
+                     'blackman': {'window': [3, 6],
+                                  'min_periods': [2, 1],
+                                  'symmetric': [False, True],
+                                  'operation': [np.mean, np.sum]
+                                  },
+                     'blackmanharris': {'window': [3, 6],
+                                        'min_periods': [2, 1],
+                                        'symmetric': [False, True],
+                                        'operation': [np.mean, np.sum]
+                                        },
+                     'bohman': {'window': [3, 6],
+                                'min_periods': [2, 1],
+                                'symmetric': [False, True],
+                                'operation': [np.mean, np.sum]
+                                },
+                     'cosine': {'window': [3, 6],
+                                'min_periods': [2, 1],
+                                'symmetric': [False, True],
+                                'operation': [np.mean, np.sum]
+                                },
+                     'exponential': {'window': [3, 6],
+                                     'min_periods': [2, 1],
+                                     'symmetric': [False, True],
+                                     'center': [1, None],
+                                     'tau': [1, 0.5],
+                                     'operation': [np.mean, np.sum]
+                                     },
+                     'flattop': {'window': [3, 6],
+                                 'min_periods': [2, 1],
+                                 'symmetric': [False, True],
+                                 'operation': [np.mean, np.sum]
+                                 },
+                     'gaussian': {'window': [3, 6],
+                                  'min_periods': [2, 1],
+                                  'symmetric': [False, True],
+                                  'std': [1, 2],
+                                  'operation': [np.mean, np.sum]
+                                  },
+                    'hamming': {'window': [3, 6],
+                                  'min_periods': [2, 1],
+                                  'symmetric': [False, True],
+                                  'operation': [np.mean, np.sum]
+                                  },
+                    'hann': {'window': [3, 6],
+                                  'min_periods': [2, 1],
+                                  'symmetric': [False, True],
+                                  'operation': [np.mean, np.sum]
+                                  },
+                    'kaiser': {'window': [3, 6],
+                                  'min_periods': [2, 1],
+                                  'symmetric': [False, True],
+                                  'beta':[7,11],
+                                  'operation': [np.mean, np.sum]
+                                  },
+                    'parzen': {'window': [3, 6],
+                                  'min_periods': [2, 1],
+                                  'symmetric': [False, True],
+                                  'operation': [np.mean, np.sum]
+                                  },
+                    'triang': {'window': [3, 6],
+                                  'min_periods': [2, 1],
                                   'symmetric': [False, True],
                                   'operation': [np.mean, np.sum]
                                   }
