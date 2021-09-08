@@ -74,14 +74,16 @@ def _exponential_non_symmetric_window(data,
                                       window_size,
                                       center,
                                       tau):
-    return _weighted_window_operation(data, window_size, signal.windows.exponential(window_size, sym=False))
+    return _weighted_window_operation(data, window_size, signal.windows.exponential(window_size, center,
+                                      tau, sym=False))
 
 
 def _exponential_symmetric_window(data,
                                   window_size,
                                   center,
                                   tau):
-    return _weighted_window_operation(data, window_size, signal.windows.exponential(window_size, sym=True))
+    return _weighted_window_operation(data, window_size, signal.windows.exponential(window_size, center,
+                                      tau, sym=False))
 
 
 def _flattop_non_symmetric_window(data,
@@ -104,6 +106,47 @@ def _gaussian_symmetric_window(data,
                                window_size,
                                std):
     return _weighted_window_operation(data, window_size, signal.windows.gaussian(window_size, std, sym=True))
+
+
+def _hamming_non_symmetric_window(data,
+                                  window_size):
+    return _weighted_window_operation(data, window_size, signal.windows.hamming(window_size, sym=False))
+
+
+def _hamming_symmetric_window(data,
+                              window_size):
+    return _weighted_window_operation(data, window_size, signal.windows.hamming(window_size, sym=True))
+
+def _hann_non_symmetric_window(data,
+                                  window_size):
+    return _weighted_window_operation(data, window_size, signal.windows.hann(window_size, sym=False))
+
+
+def _hann_symmetric_window(data,
+                              window_size):
+    return _weighted_window_operation(data, window_size, signal.windows.hann(window_size, sym=True))
+
+
+def _kaiser_non_symmetric_window(data,
+                                  window_size,
+                                  beta):
+    return _weighted_window_operation(data, window_size, signal.windows.kaiser(window_size,beta, sym=False))
+
+
+def _kaiser_symmetric_window(data,
+                              window_size,
+                              beta):
+    return _weighted_window_operation(data, window_size, signal.windows.kaiser(window_size,beta, sym=True))
+
+
+def _parzen_non_symmetric_window(data,
+                                  window_size):
+    return _weighted_window_operation(data, window_size, signal.windows.parzen(window_size, sym=False))
+
+
+def _parzen_symmetric_window(data,
+                              window_size):
+    return _weighted_window_operation(data, window_size, signal.windows.parzen(window_size, sym=True))
 
 
 def _equal_window(data,
