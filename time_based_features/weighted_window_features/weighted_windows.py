@@ -149,6 +149,16 @@ def _parzen_symmetric_window(data,
     return _weighted_window_operation(data, window_size, signal.windows.parzen(window_size, sym=True))
 
 
+def _triang_non_symmetric_window(data,
+                                  window_size):
+    return _weighted_window_operation(data, window_size, signal.windows.triang(window_size, sym=False))
+
+
+def _triang_symmetric_window(data,
+                              window_size):
+    return _weighted_window_operation(data, window_size, signal.windows.triang(window_size, sym=True))
+
+
 def _equal_window(data,
                   window_size):
     return _weighted_window_operation(data, window_size, np.ones(window_size))

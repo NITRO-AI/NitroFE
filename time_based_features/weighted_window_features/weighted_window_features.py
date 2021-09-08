@@ -4,7 +4,7 @@ from weighted_windows import _barthann_non_symmetric_window, _barthann_symmetric
     _cosine_symmetric_window, _exponential_symmetric_window, _exponential_non_symmetric_window, _flattop_non_symmetric_window,\
     _flattop_symmetric_window, _gaussian_symmetric_window, _gaussian_non_symmetric_window,_hamming_symmetric_window,_hamming_non_symmetric_window,\
         _hann_non_symmetric_window,_hann_symmetric_window,_kaiser_symmetric_window,_kaiser_non_symmetric_window,_parzen_non_symmetric_window,\
-            _parzen_symmetric_window
+            _parzen_symmetric_window,_triang_symmetric_window,_triang_non_symmetric_window
 
 import numpy as np
 import pandas as pd
@@ -477,4 +477,35 @@ def caluclate_parzen_feature(dataframe: Union[pd.DataFrame, pd.Series],
 
     """
     win_function = _parzen_symmetric_window if symmetric else _parzen_non_symmetric_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+
+def caluclate_triang_feature(dataframe: Union[pd.DataFrame, pd.Series],
+                               window: int = 3,
+                               min_periods: int = 1,
+                               symmetric: bool = False,
+                               operation: Callable = np.mean):
+    """
+    Create flattop triang rolling window feature
+
+    Parameters
+    ----------
+    dataframe : Union[pd.DataFrame,pd.Series]
+        dataframe/series over which flattop triang rolling window feature is to be constructed 
+    window : int, optional
+        Size of the rolling window, by default 3
+    min_periods : int, optional
+        Minimum number of observations in window required to have a value, by default 1
+    symmetric : bool, optional
+        When True , generates a symmetric window, for use in filter design. When False,
+        generates a periodic window, for use in spectral analysis, by default False
+    operation : Callable, optional
+        operation to perform over the weighted rolling window values, by default np.mean
+
+    References
+    -----
+    .. [1] Wikipedia, "triang function",
+           https://en.wikipedia.org/wiki/Window_function#Parzen_window
+
+    """
+    win_function = _triang_symmetric_window if symmetric else _triang_non_symmetric_window
     return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))

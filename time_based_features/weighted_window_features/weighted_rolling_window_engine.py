@@ -1,6 +1,6 @@
 from weighted_window_features import caluclate_equal_feature, caluclate_barthann_feature, caluclate_bartlett_feature, caluclate_blackman_feature, caluclate_blackmanharris_feature,\
     caluclate_bohman_feature, caluclate_cosine_feature, caluclate_exponential_feature, caluclate_flattop_feature, caluclate_gaussian_feature,caluclate_hamming_feature,\
-        caluclate_hann_feature,caluclate_kaiser_feature, caluclate_parzen_feature
+        caluclate_hann_feature,caluclate_kaiser_feature, caluclate_parzen_feature,caluclate_triang_feature
 
 
 import numpy as np
@@ -24,7 +24,8 @@ class weighted_rolling_window_engine():
                                 'hamming':caluclate_hamming_feature,
                                 'hann':caluclate_hann_feature,
                                 'kaiser':caluclate_kaiser_feature,
-                                'parzen':caluclate_parzen_feature}
+                                'parzen':caluclate_parzen_feature,
+                                'triang':caluclate_triang_feature}
 
     def fit(self,
             dataframe: Union[pd.DataFrame, pd.Series],
@@ -140,6 +141,11 @@ payload = {'a': {'weighted_window_features':
                                   'operation': [np.mean, np.sum]
                                   },
                     'parzen': {'window': [3, 6],
+                                  'min_periods': [2, 1],
+                                  'symmetric': [False, True],
+                                  'operation': [np.mean, np.sum]
+                                  },
+                    'triang': {'window': [3, 6],
                                   'min_periods': [2, 1],
                                   'symmetric': [False, True],
                                   'operation': [np.mean, np.sum]
