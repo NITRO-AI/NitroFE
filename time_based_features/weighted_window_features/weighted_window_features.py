@@ -1,10 +1,6 @@
-from weighted_windows import _barthann_non_symmetric_window, _barthann_symmetric_window, _bartlett_non_symmetric_window,\
-    _bartlett_symmetric_window, _equal_window, _blackman_symmetric_window, _blackman_non_symmetric_window, _blackmanharris_non_symmetric_window,\
-    _blackmanharris_symmetric_window, _bohman_non_symmetric_window, _bohman_symmetric_window, _cosine_non_symmetric_window,\
-    _cosine_symmetric_window, _exponential_symmetric_window, _exponential_non_symmetric_window, _flattop_non_symmetric_window,\
-    _flattop_symmetric_window, _gaussian_symmetric_window, _gaussian_non_symmetric_window,_hamming_symmetric_window,_hamming_non_symmetric_window,\
-        _hann_non_symmetric_window,_hann_symmetric_window,_kaiser_symmetric_window,_kaiser_non_symmetric_window,_parzen_non_symmetric_window,\
-            _parzen_symmetric_window,_triang_symmetric_window,_triang_non_symmetric_window
+from weighted_windows import _barthann_window, _bartlett_window, _equal_window, _blackman_window, _blackmanharris_window,_bohman_window,\
+     _cosine_window, _exponential_window, _flattop_window, _gaussian_window,_hamming_window,\
+       _hann_window,_kaiser_window,_parzen_window,_triang_window
 
 import numpy as np
 import pandas as pd
@@ -43,8 +39,8 @@ def caluclate_barthann_feature(dataframe: Union[pd.DataFrame, pd.Series],
            https://en.wikipedia.org/wiki/Window_function#Bartlett%E2%80%93Hann_window
 
     """
-    win_function = _barthann_symmetric_window if symmetric else _barthann_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+    win_function = _barthann_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric )))
 
 
 def caluclate_bartlett_feature(dataframe: Union[pd.DataFrame, pd.Series],
@@ -78,8 +74,8 @@ def caluclate_bartlett_feature(dataframe: Union[pd.DataFrame, pd.Series],
     .. [1] Center for Computer Research in Music and Acoustics, "Bartlett (``Triangular'') Window",
            https://ccrma.stanford.edu/~jos/sasp/Bartlett_Triangular_Window.html
     """
-    win_function = _bartlett_symmetric_window if symmetric else _bartlett_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+    win_function = _bartlett_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric)))
 
 
 def caluclate_equal_feature(dataframe: Union[pd.DataFrame, pd.Series],
@@ -143,8 +139,8 @@ def caluclate_blackman_feature(dataframe: Union[pd.DataFrame, pd.Series],
     .. [1] Wikipedia, "Window function",
            https://en.wikipedia.org/wiki/Window_function#Blackman_window
     """
-    win_function = _blackman_symmetric_window if symmetric else _blackman_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+    win_function = _blackman_window 
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window,symmetric)))
 
 
 def caluclate_blackmanharris_feature(dataframe: Union[pd.DataFrame, pd.Series],
@@ -178,8 +174,8 @@ def caluclate_blackmanharris_feature(dataframe: Union[pd.DataFrame, pd.Series],
     .. [1] Wikipedia, "Window function",
            https://en.wikipedia.org/wiki/Window_function#Blackman%E2%80%93Harris_window 
     """
-    win_function = _blackmanharris_symmetric_window if symmetric else _blackmanharris_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+    win_function = _blackmanharris_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric )))
 
 
 def caluclate_bohman_feature(dataframe: Union[pd.DataFrame, pd.Series],
@@ -210,8 +206,8 @@ def caluclate_bohman_feature(dataframe: Union[pd.DataFrame, pd.Series],
            https://www.mathworks.com/help/signal/ref/bohmanwin.html 
 
     """
-    win_function = _bohman_symmetric_window if symmetric else _bohman_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+    win_function = _bohman_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric)))
 
 
 def caluclate_cosine_feature(dataframe: Union[pd.DataFrame, pd.Series],
@@ -242,15 +238,15 @@ def caluclate_cosine_feature(dataframe: Union[pd.DataFrame, pd.Series],
            https://en.wikipedia.org/wiki/Window_function#Power-of-sine/cosine_windows
 
     """
-    win_function = _cosine_symmetric_window if symmetric else _cosine_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+    win_function = _cosine_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric)))
 
 
 def caluclate_exponential_feature(dataframe: Union[pd.DataFrame, pd.Series],
                                   window: int = 3,
-                                  min_periods: int = 1,
-                                  symmetric: bool = False,
+                                  min_periods: int = 1,                                 
                                   center: float = None,
+                                  symmetric: bool = False,
                                   tau: float = 1,
                                   operation: Callable = np.mean):
     """
@@ -281,8 +277,9 @@ def caluclate_exponential_feature(dataframe: Union[pd.DataFrame, pd.Series],
            https://en.wikipedia.org/wiki/Window_function#Exponential_or_Poisson_window
 
     """
-    win_function = _exponential_symmetric_window if symmetric else _exponential_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, center, tau)))
+
+    win_function = _exponential_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, center, tau, symmetric)))
 
 
 def caluclate_flattop_feature(dataframe: Union[pd.DataFrame, pd.Series],
@@ -313,8 +310,8 @@ def caluclate_flattop_feature(dataframe: Union[pd.DataFrame, pd.Series],
            https://in.mathworks.com/help/signal/ref/flattopwin.html
 
     """
-    win_function = _flattop_symmetric_window if symmetric else _flattop_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+    win_function = _flattop_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric)))
 
 
 def caluclate_gaussian_feature(dataframe: Union[pd.DataFrame, pd.Series],
@@ -348,8 +345,8 @@ def caluclate_gaussian_feature(dataframe: Union[pd.DataFrame, pd.Series],
            https://en.wikipedia.org/wiki/Window_function#Gaussian_window
 
     """
-    win_function = _gaussian_symmetric_window if symmetric else _gaussian_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, std)))
+    win_function = _gaussian_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, std, symmetric)))
 
 
 def caluclate_hamming_feature(dataframe: Union[pd.DataFrame, pd.Series],
@@ -380,8 +377,8 @@ def caluclate_hamming_feature(dataframe: Union[pd.DataFrame, pd.Series],
            https://en.wikipedia.org/wiki/Window_function#Gaussian_window
 
     """
-    win_function = _hamming_symmetric_window if symmetric else _hamming_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+    win_function = _hamming_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric)))
 
 def caluclate_hann_feature(dataframe: Union[pd.DataFrame, pd.Series],
                                window: int = 3,
@@ -411,8 +408,8 @@ def caluclate_hann_feature(dataframe: Union[pd.DataFrame, pd.Series],
            https://en.wikipedia.org/wiki/Hann_function
 
     """
-    win_function = _hann_symmetric_window if symmetric else _hann_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+    win_function = _hann_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric)))
 
 def caluclate_kaiser_feature(dataframe: Union[pd.DataFrame, pd.Series],
                                window: int = 3,
@@ -445,8 +442,8 @@ def caluclate_kaiser_feature(dataframe: Union[pd.DataFrame, pd.Series],
     .. [1] Wikipedia, "Kaiser window",
            https://en.wikipedia.org/wiki/Kaiser_window
     """
-    win_function = _kaiser_symmetric_window if symmetric else _kaiser_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window,beta)))   
+    win_function = _kaiser_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, beta, symmetric)))   
 
 def caluclate_parzen_feature(dataframe: Union[pd.DataFrame, pd.Series],
                                window: int = 3,
@@ -476,8 +473,8 @@ def caluclate_parzen_feature(dataframe: Union[pd.DataFrame, pd.Series],
            https://en.wikipedia.org/wiki/Window_function#Parzen_window
 
     """
-    win_function = _parzen_symmetric_window if symmetric else _parzen_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+    win_function = _parzen_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric )))
 
 def caluclate_triang_feature(dataframe: Union[pd.DataFrame, pd.Series],
                                window: int = 3,
@@ -507,5 +504,5 @@ def caluclate_triang_feature(dataframe: Union[pd.DataFrame, pd.Series],
            https://en.wikipedia.org/wiki/Window_function#Parzen_window
 
     """
-    win_function = _triang_symmetric_window if symmetric else _triang_non_symmetric_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
+    win_function = _triang_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric)))
