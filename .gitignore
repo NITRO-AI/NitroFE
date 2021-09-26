@@ -1,7 +1,10 @@
 .vscode/*
 .vscode
 .venv
+.my_nfe_venv/
+my_nfe_venv
+.my_nfe_venv
 __pycache__/
 *.py[cod]
-
+.env
 site

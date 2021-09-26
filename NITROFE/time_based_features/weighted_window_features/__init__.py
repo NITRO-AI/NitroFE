@@ -1,2 +1,2 @@
-from NITROFE.time_based_features.weighted_window_features import caluclate_barthann_feature
+from weighted_window_features import caluclate_barthann_feature
 
