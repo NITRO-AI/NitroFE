@@ -16,9 +16,40 @@ def calculate_exponential_moving_feature(dataframe: Union[pd.DataFrame, pd.Serie
                                          axis: int = 0,
                                          times: str = None,
                                          operation: str = 'mean'):
-    """
-    simple wrapper for pandas.ewm function
-    kindly refer to https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.ewm.html
+    """calculate_exponential_moving_feature 
+    https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.ewm.html
+
+    Parameters
+    ----------
+    dataframe : Union[pd.DataFrame, pd.Series]
+        dataframe containing column values to create exponential moving feature over
+    com : float, optional
+        Specify decay in terms of center of mass, by default None
+    span : float, optional
+        pecify decay in terms of span , by default None
+    halflife : float, optional
+        Specify decay in terms of half-life, by default None
+    alpha : float, optional
+        Specify smoothing factor  directly, by default None
+    min_periods : int, optional
+       Minimum number of observations in window required to have a value (otherwise result is NA)., by default 0
+    adjust : bool, optional
+        Divide by decaying adjustment factor in beginning periods to account for imbalance in relative weightings (viewing EWMA as a moving average)
+        , When adjust=False, the exponentially weighted function is calculated recursively,by default False
+    ignore_na : bool, optional
+        Ignore missing values when calculating weights; specify True to reproduce pre-0.15.0 behavior, by default False
+    axis : int, optional
+        The axis to use. The value 0 identifies the rows, and 1 identifies the columns, by default 0
+    times : str, optional
+        Times corresponding to the observations. Must be monotonically increasing and datetime64[ns] dtype, by default None
+    operation : str, {'mean','var','std'}
+        operation to be performed for the moving feature, by default 'mean'
+
+    References
+    -----
+    .. [1] pydata, "ewm",
+           https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.ewm.html
+
     """
     _dataframe = dataframe.ewm(com=com, span=span, halflife=halflife, alpha=alpha, min_periods=min_periods,
                                adjust=adjust, ignore_na=ignore_na, axis=axis, times=times)
@@ -35,6 +66,9 @@ def calculate_weighted_moving_feature(dataframe: Union[pd.DataFrame, pd.Series],
                                       operation: Callable = np.sum):
     """
     Create weighted moving average feature
+
+    A weighted average is an average that has multiplying factors to give different weights to data at different positions in the sample window.
+    Mathematically, the weighted moving average is the convolution of the data with a fixed weighting function
 
     Parameters
     ----------
@@ -71,7 +105,7 @@ def calculate_simple_moving_feature(dataframe: Union[pd.DataFrame, pd.Series],
     Parameters
     ----------
     dataframe : Union[pd.DataFrame,pd.Series]
-        dataframe/series over weighted rolling window feature is to be constructed 
+        dataframe/series over which feature is to be constructed 
     window : int, optional
         Size of the rolling window, by default 3
     min_periods : int, optional
@@ -85,8 +119,8 @@ def calculate_simple_moving_feature(dataframe: Union[pd.DataFrame, pd.Series],
 
     References
     -----
-    .. [1] Wikipedia, "Weighted Window function",
-           https://en.wikipedia.org/wiki/Moving_average#Weighted_moving_average
+    .. [1] Wikipedia, "Window function",
+           https://en.wikipedia.org/wiki/Moving_average#Cumulative_moving_average
 
     """
 
@@ -98,12 +132,13 @@ def calculate_hull_moving_feature(dataframe: Union[pd.DataFrame, pd.Series],
                                   min_periods: int = 1,
                                   operation: Callable = np.sum):
     """
-    Create hull moving average feature
+    The Hull Moving Average (HMA), developed by Alan Hull, is an extremely fast and smooth moving average. 
+    In fact, the HMA almost eliminates lag altogether and manages to improve smoothing at the same time.
 
     Parameters
     ----------
     dataframe : Union[pd.DataFrame,pd.Series]
-        dataframe/series over weighted rolling window feature is to be constructed 
+        dataframe/series over which feature is to be constructed 
     window : int, optional
         Size of the rolling window, by default 3
     min_periods : int, optional
@@ -117,8 +152,8 @@ def calculate_hull_moving_feature(dataframe: Union[pd.DataFrame, pd.Series],
 
     References
     -----
-    .. [1] Wikipedia, "Weighted Window function",
-           https://en.wikipedia.org/wiki/Moving_average#Weighted_moving_average
+    .. [1] school.stockcharts, "Hull Moving Average (HMA)",
+           https://school.stockcharts.com/doku.php?id=technical_indicators:hull_moving_average
 
     """
 
@@ -152,10 +187,44 @@ def calculate_triple_exponential_moving_feature(dataframe: Union[pd.DataFrame, p
                                                 axis: int = 0,
                                                 times: str = None,
                                                 operation: str = 'mean'):
-    """
-    Create triple moving average feature
+    """calculate_triple_exponential_moving_feature 
 
-    """
+    The triple exponential moving average (TEMA) was designed to smooth price fluctuations,
+    thereby making it easier to identify trends without the lag associated with traditional moving averages (MA). 
+    It does this by taking multiple exponential moving averages (EMA) of the original EMA and subtracting out some of the lag.
+
+    Parameters
+    ----------
+    dataframe : Union[pd.DataFrame, pd.Series]
+        dataframe containing column values to create feature over
+    com : float, optional
+        Specify decay in terms of center of mass, by default None
+    span : float, optional
+        pecify decay in terms of span , by default None
+    halflife : float, optional
+        Specify decay in terms of half-life, by default None
+    alpha : float, optional
+        Specify smoothing factor  directly, by default None
+    min_periods : int, optional
+       Minimum number of observations in window required to have a value (otherwise result is NA)., by default 0
+    adjust : bool, optional
+        Divide by decaying adjustment factor in beginning periods to account for imbalance in relative weightings (viewing EWMA as a moving average)
+        , When adjust=False, the exponentially weighted function is calculated recursively,by default False
+    ignore_na : bool, optional
+        Ignore missing values when calculating weights; specify True to reproduce pre-0.15.0 behavior, by default False
+    axis : int, optional
+        The axis to use. The value 0 identifies the rows, and 1 identifies the columns, by default 0
+    times : str, optional
+        Times corresponding to the observations. Must be monotonically increasing and datetime64[ns] dtype, by default None
+    operation : str, {'mean','var','std'}
+        operation to be performed for the moving feature, by default 'mean'
+
+    References
+    -----
+    .. [1] investopedia, "triple-exponential-moving-average",
+           https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp
+    """     
+
     first_exponential_average = calculate_exponential_moving_feature(dataframe=dataframe, com=com, span=span, halflife=halflife,
                                                                      alpha=alpha, min_periods=min_periods, adjust=adjust, ignore_na=ignore_na, axis=axis,
                                                                      times=times, operation=operation)
@@ -167,8 +236,11 @@ def calculate_triple_exponential_moving_feature(dataframe: Union[pd.DataFrame, p
                                                                      times=times, operation=operation)
     triple_exponential_average=3*first_exponential_average-3*second_exponential_average+third_exponential_average
     return triple_exponential_average
+    
+
+
+    
 
 
 
-print(calculate_triple_exponential_moving_feature(
-    pd.DataFrame({'a': np.arange(10), 'b': 2+np.arange(10)}), span= 3,operation='mean'))
+    
