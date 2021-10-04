@@ -1,10 +1,45 @@
-from weighted_windows import _barthann_window, _bartlett_window, _equal_window, _blackman_window, _blackmanharris_window,_bohman_window,\
-     _cosine_window, _exponential_window, _flattop_window, _gaussian_window,_hamming_window,\
-       _hann_window,_kaiser_window,_parzen_window,_triang_window
+from weighted_windows import _barthann_window, _bartlett_window, _equal_window, _blackman_window, _blackmanharris_window, _bohman_window,\
+    _cosine_window, _exponential_window, _flattop_window, _gaussian_window, _hamming_window,\
+    _hann_window, _kaiser_window, _parzen_window, _triang_window, _weighted_moving_window
 
 import numpy as np
 import pandas as pd
 from typing import Union, Callable
+
+
+def caluclate_weighted_moving_window_feature(dataframe: Union[pd.DataFrame, pd.Series],
+                                             window: int = 3,
+                                             min_periods: int = 1,
+                                             operation: Callable = np.sum):
+    """
+    Create weighted moving window feature
+
+    Parameters
+    ----------
+    dataframe : Union[pd.DataFrame,pd.Series]
+        dataframe/series over weighted rolling window feature is to be constructed 
+    window : int, optional
+        Size of the rolling window, by default 3
+    min_periods : int, optional
+        Minimum number of observations in window required to have a value, by default 1
+    symmetric : bool, optional
+        When True , generates a symmetric window, for use in filter design. When False,
+        generates a periodic window, for use in spectral analysis, by default False
+    operation : Callable, optional
+        operation to perform over the weighted rolling window values, by default np.mean
+
+    Returns
+    -------
+        final value after operation
+
+    References
+    -----
+    .. [1] Wikipedia, "Weighted Window function",
+           https://en.wikipedia.org/wiki/Moving_average#Weighted_moving_average
+
+    """
+    win_function = _weighted_moving_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
 
 
 def caluclate_barthann_feature(dataframe: Union[pd.DataFrame, pd.Series],
@@ -40,7 +75,7 @@ def caluclate_barthann_feature(dataframe: Union[pd.DataFrame, pd.Series],
 
     """
     win_function = _barthann_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric )))
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric)))
 
 
 def caluclate_bartlett_feature(dataframe: Union[pd.DataFrame, pd.Series],
@@ -81,7 +116,6 @@ def caluclate_bartlett_feature(dataframe: Union[pd.DataFrame, pd.Series],
 def caluclate_equal_feature(dataframe: Union[pd.DataFrame, pd.Series],
                             window: int = 3,
                             min_periods: int = 1,
-                            symmetric: bool = False,
                             operation: Callable = np.mean):
     """
     Create equally weighted rolling window feature
@@ -94,9 +128,6 @@ def caluclate_equal_feature(dataframe: Union[pd.DataFrame, pd.Series],
         Size of the rolling window, by default 3
     min_periods : int, optional
         Minimum number of observations in window required to have a value, by default 1
-    symmetric : bool, optional
-        When True , generates a symmetric window, for use in filter design. When False,
-        generates a periodic window, for use in spectral analysis, by default False
     operation : Callable, optional
         operation to perform over the weighted rolling window values, by default np.mean
 
@@ -104,7 +135,7 @@ def caluclate_equal_feature(dataframe: Union[pd.DataFrame, pd.Series],
     -------
         final value after operation
     """
-    win_function = _equal_window if symmetric else _equal_window
+    win_function = _equal_window 
     return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window)))
 
 
@@ -139,8 +170,8 @@ def caluclate_blackman_feature(dataframe: Union[pd.DataFrame, pd.Series],
     .. [1] Wikipedia, "Window function",
            https://en.wikipedia.org/wiki/Window_function#Blackman_window
     """
-    win_function = _blackman_window 
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window,symmetric)))
+    win_function = _blackman_window
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric)))
 
 
 def caluclate_blackmanharris_feature(dataframe: Union[pd.DataFrame, pd.Series],
@@ -175,7 +206,7 @@ def caluclate_blackmanharris_feature(dataframe: Union[pd.DataFrame, pd.Series],
            https://en.wikipedia.org/wiki/Window_function#Blackman%E2%80%93Harris_window 
     """
     win_function = _blackmanharris_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric )))
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric)))
 
 
 def caluclate_bohman_feature(dataframe: Union[pd.DataFrame, pd.Series],
@@ -244,7 +275,7 @@ def caluclate_cosine_feature(dataframe: Union[pd.DataFrame, pd.Series],
 
 def caluclate_exponential_feature(dataframe: Union[pd.DataFrame, pd.Series],
                                   window: int = 3,
-                                  min_periods: int = 1,                                 
+                                  min_periods: int = 1,
                                   center: float = None,
                                   symmetric: bool = False,
                                   tau: float = 1,
@@ -350,10 +381,10 @@ def caluclate_gaussian_feature(dataframe: Union[pd.DataFrame, pd.Series],
 
 
 def caluclate_hamming_feature(dataframe: Union[pd.DataFrame, pd.Series],
-                               window: int = 3,
-                               min_periods: int = 1,
-                               symmetric: bool = False,
-                               operation: Callable = np.mean):
+                              window: int = 3,
+                              min_periods: int = 1,
+                              symmetric: bool = False,
+                              operation: Callable = np.mean):
     """
     Create flattop hamming rolling window feature
 
@@ -380,11 +411,12 @@ def caluclate_hamming_feature(dataframe: Union[pd.DataFrame, pd.Series],
     win_function = _hamming_window
     return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric)))
 
+
 def caluclate_hann_feature(dataframe: Union[pd.DataFrame, pd.Series],
-                               window: int = 3,
-                               min_periods: int = 1,
-                               symmetric: bool = False,
-                               operation: Callable = np.mean):
+                           window: int = 3,
+                           min_periods: int = 1,
+                           symmetric: bool = False,
+                           operation: Callable = np.mean):
     """
     Create flattop hann rolling window feature
 
@@ -411,12 +443,13 @@ def caluclate_hann_feature(dataframe: Union[pd.DataFrame, pd.Series],
     win_function = _hann_window
     return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric)))
 
+
 def caluclate_kaiser_feature(dataframe: Union[pd.DataFrame, pd.Series],
-                               window: int = 3,
-                               min_periods: int = 1,
-                               symmetric: bool = False,
-                               beta : float=7,
-                               operation: Callable = np.mean):
+                             window: int = 3,
+                             min_periods: int = 1,
+                             symmetric: bool = False,
+                             beta: float = 7,
+                             operation: Callable = np.mean):
     """
     Create flattop kaiser rolling window feature
 
@@ -443,13 +476,14 @@ def caluclate_kaiser_feature(dataframe: Union[pd.DataFrame, pd.Series],
            https://en.wikipedia.org/wiki/Kaiser_window
     """
     win_function = _kaiser_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, beta, symmetric)))   
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, beta, symmetric)))
+
 
 def caluclate_parzen_feature(dataframe: Union[pd.DataFrame, pd.Series],
-                               window: int = 3,
-                               min_periods: int = 1,
-                               symmetric: bool = False,
-                               operation: Callable = np.mean):
+                             window: int = 3,
+                             min_periods: int = 1,
+                             symmetric: bool = False,
+                             operation: Callable = np.mean):
     """
     Create flattop parzen rolling window feature
 
@@ -474,13 +508,14 @@ def caluclate_parzen_feature(dataframe: Union[pd.DataFrame, pd.Series],
 
     """
     win_function = _parzen_window
-    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric )))
+    return dataframe.rolling(window, min_periods=min_periods).agg(lambda x: operation(win_function(x, window, symmetric)))
+
 
 def caluclate_triang_feature(dataframe: Union[pd.DataFrame, pd.Series],
-                               window: int = 3,
-                               min_periods: int = 1,
-                               symmetric: bool = False,
-                               operation: Callable = np.mean):
+                             window: int = 3,
+                             min_periods: int = 1,
+                             symmetric: bool = False,
+                             operation: Callable = np.mean):
     """
     Create flattop triang rolling window feature
 

@@ -15,6 +15,11 @@ def _barthann_window(data,
                      symmetric):
     return _weighted_window_operation(data, window_size, signal.windows.barthann(window_size, sym=symmetric))
 
+ 
+def _weighted_moving_window(data,
+                            window_size):
+    return _weighted_window_operation(data, window_size, np.arange(1,window_size+1)/np.arange(1,window_size+1).sum() )
+
 
 def _bartlett_window(data,
                      window_size,
