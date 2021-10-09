@@ -17,7 +17,8 @@ def _barthann_window(data,
 
  
 def _weighted_moving_window(data,
-                            window_size):
+                            window_size,
+                            symmetric):
     return _weighted_window_operation(data, window_size, np.arange(1,window_size+1)/np.arange(1,window_size+1).sum() )
 
 
@@ -70,7 +71,7 @@ def _gaussian_window(data,
                      window_size,
                      std,
                      symmetric):
-    return _weighted_window_operation(data, window_size, signal.windows.gaussian(window_size, std, sym=symmetric))
+    return _weighted_window_operation(data, window_size, signal.windows.gaussian(M=window_size, std=std, sym=symmetric))
 
 
 def _hamming_window(data,
@@ -105,5 +106,6 @@ def _triang_window(data,
 
 
 def _equal_window(data,
-                  window_size):
+                  window_size,
+                  symmetric):
     return _weighted_window_operation(data, window_size, np.ones(window_size))
