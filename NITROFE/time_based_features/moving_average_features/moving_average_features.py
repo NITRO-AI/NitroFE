@@ -25,7 +25,10 @@ class exponential_moving_feature:
         axis: int = 0,
         times: str = None,
     ):
-        """fit
+        """
+        exponential_moving_feature
+
+        Provided dataframe must be in ascending order.
 
         https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.ewm.html
 
@@ -144,10 +147,6 @@ class hull_moving_feature:
             Minimum number of observations in window required to have a value, by default 1
         operation : Callable, optional
             operation to perform over the weighted rolling window values, by default np.mean
-
-        Returns
-        -------
-            final value after operation
 
         References
         -----
@@ -327,32 +326,3 @@ class calculate_triple_exponential_moving_feature:
             + third_exponential_average
         )
         return triple_exponential_average
-
-#####################################################################
-
-# ob = exponential_moving_feature()
-# df = pd.DataFrame({"a": np.arange(14), "b": np.arange(14) + 2})
-# df = pd.DataFrame(
-#     {
-#         "a": np.arange(25) + 10 * np.random.random(25),
-#         "b": np.arange(25) + 10 * np.random.random(25),
-#     }
-# )
-# wz = 6
-# mp=2
-# print(df)
-# res_all = ob.fit(df, first_fit=True, span=wz,min_periods=mp)
-# print(res_all)
-
-# res_comb = pd.concat(
-#     [
-#         ob.fit(df.iloc[:12], first_fit=True, span=wz,min_periods=mp),
-#         ob.fit(df.iloc[12:], first_fit=False),
-#     ]
-# )
-# print(res_comb)
-
-
-# print(pd.concat([res_all, res_comb], axis=1))
-
-#####################################################################

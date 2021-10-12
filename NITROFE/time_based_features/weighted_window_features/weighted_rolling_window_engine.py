@@ -218,6 +218,6 @@ payload = {
         }
     }
 }
-temp = weighted_rolling_window_engine()
-result_dict = temp.fit(df, payload)
-print(result_dict["a"]["weighted_window_features"]["triang"])
+# temp = weighted_rolling_window_engine()
+# result_dict = temp.fit(df, payload)
+# print(result_dict["a"]["weighted_window_features"]["triang"])
