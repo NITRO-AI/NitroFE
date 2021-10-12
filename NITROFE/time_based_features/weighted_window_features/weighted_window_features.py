@@ -66,7 +66,7 @@ class weighted_window_features:
             )
         
         if not first_fit:
-            if self.params[_function_name]["last_values_from_previous_run"] is None:
+            if (self.params[_function_name]["last_values_from_previous_run"] is None) and (self.params[_function_name]["window"]!=1):
                 raise ValueError(
                     "First fit has not occured before. Kindly run first_fit=True for first fit instance,"
                     "and then proceed with first_fit=False for subsequent fits "
@@ -94,12 +94,13 @@ class weighted_window_features:
             )
         )
         if not first_fit:
-            _return = _return.iloc[self.params[_function_name]["window"] - 1 :]
+            _return = _return.iloc[self.params[_function_name]["len_last_values_from_previous_run"] :]
+        
+        _last_values_from_previous_run=dataframe.iloc[1 - self.params[_function_name]["window"] :] if self.params[_function_name]["window"]!=1 else None
         self.first_fit_params_save(
             _function_name,
-            last_values_from_previous_run=dataframe.iloc[
-                1 - self.params[_function_name]["window"] :
-            ],
+            last_values_from_previous_run=_last_values_from_previous_run,
+            len_last_values_from_previous_run=len(_last_values_from_previous_run)
         )
 
         return _return
@@ -987,23 +988,21 @@ class weighted_window_features:
 # print(df)
 # from scipy import signal
 # ss=False
-# ww=4
+# ww=4*2
+# fl=2
+# mp=2
 # def perc1(data, pp):
 #     return np.percentile(data, pp)
 
 # ob = weighted_window_features()
-# res_all = ob.caluclate_triang_feature(
-#     dataframe=df,first_fit= True,window=ww, min_periods=2, operation=np.mean,symmetric=ss )
-
-
-# #print(ob.params['caluclate_gaussian_feature']['last_values_from_previous_run'])
-
+# res_all = ob.caluclate_equal_feature(
+#     dataframe=df,first_fit= True,window=ww, min_periods=mp, operation=np.mean )
 
 # res_comb = pd.concat(
 #     [
-#         ob.caluclate_triang_feature(
-#             dataframe=df.iloc[:6],first_fit=True ,window=ww,min_periods= 2, operation=np.mean, symmetric=ss ),
-#         ob.caluclate_triang_feature(dataframe=df.iloc[6:], first_fit=False),
+#         ob.caluclate_equal_feature(
+#             dataframe=df.iloc[:fl],first_fit=True ,window=ww,min_periods= mp, operation=np.mean),
+#         ob.caluclate_equal_feature(dataframe=df.iloc[fl:], first_fit=False),
 #     ]
 # )
 # print(res_comb)
