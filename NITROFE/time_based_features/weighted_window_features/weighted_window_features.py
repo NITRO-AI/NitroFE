@@ -57,19 +57,18 @@ class weighted_window_features:
         if first_fit:
             self.params[_function_name] = {}
 
-            self.params[_function_name]["window"]=window
-            self.params[_function_name]["min_periods"]=min_periods
-            self.params[_function_name]["symmetric"]=symmetric
-            self.params[_function_name]["operation"]=operation
-            self.params[_function_name]["operation_args"]=operation_args
+            self.params[_function_name]["window"] = window
+            self.params[_function_name]["min_periods"] = min_periods
+            self.params[_function_name]["symmetric"] = symmetric
+            self.params[_function_name]["operation"] = operation
+            self.params[_function_name]["operation_args"] = operation_args
 
-            self.first_fit_params_save(
-                _function_name,
-                kwargs=kwargs
-            )
-        
+            self.first_fit_params_save(_function_name, kwargs=kwargs)
+
         if not first_fit:
-            if (self.params[_function_name]["last_values_from_previous_run"] is None) and (self.params[_function_name]["window"]!=1):
+            if (
+                self.params[_function_name]["last_values_from_previous_run"] is None
+            ) and (self.params[_function_name]["window"] != 1):
                 raise ValueError(
                     "First fit has not occured before. Kindly run first_fit=True for first fit instance,"
                     "and then proceed with first_fit=False for subsequent fits "
@@ -97,13 +96,19 @@ class weighted_window_features:
             )
         )
         if not first_fit:
-            _return = _return.iloc[self.params[_function_name]["len_last_values_from_previous_run"] :]
-        
-        _last_values_from_previous_run=dataframe.iloc[1 - self.params[_function_name]["window"] :] if self.params[_function_name]["window"]!=1 else None
+            _return = _return.iloc[
+                self.params[_function_name]["len_last_values_from_previous_run"] :
+            ]
+
+        _last_values_from_previous_run = (
+            dataframe.iloc[1 - self.params[_function_name]["window"] :]
+            if self.params[_function_name]["window"] != 1
+            else None
+        )
         self.first_fit_params_save(
             _function_name,
             last_values_from_previous_run=_last_values_from_previous_run,
-            len_last_values_from_previous_run=len(_last_values_from_previous_run)
+            len_last_values_from_previous_run=len(_last_values_from_previous_run),
         )
 
         return _return
@@ -119,6 +124,10 @@ class weighted_window_features:
     ):
         """
         Create weighted moving window feature
+
+        A weighted average is an average that has multiplying factors to give different weights to data at different positions in the sample window.
+        Mathematically, the weighted moving average is the convolution of the data with a fixed weighting function. 
+        In an n-day WMA the latest day has weight n, the second latest n-1, etc., down to one
 
         Parameters
         ----------
@@ -140,10 +149,6 @@ class weighted_window_features:
             operation to perform over the weighted rolling window values, by default np.mean
         operation_args : tuple, optional
             additional agrument values to be sent for self defined operation function
-
-        Returns
-        -------
-            final value after operation
 
         References
         -----
@@ -172,7 +177,7 @@ class weighted_window_features:
         min_periods: int = 1,
         symmetric: bool = False,
         operation: Callable = np.mean,
-        operation_args: tuple = ()
+        operation_args: tuple = (),
     ):
         """
         Create Bartlett–Hann weighted rolling window feature
@@ -197,10 +202,6 @@ class weighted_window_features:
             operation to perform over the weighted rolling window values, by default np.mean
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
-
-        Returns
-        -------
-            final value after operation
 
         References
         -----
@@ -255,10 +256,6 @@ class weighted_window_features:
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
 
-        Returns
-        -------
-            final value after operation
-
         References
         -----
         .. [1] Center for Computer Research in Music and Acoustics, "Bartlett (``Triangular'') Window",
@@ -288,6 +285,7 @@ class weighted_window_features:
     ):
         """
         Create equally weighted rolling window feature
+        All elemets are weighted equally
 
         Parameters
         ----------
@@ -307,9 +305,6 @@ class weighted_window_features:
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
 
-        Returns
-        -------
-            final value after operation
         """
         _function_name = "caluclate_equal_feature"
         return self._template_feature_calculation(
@@ -357,9 +352,6 @@ class weighted_window_features:
             operation to perform over the weighted rolling window values, by default np.mean
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
-        Returns
-        -------
-            final value after operation
 
         References
         -----
@@ -378,7 +370,6 @@ class weighted_window_features:
             operation=operation,
             operation_args=operation_args,
         )
-
 
     def caluclate_blackmanharris_feature(
         self,
@@ -413,9 +404,6 @@ class weighted_window_features:
             operation to perform over the weighted rolling window values, by default np.mean
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
-        Returns
-        -------
-            final value after operation
 
         References
         -----
@@ -424,16 +412,16 @@ class weighted_window_features:
         """
         _function_name = "caluclate_blackmanharris_feature"
         return self._template_feature_calculation(
-                function_name=_function_name,
-                win_function=_blackmanharris_window,
-                first_fit=first_fit,
-                dataframe=dataframe,
-                window=window,
-                min_periods=min_periods,
-                symmetric=symmetric,
-                operation=operation,
-                operation_args=operation_args,
-            )
+            function_name=_function_name,
+            win_function=_blackmanharris_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=window,
+            min_periods=min_periods,
+            symmetric=symmetric,
+            operation=operation,
+            operation_args=operation_args,
+        )
 
     def caluclate_bohman_feature(
         self,
@@ -443,7 +431,7 @@ class weighted_window_features:
         min_periods: int = 1,
         symmetric: bool = False,
         operation: Callable = np.mean,
-        operation_args: tuple = ()
+        operation_args: tuple = (),
     ):
         """
         Create bohman weighted rolling window feature
@@ -477,16 +465,16 @@ class weighted_window_features:
         """
         _function_name = "caluclate_bohman_feature"
         return self._template_feature_calculation(
-                function_name=_function_name,
-                win_function=_bohman_window,
-                first_fit=first_fit,
-                dataframe=dataframe,
-                window=window,
-                min_periods=min_periods,
-                symmetric=symmetric,
-                operation=operation,
-                operation_args=operation_args,
-            )
+            function_name=_function_name,
+            win_function=_bohman_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=window,
+            min_periods=min_periods,
+            symmetric=symmetric,
+            operation=operation,
+            operation_args=operation_args,
+        )
 
     def caluclate_cosine_feature(
         self,
@@ -496,7 +484,7 @@ class weighted_window_features:
         min_periods: int = 1,
         symmetric: bool = False,
         operation: Callable = np.mean,
-        operation_args: tuple = ()
+        operation_args: tuple = (),
     ):
         """
         Create cosine weighted rolling window feature
@@ -530,16 +518,16 @@ class weighted_window_features:
         """
         _function_name = "caluclate_cosine_feature"
         return self._template_feature_calculation(
-                function_name=_function_name,
-                win_function=_cosine_window,
-                first_fit=first_fit,
-                dataframe=dataframe,
-                window=window,
-                min_periods=min_periods,
-                symmetric=symmetric,
-                operation=operation,
-                operation_args=operation_args,
-            )
+            function_name=_function_name,
+            win_function=_cosine_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=window,
+            min_periods=min_periods,
+            symmetric=symmetric,
+            operation=operation,
+            operation_args=operation_args,
+        )
 
     def caluclate_exponential_feature(
         self,
@@ -590,19 +578,18 @@ class weighted_window_features:
         """
         _function_name = "caluclate_exponential_feature"
         return self._template_feature_calculation(
-                function_name=_function_name,
-                win_function=_exponential_window,
-                first_fit=first_fit,
-                dataframe=dataframe,
-                window=window,
-                min_periods=min_periods,
-                symmetric=symmetric,
-                operation=operation,
-                operation_args=operation_args,
-                center=center,
-                tau = tau
-            )
-
+            function_name=_function_name,
+            win_function=_exponential_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=window,
+            min_periods=min_periods,
+            symmetric=symmetric,
+            operation=operation,
+            operation_args=operation_args,
+            center=center,
+            tau=tau,
+        )
 
     def caluclate_flattop_feature(
         self,
@@ -646,16 +633,16 @@ class weighted_window_features:
         """
         _function_name = "caluclate_flattop_feature"
         return self._template_feature_calculation(
-                function_name=_function_name,
-                win_function=_flattop_window,
-                first_fit=first_fit,
-                dataframe=dataframe,
-                window=window,
-                min_periods=min_periods,
-                symmetric=symmetric,
-                operation=operation,
-                operation_args=operation_args,
-            )
+            function_name=_function_name,
+            win_function=_flattop_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=window,
+            min_periods=min_periods,
+            symmetric=symmetric,
+            operation=operation,
+            operation_args=operation_args,
+        )
 
     def caluclate_gaussian_feature(
         self,
@@ -666,7 +653,7 @@ class weighted_window_features:
         symmetric: bool = False,
         operation: Callable = np.mean,
         operation_args: tuple = (),
-        std: float = 1
+        std: float = 1,
     ):
         """
         Create flattop gaussian rolling window feature
@@ -702,18 +689,17 @@ class weighted_window_features:
         """
         _function_name = "caluclate_gaussian_feature"
         return self._template_feature_calculation(
-                function_name=_function_name,
-                win_function=_gaussian_window,
-                first_fit=first_fit,
-                dataframe=dataframe,
-                window=window,
-                min_periods=min_periods,
-                symmetric=symmetric,
-                operation=operation,
-                operation_args=operation_args,
-                std=std
-            )
-
+            function_name=_function_name,
+            win_function=_gaussian_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=window,
+            min_periods=min_periods,
+            symmetric=symmetric,
+            operation=operation,
+            operation_args=operation_args,
+            std=std,
+        )
 
     def caluclate_hamming_feature(
         self,
@@ -723,7 +709,7 @@ class weighted_window_features:
         min_periods: int = 1,
         symmetric: bool = False,
         operation: Callable = np.mean,
-        operation_args: tuple = ()
+        operation_args: tuple = (),
     ):
         """
         Create flattop hamming rolling window feature
@@ -757,16 +743,16 @@ class weighted_window_features:
         """
         _function_name = "caluclate_hamming_feature"
         return self._template_feature_calculation(
-                function_name=_function_name,
-                win_function=_hamming_window,
-                first_fit=first_fit,
-                dataframe=dataframe,
-                window=window,
-                min_periods=min_periods,
-                symmetric=symmetric,
-                operation=operation,
-                operation_args=operation_args
-            )
+            function_name=_function_name,
+            win_function=_hamming_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=window,
+            min_periods=min_periods,
+            symmetric=symmetric,
+            operation=operation,
+            operation_args=operation_args,
+        )
 
     def caluclate_hann_feature(
         self,
@@ -776,7 +762,7 @@ class weighted_window_features:
         min_periods: int = 1,
         symmetric: bool = False,
         operation: Callable = np.mean,
-        operation_args: tuple = ()
+        operation_args: tuple = (),
     ):
         """
         Create flattop hann rolling window feature
@@ -810,16 +796,16 @@ class weighted_window_features:
         """
         _function_name = "caluclate_hann_feature"
         return self._template_feature_calculation(
-                function_name=_function_name,
-                win_function=_hann_window,
-                first_fit=first_fit,
-                dataframe=dataframe,
-                window=window,
-                min_periods=min_periods,
-                symmetric=symmetric,
-                operation=operation,
-                operation_args=operation_args
-            )
+            function_name=_function_name,
+            win_function=_hann_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=window,
+            min_periods=min_periods,
+            symmetric=symmetric,
+            operation=operation,
+            operation_args=operation_args,
+        )
 
     def caluclate_kaiser_feature(
         self,
@@ -830,7 +816,7 @@ class weighted_window_features:
         symmetric: bool = False,
         beta: float = 7,
         operation: Callable = np.mean,
-        operation_args: tuple = ()
+        operation_args: tuple = (),
     ):
         """
         Create flattop kaiser rolling window feature
@@ -843,7 +829,7 @@ class weighted_window_features:
             Rolling features require past "window" number of values for calculation.
             Use True, when calculating for training data { in which case last "window" number of values will be saved }
             Use False, when calculating for testing/production data { in which case the, last "window" number of values, which
-            are were saved during the last phase, will be utilized for calculation }, by default True  
+            are were saved during the last phase, will be utilized for calculation }, by default True
         window : int, optional
             Size of the rolling window, by default 3
         min_periods : int, optional
@@ -866,18 +852,17 @@ class weighted_window_features:
         """
         _function_name = "caluclate_kaiser_feature"
         return self._template_feature_calculation(
-                function_name=_function_name,
-                win_function=_kaiser_window,
-                first_fit=first_fit,
-                dataframe=dataframe,
-                window=window,
-                min_periods=min_periods,
-                symmetric=symmetric,
-                operation=operation,
-                operation_args=operation_args,
-                beta=beta
-            )
-
+            function_name=_function_name,
+            win_function=_kaiser_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=window,
+            min_periods=min_periods,
+            symmetric=symmetric,
+            operation=operation,
+            operation_args=operation_args,
+            beta=beta,
+        )
 
     def caluclate_parzen_feature(
         self,
@@ -887,7 +872,7 @@ class weighted_window_features:
         min_periods: int = 1,
         symmetric: bool = False,
         operation: Callable = np.mean,
-        operation_args: tuple = ()
+        operation_args: tuple = (),
     ):
         """
         Create flattop parzen rolling window feature
@@ -900,7 +885,7 @@ class weighted_window_features:
             Rolling features require past "window" number of values for calculation.
             Use True, when calculating for training data { in which case last "window" number of values will be saved }
             Use False, when calculating for testing/production data { in which case the, last "window" number of values, which
-            are were saved during the last phase, will be utilized for calculation }, by default True  
+            are were saved during the last phase, will be utilized for calculation }, by default True
         window : int, optional
             Size of the rolling window, by default 3
         min_periods : int, optional
@@ -920,17 +905,16 @@ class weighted_window_features:
         """
         _function_name = "caluclate_parzen_feature"
         return self._template_feature_calculation(
-                function_name=_function_name,
-                win_function=_parzen_window,
-                first_fit=first_fit,
-                dataframe=dataframe,
-                window=window,
-                min_periods=min_periods,
-                symmetric=symmetric,
-                operation=operation,
-                operation_args=operation_args
-            )
-
+            function_name=_function_name,
+            win_function=_parzen_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=window,
+            min_periods=min_periods,
+            symmetric=symmetric,
+            operation=operation,
+            operation_args=operation_args,
+        )
 
     def caluclate_triang_feature(
         self,
@@ -940,7 +924,7 @@ class weighted_window_features:
         min_periods: int = 1,
         symmetric: bool = False,
         operation: Callable = np.mean,
-        operation_args: tuple = ()
+        operation_args: tuple = (),
     ):
         """
         Create flattop triang rolling window feature
@@ -953,7 +937,7 @@ class weighted_window_features:
             Rolling features require past "window" number of values for calculation.
             Use True, when calculating for training data { in which case last "window" number of values will be saved }
             Use False, when calculating for testing/production data { in which case the, last "window" number of values, which
-            are were saved during the last phase, will be utilized for calculation }, by default True  
+            are were saved during the last phase, will be utilized for calculation }, by default True
         window : int, optional
             Size of the rolling window, by default 3
         min_periods : int, optional
@@ -974,42 +958,15 @@ class weighted_window_features:
         """
         _function_name = "caluclate_triang_feature"
         return self._template_feature_calculation(
-                function_name=_function_name,
-                win_function=_triang_window,
-                first_fit=first_fit,
-                dataframe=dataframe,
-                window=window,
-                min_periods=min_periods,
-                symmetric=symmetric,
-                operation=operation,
-                operation_args=operation_args
-            )
+            function_name=_function_name,
+            win_function=_triang_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=window,
+            min_periods=min_periods,
+            symmetric=symmetric,
+            operation=operation,
+            operation_args=operation_args,
+        )
 
-##################################################################################
 
-df = pd.DataFrame({"a": np.random.random(14), "b": np.random.random(14) * 10})
-print(df)
-from scipy import signal
-ss=False
-ww=4*2
-fl=2
-mp=2
-def perc1(data, pp):
-    return np.percentile(data, pp)
-
-ob = weighted_window_features()
-res_all = ob.caluclate_equal_feature(
-    dataframe=df,first_fit= True,window=ww, min_periods=mp, operation=np.mean )
-
-res_comb = pd.concat(
-    [
-        ob.caluclate_equal_feature(
-            dataframe=df.iloc[:fl],first_fit=True ,window=ww,min_periods= mp, operation=np.mean),
-        ob.caluclate_equal_feature(dataframe=df.iloc[fl:], first_fit=False),
-    ]
-)
-print(res_comb)
-
-print(pd.concat([res_all, res_comb], axis=1))
-
-##################################################################################

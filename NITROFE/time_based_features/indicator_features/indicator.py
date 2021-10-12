@@ -52,7 +52,7 @@ class absolute_price_oscillator:
         slow_operation : str, optional
             operation to be performed for the slow moving feature, by default 'mean'
         ignore_na : bool, optional
-            gnore missing values when calculating weights, by default False
+            Ignore missing values when calculating weights, by default False
         axis : int, optional
             The axis to use. The value 0 identifies the rows, and 1 identifies the columns, by default 0
         times : str, optional
@@ -127,7 +127,7 @@ class moving_average_convergence_divergence:
         return_histogram=False,
     ):
 
-        """calculate_moving_average_convergence_divergence [summary]
+        """calculate_moving_average_convergence_divergence 
 
         Moving average convergence divergence (MACD) is a trend-following momentum indicator that shows the relationship
         between two moving averages of a security’s price. The MACD is calculated by subtracting the 26-period exponential
@@ -158,7 +158,7 @@ class moving_average_convergence_divergence:
         smoothing_operation : str, optional
             operation to be performed for the smoothing moving feature, by default 'mean'
         ignore_na : bool, optional
-            gnore missing values when calculating weights, by default False
+            Ignore missing values when calculating weights, by default False
         axis : int, optional
             The axis to use. The value 0 identifies the rows, and 1 identifies the columns, by default 0
         times : str, optional
@@ -341,9 +341,12 @@ class average_directional_movement_index:
         directional_movement_smoothing_min_periods: int = None,
         average_directional_movement_smoothing_period: int = 14,
         average_directional_movement_min_periods: int = None,
+        true_range_lookback: int = 4,
+        average_true_range_span: int = 6,
+        true_range_min_periods: int = None,
+        average_true_range_periods: int = 1,
     ):
         """average_directional_movement_index
-
 
         Parameters
         ----------
@@ -355,22 +358,31 @@ class average_directional_movement_index:
             Use False, when calculating for testing/production data { in which case the, last "window" number of values, which
             were saved during the last phase, will be utilized for calculation }, by default True
         directional_movement_lookback_period : int, optional
-            [description], by default 4
+            window size for directional movement lookback, used for calculating +DM and -DM, by default 4
         directional_movement_min_periods : int, optional
-            [description], by default None
+            min periods size for directional movement lookback, used for calculating +DM and -DM, by default None
         directional_movement_smoothing_period : int, optional
-            [description], by default 14
+            smoothing window period to be used for +DM and -DM smoothing, by default 14
         directional_movement_smoothing_min_periods : int, optional
-            [description], by default None
+            min periods size to be used for +DM and -DM smoothing, by default None
         average_directional_movement_smoothing_period : int, optional
-            [description], by default 14
+            smoothing window period to be used for raw ADX, by default 14
         average_directional_movement_min_periods : int, optional
-            [description], by default None
+             min periods size to be used for raw ADX, by default None
+        true_range_lookback : int, optional
+            Size of the rolling window for true range value calculation, by default 4
+        average_true_range_span : int, optional
+            Size of the rolling window for average true range value calculation, by default 6
+        true_range_min_periods : int, optional
+            Minimum number of observations in window required to have a value for true range calculation, by default None
+        average_true_range_periods : int, optional
+            Minimum number of observations in window required to have a value for average true range calculation , by default 1
 
-        Returns
-        -------
-        [type]
-            [description]
+        References
+        -----
+        .. [1] wikipedia, "Average directional movement index",
+            https://en.wikipedia.org/wiki/Average_directional_movement_index
+
         """
         if first_fit:
 
@@ -402,6 +414,10 @@ class average_directional_movement_index:
             self.average_directional_movement_min_periods = (
                 average_directional_movement_min_periods
             )
+            self.true_range_lookback = true_range_lookback
+            self.average_true_range_span = average_true_range_span
+            self.true_range_min_periods = true_range_min_periods
+            self.average_true_range_periods= average_true_range_periods
 
         plus_dma = self._plus_dma_object._template_feature_calculation(
             function_name="plus_dma",
@@ -461,10 +477,10 @@ class average_directional_movement_index:
         average_true_range = self._average_true_range_object.fit(
             dataframe=dataframe,
             first_fit=first_fit,
-            true_range_lookback=4,
-            average_true_range_span=6,
-            true_range_min_periods=1,
-            average_true_range_periods=1,
+            true_range_lookback=true_range_lookback,
+            average_true_range_span=average_true_range_span,
+            true_range_min_periods=true_range_min_periods,
+            average_true_range_periods=average_true_range_periods,
         )
 
         plus_directional_index = 100 * smoothed_plus_dma.div(average_true_range)
@@ -478,61 +494,9 @@ class average_directional_movement_index:
         adx = self._average_dm_smoothing_object.fit(
             dataframe=temp_adx,
             first_fit=first_fit,
-            alpha=1 / (self.directional_movement_smoothing_period),
-            min_periods=self.directional_movement_smoothing_min_periods,
+            alpha=1 / (self.average_directional_movement_smoothing_period),
+            min_periods=self.average_directional_movement_min_periods,
             operation="mean",
         )
         return adx
 
-
-#####################################################################
-
-# ob = average_directional_movement_index()
-# df = pd.DataFrame({"a": np.arange(25), "b": np.arange(25) + 2})
-# df = pd.DataFrame(
-#     {
-#         "a": 10 * np.random.random(25),
-#         "b": np.arange(0, 100, step=2)[:25]   + np.random.choice(np.arange(-20,20), size=25),
-#     }
-# )
-# wz = 4
-# mp = 2
-# flp = 15
-# print("df", df)
-# res_all = ob.fit(
-#                 df,
-#                 first_fit=True,
-#             directional_movement_lookback_period = wz,
-#             directional_movement_min_periods = 1,
-
-#             directional_movement_smoothing_period= 14,
-#             directional_movement_smoothing_min_periods= 1,
-
-#             average_directional_movement_smoothing_period= 14,
-#             average_directional_movement_min_periods= 1,
-#             )
-# print('res_all',res_all)
-
-# res_comb = pd.concat(
-#     [
-#         ob.fit(
-#             df.iloc[:flp],
-#             first_fit=True,
-#             directional_movement_lookback_period = wz,
-#             directional_movement_min_periods = 1,
-
-#             directional_movement_smoothing_period= 14,
-#             directional_movement_smoothing_min_periods= 1,
-
-#             average_directional_movement_smoothing_period= 14,
-#             average_directional_movement_min_periods= 1,
-#         ),
-#         ob.fit(df.iloc[flp:], first_fit=False),
-#     ]
-# )
-# print(res_comb)
-
-
-# print(pd.concat([res_all, res_comb], axis=1))
-# print((res_all.fillna(0)!=res_comb.fillna(0)).sum())
-#####################################################################
