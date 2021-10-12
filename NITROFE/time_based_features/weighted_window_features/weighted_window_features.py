@@ -55,13 +55,16 @@ class weighted_window_features:
             operation_args = (operation_args,)
 
         if first_fit:
+            self.params[_function_name] = {}
+
+            self.params[_function_name]["window"]=window
+            self.params[_function_name]["min_periods"]=min_periods
+            self.params[_function_name]["symmetric"]=symmetric
+            self.params[_function_name]["operation"]=operation
+            self.params[_function_name]["operation_args"]=operation_args
+
             self.first_fit_params_save(
                 _function_name,
-                window=eval("window"),
-                min_periods=eval("min_periods"),
-                symmetric=eval("symmetric"),
-                operation=eval("operation"),
-                operation_args=eval("operation_args"),
                 kwargs=kwargs
             )
         
@@ -984,29 +987,29 @@ class weighted_window_features:
 
 ##################################################################################
 
-# df = pd.DataFrame({"a": np.random.random(14), "b": np.random.random(14) * 10})
-# print(df)
-# from scipy import signal
-# ss=False
-# ww=4*2
-# fl=2
-# mp=2
-# def perc1(data, pp):
-#     return np.percentile(data, pp)
+df = pd.DataFrame({"a": np.random.random(14), "b": np.random.random(14) * 10})
+print(df)
+from scipy import signal
+ss=False
+ww=4*2
+fl=2
+mp=2
+def perc1(data, pp):
+    return np.percentile(data, pp)
 
-# ob = weighted_window_features()
-# res_all = ob.caluclate_equal_feature(
-#     dataframe=df,first_fit= True,window=ww, min_periods=mp, operation=np.mean )
+ob = weighted_window_features()
+res_all = ob.caluclate_equal_feature(
+    dataframe=df,first_fit= True,window=ww, min_periods=mp, operation=np.mean )
 
-# res_comb = pd.concat(
-#     [
-#         ob.caluclate_equal_feature(
-#             dataframe=df.iloc[:fl],first_fit=True ,window=ww,min_periods= mp, operation=np.mean),
-#         ob.caluclate_equal_feature(dataframe=df.iloc[fl:], first_fit=False),
-#     ]
-# )
-# print(res_comb)
+res_comb = pd.concat(
+    [
+        ob.caluclate_equal_feature(
+            dataframe=df.iloc[:fl],first_fit=True ,window=ww,min_periods= mp, operation=np.mean),
+        ob.caluclate_equal_feature(dataframe=df.iloc[fl:], first_fit=False),
+    ]
+)
+print(res_comb)
 
-# print(pd.concat([res_all, res_comb], axis=1))
+print(pd.concat([res_all, res_comb], axis=1))
 
 ##################################################################################
