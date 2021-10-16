@@ -5,6 +5,7 @@ from typing import Union, Callable
 from NitroFE.time_based_features.weighted_window_features.weighted_window_features import (
     weighted_window_features,
 )
+from weighted_windows import _equal_window, _identity_window
 
 
 class exponential_moving_feature:
@@ -113,8 +114,9 @@ class exponential_moving_feature:
 
         if not first_fit:
             _return = _return.iloc[1:]
-        self.last_values_from_previous_run = _return.iloc[[-1]]
+        self.last_values_from_previous_run = _return.iloc[-1:]
         return _return
+
 
 class hull_moving_feature:
     def __init__(self):
@@ -126,7 +128,7 @@ class hull_moving_feature:
         first_fit: bool = True,
         window: int = 4,
         min_periods: int = 1,
-        operation: Callable = np.sum,
+        operation: Callable = np.mean,
     ):
         """
         The Hull Moving Average (HMA), developed by Alan Hull, is an extremely fast and smooth moving average.
@@ -203,7 +205,146 @@ class hull_moving_feature:
         return hma
 
 
-class calculate_triple_exponential_moving_feature:
+class _a_kaufman_efficiency:
+    def __init__(self):
+        pass
+
+    def _calculate_kaufman_efficiency(self, x):
+        up = np.abs(x.iloc[-1] - x.iloc[0])
+        down = np.abs(x.diff().fillna(0)).sum()
+        return up / down
+
+    def fit(
+        self,
+        dataframe: Union[pd.DataFrame, pd.Series],
+        first_fit: bool = True,
+        lookback_period: int = 4,
+        min_periods: int = None,
+    ):
+
+        if first_fit:
+            self._kaufman_efficiency_object = weighted_window_features()
+            self.lookback_period = lookback_period
+            self.min_periods = min_periods
+
+        _kaufman_efficiency = (
+            self._kaufman_efficiency_object._template_feature_calculation(
+                function_name="kaufman_efficiency",
+                win_function=_identity_window,
+                first_fit=first_fit,
+                dataframe=dataframe,
+                window=self.lookback_period,
+                min_periods=self.min_periods,
+                symmetric=None,
+                operation=self._calculate_kaufman_efficiency,
+                operation_args=(),
+            )
+        )
+
+        return _kaufman_efficiency
+
+
+class kaufman_adaptive_moving_average:
+    def __init__(self):
+        pass
+
+    def fit(
+        self,
+        dataframe: Union[pd.DataFrame, pd.Series],
+        first_fit: bool = True,
+        kaufman_efficiency_lookback_period: int = 4,
+        kaufman_efficiency_min_periods: int = 1,
+        fast_ema_span: int = 2,
+        slow_ema_span: int = 5,
+    ):
+        """
+        kaufman_adaptive_moving_average
+
+        Current value=  value in dataframe
+        ER = Kaufman Efficiency Ratio
+        fast ema alpha = 2/(1+fast_ema_span)
+        slow ema alpha = 2/(1+slow_ema_span)
+
+        Smoothing Constant (SC) =  (ER x ('fast ema alpha'- 'slow ema alpha' ) + 'slow ema alpha')**2
+
+        Current kaufman adaptive moving average (KAMA )= Prior KAMA + SC x ( 'Current value'  - Prior KAMA)
+
+        Parameters
+        ----------
+        dataframe : Union[pd.DataFrame, pd.Series]
+            dataframe containing column values to create feature over
+        first_fit : bool, optional
+            Rolling features require past "window" number of values for calculation.
+            Use True, when calculating for training data { in which case last "window" number of values will be saved }
+            Use False, when calculating for testing/production data { in which case the, last "window" number of values, which
+            were saved during the last phase, will be utilized for calculation }, by default True
+        kaufman_efficiency_lookback_period : int, optional
+            Size of the rolling window of lookback for the caluculation of kaufman efficiency ratio , by default 4
+        kaufman_efficiency_min_periods : int, optional
+            Minimum number of observations in window required to have a value for kaufman efficiency ratio, by default 1
+        fast_ema_span : int, optional
+            fast span length, by default 2
+        slow_ema_span : int, optional
+            slow span length, by default 5
+
+        References
+        -----
+        .. [1] school.stockcharts, "kaufman adaptive moving average",
+            https://school.stockcharts.com/doku.php?id=technical_indicators:kaufman_s_adaptive_moving_average
+
+        """
+
+        if first_fit:
+            self._kaufman_object = _a_kaufman_efficiency()
+            self.kaufman_efficiency_lookback_period = kaufman_efficiency_lookback_period
+            self.kaufman_efficiency_min_periods = kaufman_efficiency_min_periods
+            self.fast_ema_span = fast_ema_span
+            self.slow_ema_span = slow_ema_span
+
+        if isinstance(dataframe, pd.Series):
+            dataframe = dataframe.to_frame()
+
+        kma = pd.DataFrame(np.zeros(dataframe.shape), columns=dataframe.columns,index=dataframe.index)
+        if first_fit:
+            kma = pd.concat(
+                [pd.DataFrame(np.zeros((1, kma.shape[1])), columns=kma.columns), kma]
+            )
+        else:
+            kma = pd.concat([self.values_from_last_run, kma])
+        kma["_iloc"] = np.arange(len(kma))
+
+        _kaufman_efficiency = self._kaufman_object.fit(
+            dataframe=dataframe,
+            first_fit=first_fit,
+            lookback_period=self.kaufman_efficiency_lookback_period,
+            min_periods=self.kaufman_efficiency_min_periods,
+        )
+
+        ll = [x for x in kma.columns if x != "_iloc"]
+        SC = (
+            (
+                _kaufman_efficiency
+                * (2 / (self.fast_ema_span + 1) - 2 / (self.slow_ema_span + 1))
+                + 2 / (self.slow_ema_span + 1)
+            )** 2
+        ).fillna(0)
+
+        for r1, r2, r3 in zip(dataframe.iterrows(), kma[1:].iterrows(), SC.iterrows()):
+
+            previous_kama = kma[kma["_iloc"] == (r2[1]["_iloc"] - 1)][ll]
+
+            kma.loc[kma["_iloc"] == r2[1]["_iloc"], ll] = (
+                previous_kama + np.multiply( r3[1].values,(r1[1].values - previous_kama.values) )
+            ).values[0]
+
+        res = kma.iloc[1:][ll]
+
+        self.values_from_last_run = res.iloc[-1:]
+
+        return res
+
+
+class triple_exponential_moving_feature:
     def __init__(self):
         pass
 
@@ -222,7 +363,7 @@ class calculate_triple_exponential_moving_feature:
         operation: str = "mean",
     ):
 
-        """calculate_triple_exponential_moving_feature
+        """triple_exponential_moving_feature
 
         The triple exponential moving average (TEMA) was designed to smooth price fluctuations,
         thereby making it easier to identify trends without the lag associated with traditional moving averages (MA).
@@ -268,7 +409,6 @@ class calculate_triple_exponential_moving_feature:
             self._first_exponential_average_object = exponential_moving_feature()
             self._second_exponential_average_object = exponential_moving_feature()
             self._third_exponential_average_object = exponential_moving_feature()
-            self._triple_exponential_average_object = exponential_moving_feature()
 
             self.com = com
             self.span = span
@@ -326,3 +466,37 @@ class calculate_triple_exponential_moving_feature:
             + third_exponential_average
         )
         return triple_exponential_average
+
+
+#####################################################################
+
+# ob = kaufman_adaptive_moving_average()
+# df = pd.DataFrame(
+#     {
+#         "a": 20 * np.random.random(25) + np.random.choice(np.arange(-20, 20), size=25),
+#         "b": np.arange(0, 100, step=2)[:25]
+#         + np.random.choice(np.arange(-20, 20), size=25),
+#     }
+# )
+# df = df["a"]
+# wz = 6
+# mp = 1
+# flp = 10
+# flp2 = 14
+# print("df", df)
+
+# res_all = ob.fit(df, first_fit=True).reset_index(drop=True)
+
+# res_comb = pd.concat(
+#     [
+#         ob.fit(df.iloc[:flp], first_fit=True),
+#         ob.fit(df.iloc[flp:flp2], first_fit=False),
+#         ob.fit(df.iloc[flp2:], first_fit=False),
+#     ],
+#     axis=0,
+# ).reset_index(drop=True)
+
+# print(pd.concat([res_all, res_comb], axis=1))
+# print((res_all.fillna(0) != res_comb.fillna(0)).sum())
+
+#####################################################################

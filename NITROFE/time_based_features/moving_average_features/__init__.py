@@ -1,6 +1,6 @@
 
 from NitroFE.time_based_features.moving_average_features.moving_average_features import exponential_moving_feature,\
-                                            hull_moving_feature,calculate_triple_exponential_moving_feature
+                                            hull_moving_feature
                                             
 #####################################################################
 
