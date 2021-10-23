@@ -12,15 +12,31 @@ class exponential_moving_feature:
     def __init__(self):
         self.last_values_from_previous_run = None
 
+    def _perform_temp_operation(self,x):
+        _return = (
+            x.mean()
+            if self.operation == "mean"
+            else x.var()
+            if self.operation == "var"
+            else x.std()
+            if self.operation == "std"
+            else None
+        )
+        if _return is None:
+            raise ValueError(f"Operation {self.operation} not supported")
+        return _return
+
     def fit(
         self,
         dataframe: Union[pd.DataFrame, pd.Series],
         first_fit: bool = True,
+        alpha: float = None,
+        initialize_using_operation:bool=False,
+        initialize_span:int=None,
         com: float = None,
         operation: str = "mean",
-        span: float = None,
+        span: int = None,
         halflife: float = None,
-        alpha: float = None,
         min_periods: int = 0,
         ignore_na: bool = False,
         axis: int = 0,
@@ -28,8 +44,18 @@ class exponential_moving_feature:
     ):
         """
         exponential_moving_feature
-
         Provided dataframe must be in ascending order.
+        The exponential moving avergae is caluclated as 
+
+        y[1] = dataframe[1]
+        y[t] = (1-alpha)*y[t-1] + alpha*x[t]
+
+        if you want you calculate via the traditional way, in which the y[0] isnt the first value in the dataframe, you
+        can use the paramters 'initialize_using_operation' and 'initialize_span'
+
+        y[1 to 'initialize_span'-1] = Nan
+        y['initialize_span'] = 'operation' over  dataframe[1 to 'initialize_span' ]
+        y[t] = (1-alpha)*y[t-1] + alpha*x[t]
 
         https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.ewm.html
 
@@ -45,13 +71,17 @@ class exponential_moving_feature:
         com : float, optional
             Specify decay in terms of center of mass, by default None
         span : float, optional
-            pecify decay in terms of span , by default None
+            specify decay in terms of span , by default None
         halflife : float, optional
             Specify decay in terms of half-life, by default None
         alpha : float, optional
             Specify smoothing factor  directly, by default None
+        initialize_using_operation : bool, optional
+            If True, then specified 'operation' is performed on the first 'initialize_span' values, and then the exponential moving average is calculated, by default False
+        initialize_span : int, optional
+            the span over which 'operation' would be performed for initialization, by default None
         min_periods : int, optional
-            Minimum number of observations in window required to have a value (otherwise result is NA)., by default 0
+            Minimum number of observations in window required to have a value (otherwise result is NA), by default 0
         ignore_na : bool, optional
             Ignore missing values when calculating weights; specify True to reproduce pre-0.15.0 behavior, by default False
         axis : int, optional
@@ -88,6 +118,19 @@ class exponential_moving_feature:
             self.times = times
             self.operation = operation
             self.last_values_from_previous_run = None
+            self.initialize_using_operation=initialize_using_operation
+            self.initialize_span=initialize_span
+
+            if self.initialize_using_operation:
+                if (self.initialize_span is None) and (self.span is None):
+                    raise ValueError(
+                    "For initialize_using_operation=True,"
+                    "either initialize_span or span value is required")
+                elif (self.initialize_span is None) and (self.span is not None):
+                    self.initialize_span=self.span 
+
+                first_frame=self._perform_temp_operation(dataframe[:self.initialize_span].rolling(window=self.initialize_span))
+                dataframe=pd.concat([first_frame,dataframe[self.initialize_span:]])
 
         _dataframe = dataframe.ewm(
             com=self.com,
@@ -116,7 +159,6 @@ class exponential_moving_feature:
             _return = _return.iloc[1:]
         self.last_values_from_previous_run = _return.iloc[-1:]
         return _return
-
 
 class hull_moving_feature:
     def __init__(self):
@@ -204,7 +246,6 @@ class hull_moving_feature:
 
         return hma
 
-
 class _a_kaufman_efficiency:
     def __init__(self):
         pass
@@ -242,7 +283,6 @@ class _a_kaufman_efficiency:
         )
 
         return _kaufman_efficiency
-
 
 class kaufman_adaptive_moving_average:
     def __init__(self):
@@ -343,6 +383,131 @@ class kaufman_adaptive_moving_average:
 
         return res
 
+class fractal_adaptive_moving_average:
+    def __init__(self):
+        pass
+
+    def _first_lb(self,x,first_len):
+        return (np.max(x)-np.min(x))/first_len
+
+    def _second_lb(self,x,first_len):
+        half=int((first_len)/2)
+        return (np.max(x.iloc[:half])-np.min(x.iloc[:half]))/half
+
+    def fit(
+        self,
+        dataframe: Union[pd.DataFrame, pd.Series],
+        first_fit: bool = True,
+        lookback_period:int=8,
+        min_periods:int=1):
+        """
+        fractal_adaptive_moving_average (FAMA)
+
+        FAMA(i) = A(i) * dataframe(i) + (1 - A(i)) * FAMA(i-1)
+        A(i) = EXP(-4.6 * (D(i) - 1))
+        D(i) = (LOG(N1 + N2) - LOG(N3))/LOG(2)
+
+        N(Length,i) = (Highest dataframe(i) - Lowest dataframe(i))/Length
+
+        N1(i) = N(Length,i)
+        N2(i) = N(Length,i + Length)
+        N3(i) = N(2 * Length,i)
+
+
+        Parameters
+        ----------
+        dataframe : Union[pd.DataFrame, pd.Series]
+            dataframe containing column values to create feature over
+        first_fit : bool, optional
+            Rolling features require past "window" number of values for calculation.
+            Use True, when calculating for training data { in which case last "window" number of values will be saved }
+            Use False, when calculating for testing/production data { in which case the, last "window" number of values, which
+            were saved during the last phase, will be utilized for calculation }, by default True
+        lookback_period : int, optional
+            Size of the rolling window of lookback , by default 8
+        min_periods : int, optional
+            Minimum number of observations in window required to have a value, by default 1
+
+        References
+        -----
+        .. [1] metatrader5, "Fractal Adaptive Moving Average",
+            https://www.metatrader5.com/en/terminal/help/indicators/trend_indicators/fama
+        """
+
+        if first_fit:
+            self._first_object = weighted_window_features()
+            self._second_object = weighted_window_features()
+            self._third_object = weighted_window_features()
+            self.lookback_period = lookback_period
+            self.min_periods=min_periods
+
+        if isinstance(dataframe, pd.Series):
+            dataframe = dataframe.to_frame()
+
+        fama = pd.DataFrame(np.zeros(dataframe.shape), columns=dataframe.columns,index=dataframe.index)
+        if first_fit:
+            fama = pd.concat(
+                [pd.DataFrame(np.zeros((1, fama.shape[1])), columns=fama.columns), fama]
+            )
+        else:
+            fama = pd.concat([self.values_from_last_run, fama])
+        fama["_iloc"] = np.arange(len(fama))
+        ll = [x for x in fama.columns if x != "_iloc"]
+
+        first_res = (
+            self._first_object._template_feature_calculation(
+                function_name="_first_object",
+                win_function=_identity_window,
+                first_fit=first_fit,
+                dataframe=dataframe,
+                window=int((self.lookback_period)/2),
+                min_periods=self.min_periods,
+                symmetric=None,
+                operation=self._first_lb,
+                operation_args=(int((self.lookback_period)/2)),
+            )
+        )
+
+        second_res = (
+            self._second_object._template_feature_calculation(
+                function_name="_second_object",
+                win_function=_identity_window,
+                first_fit=first_fit,
+                dataframe=dataframe,
+                window=self.lookback_period,
+                min_periods=self.min_periods,
+                symmetric=None,
+                operation=self._second_lb,
+                operation_args=(self.lookback_period),
+            )
+        )
+
+        third_res = (
+            self._third_object._template_feature_calculation(
+                function_name="_third_object",
+                win_function=_identity_window,
+                first_fit=first_fit,
+                dataframe=dataframe,
+                window=self.lookback_period,
+                min_periods=self.min_periods,
+                symmetric=None,
+                operation=self._first_lb,
+                operation_args=(self.lookback_period),
+            )
+        )
+        fractal_dimension= (np.log(second_res+first_res)-np.log(third_res))/np.log(2)
+        a_value=np.exp(-4.6*(fractal_dimension-1)).fillna(0)
+
+        for r1, r2, r3 in zip(dataframe.iterrows(), fama[1:].iterrows(), a_value.iterrows()):
+            previous_kama = fama[fama["_iloc"] == (r2[1]["_iloc"] - 1)][ll]
+            fama.loc[fama["_iloc"] == r2[1]["_iloc"], ll] = (
+                np.multiply(previous_kama.values,(1-r3[1].values)) + np.multiply( r1[1].values, r3[1].values )
+            )[0]
+
+        res = fama.iloc[1:][ll]
+
+        self.values_from_last_run = res.iloc[-1:]
+        return res
 
 class triple_exponential_moving_feature:
     def __init__(self):
@@ -467,36 +632,105 @@ class triple_exponential_moving_feature:
         )
         return triple_exponential_average
 
+class smoothed_moving_average:
+    def __init__(self):
+        pass
+
+    def fit(
+        self,
+        dataframe: Union[pd.DataFrame, pd.Series],
+        first_fit: bool = True,
+        lookback_period:int=4):
+        """
+        smoothed_moving_average (SMMA)
+
+        SMMA(i) = (SMMA(i-1)*(lookback_period-1) + dataframe(i))/lookback_period
+
+        Parameters
+        ----------
+        dataframe : Union[pd.DataFrame, pd.Series]
+            dataframe containing column values to create feature over
+        first_fit : bool, optional
+            Rolling features require past "window" number of values for calculation.
+            Use True, when calculating for training data { in which case last "window" number of values will be saved }
+            Use False, when calculating for testing/production data { in which case the, last "window" number of values, which
+            were saved during the last phase, will be utilized for calculation }, by default True
+        lookback_period : int, optional
+            Size of the rolling window of lookback , by default 4
+
+        References
+        -----
+        .. [1] chartmill, "The SMOOTHED MOVING AVERAGE",
+            https://www.chartmill.com/documentation/technical-analysis-indicators/217-MOVING-AVERAGES-%7C-The-Smoothed-Moving-Average-%28SMMA%29
+        """
+
+        if first_fit:
+            self._first_object = weighted_window_features()
+            self.lookback_period = lookback_period
+        
+        if isinstance(dataframe, pd.Series):
+            dataframe = dataframe.to_frame()
+
+        sma = pd.DataFrame(np.zeros(dataframe.shape), columns=dataframe.columns,index=dataframe.index)
+        if first_fit:
+            sma.iloc[self.lookback_period-1]=dataframe.iloc[:(self.lookback_period)].sum()/self.lookback_period
+        else:
+            sma = pd.concat([self.values_from_last_run, sma])
+
+        sma["_iloc"] = np.arange(len(sma))
+        ll = [x for x in sma.columns if x != "_iloc"]
+
+        _start_frame = self.lookback_period if first_fit else 0
+        _start_sma = self.lookback_period if first_fit else 1
+        for r1, r2 in zip(dataframe[_start_frame:].iterrows(), sma[_start_sma:].iterrows()):
+
+            previous_kama = sma[sma["_iloc"] == (r2[1]["_iloc"] - 1)][ll]
+
+            sma.loc[sma["_iloc"] == r2[1]["_iloc"], ll] = (
+               ( previous_kama*(self.lookback_period-1) + r1[1])/self.lookback_period
+            ).values[0]
+
+        res = sma[ll] if first_fit else sma.iloc[1:][ll]
+
+        self.values_from_last_run = res.iloc[-1:]      
+        return res  
 
 #####################################################################
 
-# ob = kaufman_adaptive_moving_average()
-# df = pd.DataFrame(
-#     {
-#         "a": 20 * np.random.random(25) + np.random.choice(np.arange(-20, 20), size=25),
-#         "b": np.arange(0, 100, step=2)[:25]
-#         + np.random.choice(np.arange(-20, 20), size=25),
-#     }
-# )
-# df = df["a"]
-# wz = 6
-# mp = 1
-# flp = 10
-# flp2 = 14
-# print("df", df)
+ob = exponential_moving_feature()
+df = pd.DataFrame(
+    {
+        "a": 10 * np.random.random(20),
+        "b": np.arange(0, 100, step=2)[:20]
+        + np.random.choice(np.arange(0, 20), size=20),
+    }
+)
 
-# res_all = ob.fit(df, first_fit=True).reset_index(drop=True)
+#df=df['a']
+#df2=df2['a']
 
-# res_comb = pd.concat(
-#     [
-#         ob.fit(df.iloc[:flp], first_fit=True),
-#         ob.fit(df.iloc[flp:flp2], first_fit=False),
-#         ob.fit(df.iloc[flp2:], first_fit=False),
-#     ],
-#     axis=0,
-# ).reset_index(drop=True)
+wz = 4
+mp = 1
+flp = 8
+flp2 = 15
+kw = {}
 
-# print(pd.concat([res_all, res_comb], axis=1))
-# print((res_all.fillna(0) != res_comb.fillna(0)).sum())
 
-#####################################################################
+print("df", df)
+print("df fff----->\n", df[:3].mean())
+
+res_all = ob.fit(df,first_fit=True,alpha=1/(3),initialize_using_operation=True,initialize_span=3).reset_index(drop=True)
+
+res_comb = pd.concat(
+    [
+        ob.fit(df.iloc[:flp],first_fit=True,alpha=1/(3),initialize_using_operation=True,initialize_span=3),
+        ob.fit(df.iloc[flp:flp2], first_fit=False),
+        ob.fit(df.iloc[flp2:], first_fit=False),
+    ],
+    axis=0,
+).reset_index(drop=True)
+
+print(pd.concat([res_all, res_comb], axis=1))
+print((res_all.fillna(0) != res_comb.fillna(0)).sum())
+
+# print('#####################################################################')

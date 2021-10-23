@@ -6,7 +6,7 @@ from pandas.core.frame import DataFrame
 
 from NitroFE.time_based_features.moving_average_features.moving_average_features import (
     exponential_moving_feature,
-    triple_exponential_moving_feature,
+    triple_exponential_moving_feature,smoothed_moving_average
 )
 from NitroFE.time_based_features.weighted_window_features.weighted_window_features import (
     weighted_window_features,
@@ -105,6 +105,94 @@ class absolute_price_oscillator:
         absolute_price_oscillator = fast_em - slow_em
         return absolute_price_oscillator
 
+class percentage_value_oscillator:
+    def __init__(self):
+        pass
+
+    def fit(
+        self,
+        dataframe: Union[pd.DataFrame, pd.Series],
+        first_fit: bool = True,
+        fast_period: int = 4,
+        slow_period: int = 8,
+        fast_operation: str = "mean",
+        slow_operation: str = "mean",
+        min_periods: int = 0,
+        ignore_na: bool = False,
+        axis: int = 0,
+        times: str = None,
+    ):
+        """
+        percentage_value_oscillator
+
+        percentage value Oscillator = ((Fast exponential moving average) - (Slow exponential moving average))/( Slow exponential moving average )
+
+        Parameters
+        ----------
+        dataframe : Union[pd.DataFrame, pd.Series]
+            dataframe containing column values to create feature over
+        first_fit : bool, optional
+            Rolling features require past "window" number of values for calculation.
+            Use True, when calculating for training data { in which case last "window" number of values will be saved }
+            Use False, when calculating for testing/production data { in which case the, last "window" number of values, which
+            were saved during the last phase, will be utilized for calculation }, by default True
+        fast_period : int, optional
+            specify decay in terms of span, for the fast moving feature , by default 4
+        slow_period : int, optional
+            specify decay in terms of span, for the slow moving feature, by default 8
+        fast_operation : str, optional
+            operation to be performed for the fast moving feature, by default 'mean'
+        slow_operation : str, optional
+            operation to be performed for the slow moving feature, by default 'mean'
+        ignore_na : bool, optional
+            Ignore missing values when calculating weights, by default False
+        axis : int, optional
+            The axis to use. The value 0 identifies the rows, and 1 identifies the columns, by default 0
+        times : str, optional
+            Times corresponding to the observations. Must be monotonically increasing and datetime64[ns] dtype, by default None
+
+        References
+        -----
+        .. [1] investopedia, "ppo",
+            https://www.investopedia.com/terms/p/ppo.asp
+        """ 
+
+        if first_fit:
+            self._fast_em_object = exponential_moving_feature()
+            self._slow_em_object = exponential_moving_feature()
+
+            self.span_fast = fast_period
+            self.span_slow = slow_period
+
+            self.min_periods = min_periods
+
+            self.ignore_na = ignore_na
+            self.axis = axis
+            self.times = times
+            self.fast_operation = fast_operation
+            self.slow_operation = slow_operation
+
+        fast_em = self._fast_em_object.fit(
+            dataframe=dataframe,
+            first_fit=first_fit,
+            span=self.span_fast,
+            ignore_na=self.ignore_na,
+            axis=self.axis,
+            times=self.times,
+            operation=self.fast_operation,
+        )
+        slow_em = self._slow_em_object.fit(
+            dataframe=dataframe,
+            first_fit=first_fit,
+            span=self.span_slow,
+            ignore_na=self.ignore_na,
+            axis=self.axis,
+            times=self.times,
+            operation=self.slow_operation,
+        )
+
+        res = (fast_em - slow_em)/slow_em
+        return res
 
 class moving_average_convergence_divergence:
     def __init__(self):
@@ -221,7 +309,6 @@ class moving_average_convergence_divergence:
 
         return raw_macd - macd if self.return_histogram else macd
 
-
 class Average_true_range:
     def __init__(self):
         pass
@@ -316,7 +403,6 @@ class Average_true_range:
         )
 
         return average_true_range
-
 
 class average_directional_movement_index:
     def __init__(self):
@@ -502,7 +588,6 @@ class average_directional_movement_index:
         )
         return adx
 
-
 class aroon:
     def __init__(self):
         pass
@@ -512,6 +597,7 @@ class aroon:
 
     def _calculate_aroon_down(self, x, look_back_period):
         return x.argmin() / (look_back_period)
+
 
     def fit(
         self,
@@ -580,7 +666,6 @@ class aroon:
 
         return aroon_value
 
-
 class typical_value:
     def __init__(self):
         pass
@@ -638,7 +723,6 @@ class typical_value:
         )
 
         return _typical_value
-
 
 class bollinger_bands:
     def __init__(self):
@@ -769,7 +853,6 @@ class bollinger_bands:
             negative_band.columns = negative_band.columns + "_negative_band"
         return pd.concat([positive_band, negative_band], axis=1)
 
-
 class kaufman_efficiency:
     def __init__(self):
         pass
@@ -832,7 +915,6 @@ class kaufman_efficiency:
         )
 
         return _kaufman_efficiency
-
 
 class triple_exponential_moving_average_oscillator:
     def __init__(self):
@@ -927,7 +1009,6 @@ class triple_exponential_moving_average_oscillator:
             operation_args=(),
         )
         return res
-
 
 class zero_lag_exponential_moving_feature:
     def __init__(self):
@@ -1031,7 +1112,6 @@ class zero_lag_exponential_moving_feature:
 
         return res
 
-
 class series_weighted_average:
     def __init__(self):
         pass
@@ -1109,6 +1189,95 @@ class series_weighted_average:
 
         return res
 
+class series_weighted_moving_feature:
+    def __init__(self):
+        pass
+
+    def fit(
+        self,
+        dataframe: Union[pd.DataFrame, pd.Series],
+        dataframe_for_weight: Union[pd.DataFrame, pd.Series],
+        first_fit: bool = True,
+        lookback_period:int=4,
+        min_periods:int=None,
+        operation: Callable = np.mean,
+        operation_args: tuple = ()
+    ):
+        """
+        series_weighted_moving_feature
+
+        Value_one = Moving window 'operation' of 'lookback_period' length on (dataframe * dataframe_for_weight)
+        Value_two = Moving window 'operation' of 'lookback_period' length on  dataframe_for_weight
+
+        series_weighted_moving_feature = Value_one/Value_two
+
+        Parameters
+        ----------
+        dataframe : Union[pd.DataFrame, pd.Series]
+            dataframe containing column values
+        dataframe_for_weight : Union[pd.DataFrame, pd.Series]
+            dataframe containing column values
+        first_fit : bool, optional
+            Rolling features require past "window" number of values for calculation.
+            Use True, when calculating for training data { in which case last "window" number of values will be saved }
+            Use False, when calculating for testing/production data { in which case the, last "window" number of values, which
+            were saved during the last phase, will be utilized for calculation }, by default True
+        lookback_period : int, optional
+            Size of the rolling window for lookback, by default 4
+        min_periods : int, optional
+            Minimum number of observations in window required to have a value, by default None
+        operation : Callable, optional
+            operation to perform over values, by default np.mean
+        operation_args : tuple, optional
+            additional agrument values to be sent for operation function
+
+        """
+        if first_fit:
+            self._multiplication_object = weighted_window_features()
+            self._weight_object = weighted_window_features()
+            self.lookback_period=lookback_period
+            self.min_periods=min_periods
+            self.operation=operation
+            self.operation_args=operation_args
+
+        if isinstance(dataframe, pd.Series):
+            dataframe = dataframe.to_frame()
+        if isinstance(dataframe_for_weight, pd.Series):
+            dataframe_for_weight = dataframe_for_weight.to_frame()
+
+        multiplication_res = pd.DataFrame(np.multiply(dataframe.values,dataframe_for_weight.values),columns=dataframe.columns)
+
+        _multiplication_value = (
+            self._multiplication_object._template_feature_calculation(
+                function_name="_multiplication_object",
+                win_function=_identity_window,
+                first_fit=first_fit,
+                dataframe=multiplication_res,
+                window=self.lookback_period,
+                min_periods=self.min_periods,
+                symmetric=None,
+                operation=self.operation,
+                operation_args=self.operation_args,
+            )
+        )
+
+        _weight_value = (
+            self._multiplication_object._template_feature_calculation(
+                function_name="_weight_value",
+                win_function=_identity_window,
+                first_fit=first_fit,
+                dataframe=dataframe_for_weight,
+                window=self.lookback_period,
+                min_periods=self.min_periods,
+                symmetric=None,
+                operation=self.operation,
+                operation_args=self.operation_args,
+            )
+        )
+
+        res=pd.DataFrame((_multiplication_value.values/_weight_value.values),columns=dataframe.columns)
+
+        return res
 
 class elastic_series_weighted_average:
     def __init__(self):
@@ -1195,49 +1364,369 @@ class elastic_series_weighted_average:
         self.values_from_last_run = eswa.iloc[-1:]
         return res
 
+class relative_strength_index:
+    def __init__(self):
+        pass
+
+    def _diff_pos(self,x): 
+        diff_val=x.iloc[-1]-x.iloc[-2]
+        return diff_val if diff_val>0 else 0 
+
+    def _diff_neg(self,x): 
+        diff_val=x.iloc[-1]-x.iloc[-2]
+        res=diff_val if diff_val<0 else 0
+        return -res
+
+    def fit(
+        self,
+        dataframe: Union[pd.DataFrame, pd.Series],
+        first_fit: bool = True,
+        lookback_period:int=8):
+        """
+        relative_strength_index (RSI)
+
+        Difference value (DFV) = dataframe(i) - dataframe(i-1)
+
+        Upwards movement (UM) = DFV if DFV>0 else 0
+        Downward movement (DM) = Absolute(DFV) if DFV<0 else 0
+
+        RS = (Smoothed moving average of UM over 'lookback_period' period )/(Smoothed moving average of DM over 'lookback_period' period)
+        RSI = 100 -(100 /(1+RS))
+
+        Parameters
+        ----------
+        dataframe : Union[pd.DataFrame, pd.Series]
+            dataframe containing column values
+        first_fit : bool, optional
+            Rolling features require past "window" number of values for calculation.
+            Use True, when calculating for training data { in which case last "window" number of values will be saved }
+            Use False, when calculating for testing/production data { in which case the, last "window" number of values, which
+            were saved during the last phase, will be utilized for calculation }, by default True
+        lookback_period : int, optional
+            Size of the rolling window for lookback, by default 8
+
+        References
+        -----
+        .. [1] wikipedia, "Relative strength index",
+            https://en.wikipedia.org/wiki/Relative_strength_index
+        """
+
+        if first_fit:
+            self._up_object = weighted_window_features()
+            self._down_object = weighted_window_features()
+
+            self._up_smoothed=smoothed_moving_average()
+            self._down_smoothed=smoothed_moving_average()
+
+            self.lookback_period = lookback_period
+        
+        if isinstance(dataframe, pd.Series):
+            dataframe = dataframe.to_frame()
+
+        up_value = self._up_object._template_feature_calculation(
+            function_name="_up_object",
+            win_function=_identity_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=2 ,
+            min_periods=None,
+            symmetric=None,
+            operation=self._diff_pos,
+            operation_args=(),
+        )
+
+        down_value = self._down_object._template_feature_calculation(
+            function_name="_down_object",
+            win_function=_identity_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=2 ,
+            min_periods=None,
+            symmetric=None,
+            operation=self._diff_neg,
+            operation_args=(),
+        )
+
+        smoothed_up_value=self._up_smoothed.fit(dataframe=up_value,first_fit=first_fit,lookback_period=self.lookback_period)
+        smoothed_down_value=self._down_smoothed.fit(dataframe=down_value,first_fit=first_fit,lookback_period=self.lookback_period)
+
+        rsi =  100 -100/(1+(smoothed_up_value/smoothed_down_value))
+        return rsi     
+
+class inverse_fisher_relative_strength_index:
+    def __init__(self):
+        pass
+
+    def fit(
+        self,
+        dataframe: Union[pd.DataFrame, pd.Series],
+        first_fit: bool = True,
+        lookback_period:int=8,
+        lookback_for_inverse_fisher:int=8):
+        """
+        inverse_fisher_relative_strength_index (IFRSI)
+
+        RSI = relative_strength_index
+        ranged_RSI = 0.1 * (RSI - 50)
+        wRSI = weighted moving average of ranged_RSI
+        IFRSI = (EXP(2*wRSI)-1)/(EXP(2*wRSI)+1)
+
+        Parameters
+        ----------
+        dataframe : Union[pd.DataFrame, pd.Series]
+            dataframe containing column values
+        first_fit : bool, optional
+            Rolling features require past "window" number of values for calculation.
+            Use True, when calculating for training data { in which case last "window" number of values will be saved }
+            Use False, when calculating for testing/production data { in which case the, last "window" number of values, which
+            were saved during the last phase, will be utilized for calculation }, by default True
+        lookback_period : int, optional
+            Size of the rolling window for lookback, by default 8
+        lookback_for_inverse_fisher : int, optional
+            Size of the rolling window for lookback for weighted moving average of rsi, by default 8
+
+        References
+        -----
+        .. [1] traders, "A Smoothed Rsi Inverse Fisher Transform",
+            http://traders.com/Documentation/FEEDbk_docs/2010/10/Vervoort.html
+        """
+
+        if first_fit:
+            self._rsi_object = relative_strength_index()
+            self._ww_object = weighted_window_features()
+
+            self.lookback_period = lookback_period
+            self.lookback_for_inverse_fisher = lookback_for_inverse_fisher
+
+        rsi_value=self._rsi_object.fit(dataframe,
+                                        first_fit=first_fit,
+                                        lookback_period=self.lookback_period)
+
+        rsi_value=0.1*(rsi_value-50)
+        rsi_value=self._ww_object.caluclate_weighted_moving_window_feature(
+                 dataframe=rsi_value,
+            first_fit=first_fit,
+            window=self.lookback_for_inverse_fisher,
+            operation=np.sum)
+        
+        rsi_value=(np.exp(2*rsi_value)-1)/(np.exp(2*rsi_value)+1)
+        return rsi_value
+        
+class keltner_channel:
+    def __init__(self):
+        pass
+
+    def fit( self,
+        dataframe: Union[pd.DataFrame, pd.Series],
+        first_fit: bool = True,
+        ema_span:int=8,
+        initialize_using_operation:bool=False,
+        initialize_span:int=None,
+        true_range_lookback: int = 4,
+        average_true_range_span: int = 6,
+        true_range_min_periods: int = None,
+        average_true_range_periods: int = 1,
+        atr_multiply:int=2):
+        """
+        keltner_channel (KC)
+
+        ATR = average true range of dataframe
+
+        EMA = Exponential moving average of dataframe over 'ema_span' span
+        KC upperband = EMA + atr_multiply * ATR
+        KC lowerband = EMA - atr_multiply * ATR 
+
+        Parameters
+        ----------
+        dataframe : Union[pd.DataFrame, pd.Series]
+            dataframe containing column values
+        first_fit : bool, optional
+            Rolling features require past "window" number of values for calculation.
+            Use True, when calculating for training data { in which case last "window" number of values will be saved }
+            Use False, when calculating for testing/production data { in which case the, last "window" number of values, which
+            were saved during the last phase, will be utilized for calculation }, by default True
+        ema_span : int, optional
+            specify decay in terms of span for exponential moving average, by default 8
+        initialize_using_operation : bool, optional
+            If True, then specified mean is performed over the first 'initialize_span' values, and then the exponential moving average is calculated, by default False
+        initialize_span : int, optional
+            the span over which 'operation' would be performed for initialization, by default None
+        true_range_lookback : int, optional
+            Size of the rolling window for true range value calculation, by default 4
+        average_true_range_span : int, optional
+            Size of the rolling window for average true range value calculation, by default 6
+        true_range_min_periods : int, optional
+            Minimum number of observations in window required to have a value for true range calculation, by default None
+        average_true_range_periods : int, optional
+            Minimum number of observations in window required to have a value for average true range calculation , by default 1
+        atr_multiply : int, optional
+            multiplication factor for average true range, by default 2
+
+        """
+
+        if first_fit:
+            self.ema_span=ema_span
+            self.initialize_using_operation=initialize_using_operation
+            self.initialize_span=initialize_span
+            self.true_range_lookback=true_range_lookback
+            self.average_true_range_span=average_true_range_span
+            self.true_range_min_periods=true_range_min_periods
+            self.average_true_range_periods=average_true_range_periods
+            self.atr_multiply=atr_multiply
+
+            self._atr_object=Average_true_range()
+            self._ema_object=exponential_moving_feature()
+
+        atr_val=self._atr_object.fit(dataframe=dataframe,
+                                    first_fit=first_fit,
+                                    true_range_lookback=self.true_range_lookback,
+                                    average_true_range_span=self.average_true_range_span,
+                                    true_range_min_periods=self.true_range_min_periods,
+                                    average_true_range_periods=self.average_true_range_periods)
+        
+        ema_val=self._ema_object.fit(dataframe=dataframe,
+                                    first_fit=first_fit,
+                                    span=self.ema_span,
+                                    initialize_using_operation=self.initialize_using_operation,
+                                    initialize_span=self.initialize_span)
+
+        positive_band =ema_val +self.atr_multiply*atr_val
+        negative_band =ema_val -self.atr_multiply*atr_val
+
+        if isinstance(dataframe, pd.Series):
+            if dataframe.name is None:
+                positive_band.name = "positive_band"
+                negative_band.name = "negative_band"
+            else:
+                positive_band.name = positive_band.name + "_positive_band"
+                negative_band.name = negative_band.name + "_negative_band"
+        elif isinstance(dataframe, pd.DataFrame):
+            positive_band.columns = positive_band.columns + "_positive_band"
+            negative_band.columns = negative_band.columns + "_negative_band"
+
+        return pd.concat([positive_band, negative_band], axis=1)
+
+class donchian_channels:
+    def __init__(self):
+        pass
+
+
+    def fit(self,
+        dataframe: Union[pd.DataFrame, pd.Series],
+        first_fit: bool = True,
+        lookback_period: int = 4,
+        min_periods: int = None):
+        """
+        donchian_channels
+
+
+        Parameters
+        ----------
+        dataframe : Union[pd.DataFrame, pd.Series]
+            dataframe containing column values
+        first_fit : bool, optional
+            Rolling features require past "window" number of values for calculation.
+            Use True, when calculating for training data { in which case last "window" number of values will be saved }
+            Use False, when calculating for testing/production data { in which case the, last "window" number of values, which
+            were saved during the last phase, will be utilized for calculation }, by default True
+        lookback_period : int, optional
+            Size of the rolling window for lookback, by default 4
+        min_periods : int, optional
+            Minimum number of observations in window required to have a value, by default None
+        """
+
+        if first_fit:
+            self._up_object = weighted_window_features()
+            self._down_object = weighted_window_features()
+            self.lookback_period = lookback_period
+            self.min_periods = min_periods
+
+        donchian_up = self._up_object._template_feature_calculation(
+            function_name="donchian_up",
+            win_function=_identity_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=self.lookback_period,
+            min_periods=self.min_periods,
+            symmetric=None,
+            operation=np.max,
+        )
+        donchian_low = self._up_object._template_feature_calculation(
+            function_name="donchian_low",
+            win_function=_identity_window,
+            first_fit=first_fit,
+            dataframe=dataframe,
+            window=self.lookback_period,
+            min_periods=self.min_periods,
+            symmetric=None,
+            operation=np.min,
+        )
+        middle_channel=(donchian_low+donchian_up)/2
+
+        if isinstance(dataframe, pd.Series):
+            if dataframe.name is None:
+                donchian_up.name = "donchian_up"
+                donchian_low.name = "donchian_low"
+                middle_channel.name = "middle_channel"
+            else:
+                donchian_up.name = donchian_up.name + "_donchian_up"
+                donchian_low.name = donchian_low.name + "_donchian_low"
+                middle_channel.name = middle_channel.name + "_middle_channel"
+        elif isinstance(dataframe, pd.DataFrame):
+            donchian_up.columns = donchian_up.columns + "_donchian_up"
+            donchian_low.columns = donchian_low.columns + "_donchian_low"
+            middle_channel.columns = middle_channel.columns + "_middle_channel"
+
+        return pd.concat([donchian_up, middle_channel,donchian_low], axis=1)
+
+
 
 #####################################################################
 
 
-# ob = elastic_series_weighted_average()
-# df = pd.DataFrame(
-#     {
-#         "a": 10 * np.random.random(10),
-#         "b": np.arange(0, 100, step=2)[:10]
-#         + np.random.choice(np.arange(0, 20), size=10),
-#     }
-# )
-# df2 = pd.DataFrame(
-#     {
-#         "a": 10 * np.random.random(10),
-#         "b": np.arange(0, 100, step=2)[:10]
-#         + np.random.choice(np.arange(0, 20), size=10),
-#     }
-# )
-# #df=df['a']
-# #df2=df2['a']
-# #df=pd.Series(10 * np.random.random(10))
-# #df2=pd.Series(10 * np.random.random(10))
-# wz = 6
-# mp = 1
-# flp = 5
-# flp2 = 7
-# kw = {}
-# #print("df", df)
-# res_all = ob.fit(df[:], df2[:], first_fit=True, **kw).reset_index(drop=True)
-# print("res_all", res_all)
-# print("#####################################################################")
-# res_comb = pd.concat(
-#     [
-#         ob.fit(df.iloc[:flp], df2.iloc[:flp], first_fit=True, **kw),
-#         ob.fit(df.iloc[flp:flp2], df2.iloc[flp:flp2], first_fit=False),
-#         ob.fit(df.iloc[flp2:], df2.iloc[flp2:], first_fit=False),
-#     ]
-# ).reset_index(drop=True)
-# print('res_comb',res_comb)
-# print(pd.concat([res_all, res_comb], axis=1))
-# print("#####################################################################")
-# print((res_all.fillna(0) != res_comb.fillna(0)).sum())
+ob = donchian_channels()
+df = pd.DataFrame(
+    {
+        "a": 10 * np.random.random(20),
+        "b": np.arange(0, 100, step=2)[:20]
+        + np.random.choice(np.arange(0, 20), size=20),
+    }
+)
+df2 = pd.DataFrame(
+    {
+        "a": 10 * np.random.random(20),
+        "b": np.arange(0, 100, step=2)[:20]
+        + np.random.choice(np.arange(0, 20), size=20),
+    }
+)
+
+#df=df['a']
+#df2=df2['a']
+#df=pd.Series(10 * np.random.random(10))
+#df2=pd.Series(10 * np.random.random(10))
+
+wz = 4
+mp = 1
+flp = 8
+flp2 = 15
+kw = {'lookback_period':6}
+print("df", df)
+
+res_all = ob.fit(df[:],first_fit=True, **kw).reset_index(drop=True)
+
+print("res_all", res_all)
+print("#####################################################################")
+res_comb = pd.concat(
+    [
+        ob.fit(df.iloc[:flp], first_fit=True, **kw),
+        ob.fit(df.iloc[flp:flp2],  first_fit=False),
+        ob.fit(df.iloc[flp2:],  first_fit=False),
+    ]
+).reset_index(drop=True)
+print('res_comb',res_comb)
+print(pd.concat([res_all, res_comb], axis=1))
+print("#####################################################################")
+print((res_all.fillna(0) != res_comb.fillna(0)).sum())
 
 
 #####################################################################
