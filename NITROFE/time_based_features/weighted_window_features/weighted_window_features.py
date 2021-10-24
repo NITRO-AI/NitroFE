@@ -47,6 +47,7 @@ class weighted_window_features:
         symmetric: bool = False,
         operation: Callable = np.mean,
         operation_args: tuple = (),
+        last_values_from_calculated:bool=False,
         **kwargs
     ):
         _function_name = function_name
@@ -62,6 +63,7 @@ class weighted_window_features:
             self.params[_function_name]["symmetric"] = symmetric
             self.params[_function_name]["operation"] = operation
             self.params[_function_name]["operation_args"] = operation_args
+            self.params[_function_name]["last_values_from_calculated"] = last_values_from_calculated
 
             self.first_fit_params_save(_function_name, kwargs=kwargs)
 
@@ -97,14 +99,21 @@ class weighted_window_features:
         )
         if not first_fit:
             _return = _return.iloc[
-                self.params[_function_name]["len_last_values_from_previous_run"] :
-            ]
+                self.params[_function_name]["len_last_values_from_previous_run"] :]
 
-        _last_values_from_previous_run = (
-            dataframe.iloc[1 - self.params[_function_name]["window"] :]
-            if self.params[_function_name]["window"] != 1
-            else None
-        )
+        
+        if not self.params[_function_name]["last_values_from_calculated"]:
+            _last_values_from_previous_run = (
+                dataframe.iloc[1 - self.params[_function_name]["window"] :]
+                if self.params[_function_name]["window"] != 1
+                else None
+            )
+        else:
+            _last_values_from_previous_run = (
+                _return.iloc[1 - self.params[_function_name]["window"] :]
+                if self.params[_function_name]["window"] != 1
+                else None
+            )
         self.first_fit_params_save(
             _function_name,
             last_values_from_previous_run=_last_values_from_previous_run,

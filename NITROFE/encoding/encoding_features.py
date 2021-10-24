@@ -47,17 +47,27 @@ class base_encoding:
         self.operations = operations
 
     def _handle_concatenated_dataframe_column_names(self, y, dataframe):
+
         if not y.empty:
             if isinstance(y, pd.DataFrame):
-                y_cols = list(y.columns)
+                y_cols = list('target_'+y.columns)
             elif isinstance(y, pd.Series):
-                y_cols = [y.name]
+                if y.name is None:
+                    y_cols = ['target_y']
+                else:
+                    y_cols = ['target_'+y.name]
         else:
-            y_cols = []
+            y_cols=list(
+                dataframe.select_dtypes(include=["int64", "float64","int32", "float32"]).columns
+            )
+            if len(y_cols)==0:
+                raise ValueError("No 'y' passed, and no columns of dtype 'int64','float64','int32','float32' found to encode over")
+            y=dataframe[y_cols]
+            
+            
         self.concatenated_dataframe = pd.concat(
             [dataframe[[x for x in dataframe.columns if x not in y_cols]], y], axis=1
         )
-
         self.concatenated_dataframe.columns = [
             x for x in dataframe.columns if x not in y_cols
         ] + y_cols
@@ -76,6 +86,11 @@ class base_encoding:
         elif not isinstance(self.weight_of_overall, int):
             raise ValueError("weight_of_overall only accepts int/float values")
 
+    def transform(self,
+        dataframe: pd.DataFrame):
+        for _col in self.encoding_dict.keys():
+            dataframe=dataframe.merge(self.encoding_dict[_col],on=[_col],how='left')
+        return dataframe
 
 class categorical_encoding(base_encoding):
     def __init__(
@@ -91,6 +106,22 @@ class categorical_encoding(base_encoding):
         operations: Union[None, List[Callable]] = [np.mean],
         payload: dict = None,
     ):
+        """
+
+        Parameters
+        ----------
+        dataframe : pd.DataFrame
+             dataframe containing column values
+        y : Union[None, pd.Series, pd.DataFrame], optional
+            target column to use for encoding value creation, None
+        columns_to_encode : Union[None, int, str, List[Union[str, int]]], optional
+            Column names to encode, by default None
+        operations : Union[None, List[Callable]], optional
+            encoding operation to perform, by default [np.mean]
+        payload : dict, optional
+            Alternate method to calculate values at a single go, by default None
+
+        """
 
         self.encoding_dict = {}
         self.payload = payload
@@ -117,13 +148,13 @@ class categorical_encoding(base_encoding):
                 self.payload[_col]
             )
             _col_frame.columns = [
-                _col + "_groupby_" + "target_" + lvlzero + "_"
+                _col + "_groupby_" + lvlzero + "_"
                 for lvlzero in _col_frame.columns.get_level_values(0)
             ] + _col_frame.columns.get_level_values(1)
+
             self.encoding_dict[_col] = _col_frame
 
         return self.encoding_dict
-
 
 class smoothed_encoding(base_encoding):
     def __init__(
@@ -194,33 +225,72 @@ class smoothed_encoding(base_encoding):
         return self.encoding_dict
 
 
-df = pd.DataFrame(
-    {
-        "a": 10 * np.random.random(10),
-        "z": 20 * np.random.random(10),
-        "b": np.random.choice(["ab", "cd"], size=10),
-        "c": np.random.choice([0.1, 1.1], size=10),
-        "d": np.random.choice(["ef", "gh"], size=10),
-    }
-)
+# df = pd.DataFrame(
+#     {
+#         "a": 10 * np.random.random(10),
+#         "z": 20 * np.random.random(10),
+#         "b": np.random.choice(["ab", "cd"], size=10),
+#         "c": np.random.choice([0.1, 1.1], size=10),
+#         "d": np.random.choice(["ef", "gh"], size=10),
+#         "tt": np.random.choice(["ef", "gh",1.1], size=10),
+#     }
+# )
 
+#finds y as int64/float64 and columns to encode as O/category
+# ob = categorical_encoding()
+# rr = ob.fit(dataframe=df)
+# print(rr)
 
-ob = categorical_encoding()
-rr = ob.fit(
-    df,
-    payload={
-        "b": {"a": [np.sum, np.mean], "c": [np.median], "z": [np.std]},
-        "d": {"a": [np.sum, np.mean], "c": [np.median], "z": [np.mean]},
-    },
-)
-print(rr)
+# print(ob.transform(df))
 
-ob = smoothed_encoding()
-rr = ob.fit(
-    df,
-    payload={
-        "b": {"a": [np.sum, np.mean], "c": [np.median], "z": [np.std]},
-        "d": {"a": [np.sum, np.mean], "c": [np.median], "z": [np.mean]},
-    },
-)
-print(rr)
+# finds y as int64/float64 
+# ob = categorical_encoding()
+# rr = ob.fit(dataframe=df,columns_to_encode=['b','d'])
+# print(rr)
+
+# passed y seperately, where y has no name
+# ob = categorical_encoding()
+# rr = ob.fit(dataframe=df,y=pd.Series(20 * np.random.random(10)))
+# print(rr)
+
+# passed y as frame with same name columns as dataframe
+# ob = categorical_encoding()
+# df2 = pd.DataFrame(
+#     {"b": 10 * np.random.random(10)})
+# rr = ob.fit(dataframe=df,y=df2 )
+# print(rr)
+
+# raise error when no column to operation over
+# ob = categorical_encoding()
+# rr = ob.fit(dataframe=df[['b','d','tt']])
+# print(rr)
+
+# rr = ob.fit(dataframe=df,y=df['a'])
+# print(rr)
+
+# rr = ob.fit(dataframe=df,y=df['a'],columns_to_encode=['b','c','d'])
+# print(rr)
+
+# ob = categorical_encoding()
+# rr = ob.fit(dataframe=df)
+# print(rr)
+
+# ob = categorical_encoding()
+# rr = ob.fit(
+#     df,
+#     payload={
+#         "b": {"a": [np.sum, np.mean], "c": [np.median] },
+#         "c": { "a": [np.median]},
+#     },
+# )
+# print(rr)
+
+# ob = smoothed_encoding()
+# rr = ob.fit(
+#     df,
+#     payload={
+#         "b": {"a": [np.sum, np.mean], "c": [np.median], "z": [np.std]},
+#         "d": {"a": [np.sum, np.mean], "c": [np.median], "z": [np.mean]},
+#     },
+# )
+# print(rr)
