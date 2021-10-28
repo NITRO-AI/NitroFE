@@ -1,0 +1,645 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.6">
+    
+    
+      
+        <title>Class FractalAdaptiveMovingAverage - NitroFE</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.802231af.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#class-fractaladaptivemovingaverage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="NitroFE" class="md-header__button md-logo" aria-label="NitroFE" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NitroFE
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Class FractalAdaptiveMovingAverage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/NITRO-AI/NitroFE/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="NitroFE" class="md-nav__button md-logo" aria-label="NitroFE" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    NitroFE
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/NITRO-AI/NitroFE/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Time based features
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Time based features" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Time based features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../indicators%20features/" class="md-nav__link">
+        indicators features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../moving%20average%20features/" class="md-nav__link">
+        moving average features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weighted%20window%20features/" class="md-nav__link">
+        weighted window features
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#NitroFE.time_based_features.moving_average_features.moving_average_features.FractalAdaptiveMovingAverage" class="md-nav__link">
+    NitroFE.time_based_features.moving_average_features.moving_average_features.FractalAdaptiveMovingAverage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#NitroFE.time_based_features.moving_average_features.moving_average_features.FractalAdaptiveMovingAverage.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#NitroFE.time_based_features.moving_average_features.moving_average_features.FractalAdaptiveMovingAverage.fit" class="md-nav__link">
+    fit()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/NITRO-AI/NitroFE/edit/master/docs/fractal adaptive moving average.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="class-fractaladaptivemovingaverage">Class FractalAdaptiveMovingAverage</h1>
+<p><img alt="kaufman_adaptive_moving_average" src="https://media.giphy.com/media/aWukNCTgI8nB1TagAC/giphy.gif" /></p>
+<p>Fractal Adaptive Moving Average Technical Indicator (FRAMA) was developed by John Ehlers.
+This indicator is constructed based on the algorithm of the Exponential Moving Average,
+in which the smoothing factor is calculated based on the current fractal dimension of the value series.
+The advantage of FRAMA is the possibility to follow strong trend movements and to sufficiently slow down at the moments of price consolidation.</p>
+<p>Fractal adaptive moving average (FAMA) is calculated as :</p>
+<div class="arithmatex">\[
+N(t-Length,t) = \frac{\max(dataframe[t-Length \to t]) - \min(dataframe[t-Length \to t]) }{(t)-(t-Length)}
+\]</div>
+<div class="arithmatex">\[
+N1 = N(t-Length/2,t)
+\]</div>
+<div class="arithmatex">\[
+N2 = N(t-Length,t-Length/2)
+\]</div>
+<div class="arithmatex">\[
+N3 = N(t-Length,t)
+\]</div>
+<div class="arithmatex">\[
+D[t] = (\log(N1 + N2) - \log(N3))/\log(2)
+\]</div>
+<div class="arithmatex">\[
+A[t] = \exp(-4.6 * (D[t] - 1))
+\]</div>
+<div class="arithmatex">\[
+FAMA[t] = A[t] * dataframe[t] + (1 - A[t]) * FAMA[t-1]
+\]</div>
+<h2 id="methods">Methods</h2>
+
+
+  <div class="doc doc-object doc-class">
+
+<a id="NitroFE.time_based_features.moving_average_features.moving_average_features.FractalAdaptiveMovingAverage"></a>
+    <div class="doc doc-contents first">
+
+      <p>Provided dataframe must be in ascending order.</p>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="NitroFE.time_based_features.moving_average_features.moving_average_features.FractalAdaptiveMovingAverage.__init__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lookback_period</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>lookback_period</code></td>
+        <td><code>int</code></td>
+        <td><p>Size of the rolling window of lookback , by default 8</p></td>
+        <td><code>8</code></td>
+      </tr>
+      <tr>
+        <td><code>min_periods</code></td>
+        <td><code>int</code></td>
+        <td><p>Minimum number of observations in window required to have a value, by default 1</p></td>
+        <td><code>1</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>time_based_features\moving_average_features\moving_average_features.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lookback_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">min_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lookback_period : int, optional</span>
+<span class="sd">        Size of the rolling window of lookback , by default 8</span>
+<span class="sd">    min_periods : int, optional</span>
+<span class="sd">        Minimum number of observations in window required to have a value, by default 1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span> <span class="o">=</span> <span class="n">lookback_period</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">min_periods</span> <span class="o">=</span> <span class="n">min_periods</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="NitroFE.time_based_features.moving_average_features.moving_average_features.FractalAdaptiveMovingAverage.fit" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">,</span> <span class="n">first_fit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>For your training/initial fit phase (very first fit) use fit_first=True, and for any production/test implementation pass fit_first=False</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>dataframe</code></td>
+        <td><code>Union[pandas.core.frame.DataFrame, pandas.core.series.Series]</code></td>
+        <td><p>dataframe containing column values to create feature over</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>first_fit</code></td>
+        <td><code>bool</code></td>
+        <td><p>Moving features require past values for calculation.
+Use True, when calculating for training data (very first fit)
+Use False, when calculating for subsequent testing/production data { in which case the values, which
+were saved during the last phase, will be utilized for calculation }, by default True</p></td>
+        <td><code>True</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>time_based_features\moving_average_features\moving_average_features.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">],</span> <span class="n">first_fit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    For your training/initial fit phase (very first fit) use fit_first=True, and for any production/test implementation pass fit_first=False</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dataframe : Union[pd.DataFrame, pd.Series]</span>
+<span class="sd">        dataframe containing column values to create feature over</span>
+<span class="sd">    first_fit : bool, optional</span>
+<span class="sd">        Moving features require past values for calculation.</span>
+<span class="sd">        Use True, when calculating for training data (very first fit)</span>
+<span class="sd">        Use False, when calculating for subsequent testing/production data { in which case the values, which</span>
+<span class="sd">        were saved during the last phase, will be utilized for calculation }, by default True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">first_fit</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_first_object</span> <span class="o">=</span> <span class="n">weighted_window_features</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_second_object</span> <span class="o">=</span> <span class="n">weighted_window_features</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_third_object</span> <span class="o">=</span> <span class="n">weighted_window_features</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+        <span class="n">dataframe</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+
+    <span class="n">fama</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">dataframe</span><span class="o">.</span><span class="n">index</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">first_fit</span><span class="p">:</span>
+        <span class="n">fama</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">fama</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="n">columns</span><span class="o">=</span><span class="n">fama</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span> <span class="n">fama</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fama</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">values_from_last_run</span><span class="p">,</span> <span class="n">fama</span><span class="p">])</span>
+    <span class="n">fama</span><span class="p">[</span><span class="s2">&quot;_iloc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fama</span><span class="p">))</span>
+    <span class="n">ll</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">fama</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="s2">&quot;_iloc&quot;</span><span class="p">]</span>
+
+    <span class="n">first_res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_object</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
+        <span class="n">function_name</span><span class="o">=</span><span class="s2">&quot;_first_object&quot;</span><span class="p">,</span>
+        <span class="n">win_function</span><span class="o">=</span><span class="n">_identity_window</span><span class="p">,</span>
+        <span class="n">first_fit</span><span class="o">=</span><span class="n">first_fit</span><span class="p">,</span>
+        <span class="n">dataframe</span><span class="o">=</span><span class="n">dataframe</span><span class="p">,</span>
+        <span class="n">window</span><span class="o">=</span><span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="n">min_periods</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">min_periods</span><span class="p">,</span>
+        <span class="n">symmetric</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">operation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_first_lb</span><span class="p">,</span>
+        <span class="n">operation_args</span><span class="o">=</span><span class="p">(</span><span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)),</span>
+    <span class="p">)</span>
+
+    <span class="n">second_res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_object</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
+        <span class="n">function_name</span><span class="o">=</span><span class="s2">&quot;_second_object&quot;</span><span class="p">,</span>
+        <span class="n">win_function</span><span class="o">=</span><span class="n">_identity_window</span><span class="p">,</span>
+        <span class="n">first_fit</span><span class="o">=</span><span class="n">first_fit</span><span class="p">,</span>
+        <span class="n">dataframe</span><span class="o">=</span><span class="n">dataframe</span><span class="p">,</span>
+        <span class="n">window</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span><span class="p">,</span>
+        <span class="n">min_periods</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">min_periods</span><span class="p">,</span>
+        <span class="n">symmetric</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">operation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_second_lb</span><span class="p">,</span>
+        <span class="n">operation_args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">third_res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_third_object</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
+        <span class="n">function_name</span><span class="o">=</span><span class="s2">&quot;_third_object&quot;</span><span class="p">,</span>
+        <span class="n">win_function</span><span class="o">=</span><span class="n">_identity_window</span><span class="p">,</span>
+        <span class="n">first_fit</span><span class="o">=</span><span class="n">first_fit</span><span class="p">,</span>
+        <span class="n">dataframe</span><span class="o">=</span><span class="n">dataframe</span><span class="p">,</span>
+        <span class="n">window</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span><span class="p">,</span>
+        <span class="n">min_periods</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">min_periods</span><span class="p">,</span>
+        <span class="n">symmetric</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">operation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_first_lb</span><span class="p">,</span>
+        <span class="n">operation_args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">fractal_dimension</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">second_res</span> <span class="o">+</span> <span class="n">first_res</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">third_res</span><span class="p">)</span>
+    <span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">a_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">4.6</span> <span class="o">*</span> <span class="p">(</span><span class="n">fractal_dimension</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">a_value</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">a_value</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">a_value</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">a_value</span><span class="o">.</span><span class="n">columns</span>
+    <span class="p">)</span>
+
+    <span class="n">FC</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">SC</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span>
+    <span class="n">oldN</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">a_value</span><span class="p">)</span> <span class="o">/</span> <span class="n">a_value</span>
+    <span class="n">newN</span> <span class="o">=</span> <span class="p">((</span><span class="n">SC</span> <span class="o">-</span> <span class="n">FC</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">oldN</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">SC</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="n">FC</span>
+    <span class="n">a_value</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">newN</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="n">dataframe</span><span class="o">.</span><span class="n">iterrows</span><span class="p">(),</span> <span class="n">fama</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">(),</span> <span class="n">a_value</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()</span>
+    <span class="p">):</span>
+        <span class="n">previous_kama</span> <span class="o">=</span> <span class="n">fama</span><span class="p">[</span><span class="n">fama</span><span class="p">[</span><span class="s2">&quot;_iloc&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="n">r2</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;_iloc&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)][</span><span class="n">ll</span><span class="p">]</span>
+        <span class="n">fama</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">fama</span><span class="p">[</span><span class="s2">&quot;_iloc&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">r2</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;_iloc&quot;</span><span class="p">],</span> <span class="n">ll</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">previous_kama</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+            <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">r1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">r3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">fama</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:][</span><span class="n">ll</span><span class="p">]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">values_from_last_run</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="n">res</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+<h2 id="references">References</h2>
+<ul>
+<li>metatrader5, "Fractal Adaptive Moving Average",
+    <a href="https://www.metatrader5.com/en/terminal/help/indicators/trend_indicators/fama">https://www.metatrader5.com/en/terminal/help/indicators/trend_indicators/fama</a></li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.409db549.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.756773cc.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
