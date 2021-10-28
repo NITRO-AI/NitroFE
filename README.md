@@ -32,7 +32,7 @@ Indicator / windows / moving averages features are dependent on past values for 
 
 While creating such features during training is quite straighforward , taking it to production becomes challenging as it would requires one to externally save and implement logic. Creating indicators becomes even more complex as they are dependent on several other differently sized window components.
 
-NitroFE internally handles saving past dependant values, and makes feature creation hassle free. Just use **fit_first=True** for your initial fit
+NitroFE internally handles saving past dependant values, and makes feature creation hassle free. Just use **first_fit=True** for your initial fit
 
 The Time based domain is divided into 'Moving average features', 'Weighted window features' and 'indicator based features'
 
