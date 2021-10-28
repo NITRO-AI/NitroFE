@@ -2,7 +2,7 @@ from setuptools import setup
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 setup(name='NitroFE',
-      version='0.0.2',
+      version='0.0.3',
       url='https://github.com/NITRO-AI/NitroFE',
       license='Apache License 2.0',
       packages=['NitroFE'],
