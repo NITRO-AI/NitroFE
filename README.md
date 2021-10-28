@@ -21,3 +21,51 @@ Use the package manager to install NitroFE.
 ```bash
 pip install NitroFE
 ```
+
+# [Available feature domains](https://nitro-ai.github.io/NitroFE/)
+
+## [Time based Features](https://nitro-ai.github.io/NitroFE/Time%20based%20features/)
+
+![Time based Features](https://media.giphy.com/media/xTk9Zx0YYJJqjZN4xa/giphy-downsized.gif)
+
+Indicator / windows / moving averages features are dependent on past values for calculation, e.g. a rolling window of size 4 is dependent on past 4 values.
+
+While creating such features during training is quite straighforward , taking it to production becomes challenging as it would requires one to externally save and implement logic. Creating indicators becomes even more complex as they are dependent on several other differently sized window components.
+
+NitroFE internally handles saving past dependant values, and makes feature creation hassle free. Just use **fit_first=True** for your initial fit
+
+The Time based domain into 'Moving average features', 'Weighted window features' and 'indicator based features'
+
+## [Indicators based Features](https://nitro-ai.github.io/NitroFE/indicators%20features/)
+
+NitroFe provides a rich variety of features which are inspired and translated from market indicators.
+* [Absolute Price Oscillator](https://nitro-ai.github.io/NitroFE/Absolute%20Price%20Oscillator/)
+* [Percentage price oscillator](https://nitro-ai.github.io/NitroFE/Percentage%20Value%20Oscillator/)
+* [Moving average convergence divergence](https://nitro-ai.github.io/NitroFE/Moving%20Average%20Convergence%20Divergence/)
+* [Average true range](https://nitro-ai.github.io/NitroFE/Average%20True%20Range/)
+* [Average directional index](https://nitro-ai.github.io/NitroFE/Average%20Directional%20Movement%20Index/)
+* [Aroon Oscillator](https://nitro-ai.github.io/NitroFE/Aroon%20Oscillator/)
+* [Bollinger Bands](https://nitro-ai.github.io/NitroFE/Bollinger%20Bands/)
+* [Kaufman Efficiency](https://nitro-ai.github.io/NitroFE/Kaufman%20Efficiency/)
+* [Triple Exponential Moving Average Oscillator](https://nitro-ai.github.io/NitroFE/Kaufman%20Efficiency/)
+* [Zero lag exponential moving average](https://nitro-ai.github.io/NitroFE/Zero%20Lag%20Exponential%20Moving%20Feature/)
+* [Relative Strength Index](https://nitro-ai.github.io/NitroFE/Relative%20Strength%20Index/)
+* [Inverse Fisher Relative Strength Index](https://nitro-ai.github.io/NitroFE/Inverse%20Fisher%20Relative%20Strength%20Index/)
+* [Series Weighted Average](https://nitro-ai.github.io/NitroFE/Series%20Weighted%20Average/)
+* [Series Weighted Moving Feature](https://nitro-ai.github.io/NitroFE/Series%20Weighted%20Moving%20Feature/)
+* [Keltner channel](https://nitro-ai.github.io/NitroFE/Keltner%20Channel/)
+
+## [Moving average features](https://nitro-ai.github.io/NitroFE/moving%20average%20features/)
+
+In statistics, a moving average (rolling average or running average) is a calculation to analyze data points by creating a series of averages of different subsets of the full data set. NitroFE provides an array of variety of moving averages type for you to utilize.
+
+* [Exponential moving average](https://nitro-ai.github.io/NitroFE/exponential%20moving%20average/)
+* [Hull Moving Average](https://nitro-ai.github.io/NitroFE/hull%20moving%20average/)
+* [Kaufman's Adaptive Moving Average](https://nitro-ai.github.io/NitroFE/kaufman%20adaptive%20moving%20average/)
+* [Fractal Adaptive Moving Average](https://nitro-ai.github.io/NitroFE/fractal%20adaptive%20moving%20average/)
+* [Triple exponential moving average](https://nitro-ai.github.io/NitroFE/triple%20exponential%20moving%20average/)
+* [Smoothed Moving Average](https://nitro-ai.github.io/NitroFE/smoothed%20moving%20average/)
+
+## [Weighted window Features](https://nitro-ai.github.io/NitroFE/weighted%20window%20features/)
+
+NitroFe provides easy to use functions to creatind weighted window features 
