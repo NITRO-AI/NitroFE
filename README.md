@@ -22,7 +22,7 @@ Use the package manager to install NitroFE.
 pip install NitroFE
 ```
 
-# [Available feature domains](https://nitro-ai.github.io/NitroFE/)
+# Available feature domains
 
 ## [Time based Features](https://nitro-ai.github.io/NitroFE/Time%20based%20features/)
 
