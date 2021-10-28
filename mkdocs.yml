@@ -4,7 +4,10 @@ repo_url:  https://github.com/NITRO-AI/NitroFE
 
 nav:
   - Introduction: 'index.md'
-
+  - Time based features:
+    - indicators features: 'indicators features.md'
+    - moving average features: 'moving average features.md'
+    - weighted window features: 'weighted window features.md'
 
 theme:
   name: material

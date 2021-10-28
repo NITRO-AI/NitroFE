@@ -5,8 +5,7 @@
 ![AbsolutePriceOscillator](https://media.giphy.com/media/CUFxB3z16aTJtXrsSW/giphy.gif)
 
 
-The Absolute Price Oscillator displays the difference between two exponential moving averages,
-of a security's price and is expressed as an absolute value.
+The Absolute Price Oscillator displays the difference between two exponential moving averages
 
 $$
 Fast \ exponential \ moving \ feature \ (FEMF) = Exponential \ moving \ feature \ of \ 'fast\_period' \ span

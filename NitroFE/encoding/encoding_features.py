@@ -92,7 +92,7 @@ class base_encoding:
             dataframe=dataframe.merge(self.encoding_dict[_col],on=[_col],how='left')
         return dataframe
 
-class categorical_encoding(base_encoding):
+class CategoricalEncoding(base_encoding):
     def __init__(
         self, columns_to_encode: Union[None, int, str, List[Union[str, int]]] = None
     ):
@@ -103,7 +103,7 @@ class categorical_encoding(base_encoding):
         dataframe: pd.DataFrame,
         y: Union[None, pd.Series, pd.DataFrame] = None,
         columns_to_encode: Union[None, int, str, List[Union[str, int]]] = None,
-        operations: Union[None, List[Callable]] = [np.mean],
+        operations: Union[None, List[Callable]] = None,
         payload: dict = None,
     ):
         """
@@ -117,14 +117,17 @@ class categorical_encoding(base_encoding):
         columns_to_encode : Union[None, int, str, List[Union[str, int]]], optional
             Column names to encode, by default None
         operations : Union[None, List[Callable]], optional
-            encoding operation to perform, by default [np.mean]
+            encoding operation to perform, by default np.mean
         payload : dict, optional
-            Alternate method to calculate values at a single go, by default None
+            Alternate method to calculate values at a single go.
+            The payload can be sent in the form of a dict as
+            {'name of column to encode':{'name of column to encode over':['operation function one','operation function two']}}, by default None
 
         """
 
         self.encoding_dict = {}
         self.payload = payload
+        operations = [np.mean] if operations==None else operations
         if y is None:
             y = pd.DataFrame()
 
@@ -156,7 +159,7 @@ class categorical_encoding(base_encoding):
 
         return self.encoding_dict
 
-class smoothed_encoding(base_encoding):
+class SmoothedEncoding(base_encoding):
     def __init__(
         self, columns_to_encode: Union[None, int, str, List[Union[str, int]]] = None
     ):
@@ -167,13 +170,32 @@ class smoothed_encoding(base_encoding):
         dataframe: pd.DataFrame,
         y: Union[None, pd.Series, pd.DataFrame] = None,
         columns_to_encode: Union[None, int, str, List[Union[str, int]]] = None,
-        operations: Union[None, List[Callable]] = [np.mean],
+        operations: Union[None, List[Callable]] = None,
         weight_of_overall: Union[float, int] = 0.3,
         payload: dict = None,
     ):
+        """
+        Parameters
+        ----------
+        dataframe : pd.DataFrame
+             dataframe containing column values
+        y : Union[None, pd.Series, pd.DataFrame], optional
+            target column to use for encoding value creation, None
+        columns_to_encode : Union[None, int, str, List[Union[str, int]]], optional
+            Column names to encode, by default None
+        operations : Union[None, List[Callable]], optional
+            encoding operation to perform, by default [np.mean]
+        weight_of_overall : Union[float, int], optional
+            Categorical weight of importance, by default 0.3
+        payload : dict, optional
+            Alternate method to calculate values at a single go.
+            The payload can be sent in the form of a dict as
+            {'name of column to encode':{'name of column to encode over':['operation function one','operation function two']}}, by default None
+        """
 
         self.encoding_dict = {}
         self.payload = payload
+        operations = [np.mean] if operations==None else operations
         self.weight_of_overall = weight_of_overall
         if y is None:
             y = pd.DataFrame()
