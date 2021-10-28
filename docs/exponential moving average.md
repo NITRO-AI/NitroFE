@@ -4,7 +4,7 @@
 
 ![exponential_moving_feature](https://media.giphy.com/media/kittGjKLRM6IZJSmRK/giphy.gif)
 
-The exponential moving avergae is caluclated as
+The exponential moving average is caluclated as
 
 $$
 \operatorname{ema[0]} = dataframe[0]
