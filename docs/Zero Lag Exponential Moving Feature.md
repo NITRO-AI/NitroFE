@@ -2,8 +2,12 @@
 
 # Class ZeroLagExponentialMovingFeature
 
-![ZeroLagExponentialMovingFeature](https://media.giphy.com/media/lW7PIM2hbP0fMw0roa/giphy.gif)
+## Import
+`
+from NitroFe import ZeroLagExponentialMovingFeature
+`
 
+![ZeroLagExponentialMovingFeature](https://media.giphy.com/media/lW7PIM2hbP0fMw0roa/giphy.gif)
 
 The zero lag exponential moving average (ZLEMA) indicator was created by John Ehlers and Ric Way
 

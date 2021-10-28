@@ -2,6 +2,10 @@
 
 ## Class weighted_window_features
 
+## Import
+`
+from NitroFe import weighted_window_features
+`
 
 ::: NitroFE.time_based_features.moving_average_features.moving_average_features.weighted_window_features
     selection:

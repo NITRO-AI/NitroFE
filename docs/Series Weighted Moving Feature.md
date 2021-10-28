@@ -1,6 +1,11 @@
 
 # Class SeriesWeightedMovingFeature
 
+## Import
+`
+from NitroFe import SeriesWeightedMovingFeature
+`
+
 ![SeriesWeightedMovingFeature](https://media.giphy.com/media/rfnnNjPxRoOVfPy5p7/giphy.gif)
 
 

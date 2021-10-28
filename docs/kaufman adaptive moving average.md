@@ -2,8 +2,12 @@
 
 # Class KaufmanAdaptiveMovingAverage
 
-![kaufman_adaptive_moving_average](https://media.giphy.com/media/la1LKPepMbyCWd6HVv/giphy.gif)
+## Import
+`
+from NitroFe import KaufmanAdaptiveMovingAverage
+`
 
+![KaufmanAdaptiveMovingAverage](https://media.giphy.com/media/la1LKPepMbyCWd6HVv/giphy.gif)
 
 Kaufman's Adaptive Moving Average (KAMA) is a moving average designed to account for noise or volatility.
 

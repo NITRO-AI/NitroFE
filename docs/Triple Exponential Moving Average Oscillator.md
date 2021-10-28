@@ -2,6 +2,11 @@
 
 # Class TripleExponentialMovingAverageOscillator
 
+## Import
+`
+from NitroFe import TripleExponentialMovingAverageOscillator
+`
+
 ![TripleExponentialMovingAverageOscillator](https://media.giphy.com/media/wOC7i7lyqRwZkhnawu/giphy.gif)
 
 

@@ -2,8 +2,12 @@
 
 # Class RelativeStrengthIndex
 
-![RelativeStrengthIndex](https://media.giphy.com/media/588gu1EXpuqJxvl9mk/giphy.gif)
+## Import
+`
+from NitroFe import RelativeStrengthIndex
+`
 
+![RelativeStrengthIndex](https://media.giphy.com/media/588gu1EXpuqJxvl9mk/giphy.gif)
 
 The RSI is classified as a momentum oscillator, measuring the velocity and magnitude of price movements. Momentum is the rate of the rise or fall in price. 
 

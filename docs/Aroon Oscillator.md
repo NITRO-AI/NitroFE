@@ -1,7 +1,12 @@
 
-# Class AverageTrueRange
+# Class AroonOscillator
 
-![AverageTrueRange](https://media.giphy.com/media/4ZsySSakheySRgatvI/giphy.gif)
+## Import
+`
+from NitroFe import AroonOscillator
+`
+
+![AroonOscillator](https://media.giphy.com/media/4ZsySSakheySRgatvI/giphy.gif)
 
 
 The Aroon Oscillator is a trend-following indicator that uses aspects of the Aroon Indicator (Aroon Up and Aroon Down) to gauge the strength of a current trend and the likelihood that it will continue.

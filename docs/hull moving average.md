@@ -1,7 +1,12 @@
 
 # Class HullMovingFeature
 
-![hull_moving_feature](https://media.giphy.com/media/y9rdw8zH5dlYWBJkJI/giphy.gif)
+## Import
+`
+from NitroFe import HullMovingFeature
+`
+
+![HullMovingFeature](https://media.giphy.com/media/y9rdw8zH5dlYWBJkJI/giphy.gif)
 
 The Hull Moving Average (HMA), developed by Alan Hull, is an extremely fast and smooth moving average.
 

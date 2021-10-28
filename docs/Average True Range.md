@@ -1,8 +1,12 @@
 
 # Class AverageTrueRange
 
-![AverageTrueRange](https://media.giphy.com/media/AQpueYRD0K39d5veh7/giphy.gif)
+## Import
+`
+from NitroFe import AverageTrueRange
+`
 
+![AverageTrueRange](https://media.giphy.com/media/AQpueYRD0K39d5veh7/giphy.gif)
 
 Average true range is a  volatility indicator.The indicator does not provide an indication of price trend,
 simply the degree of volatility.The average true range is an N-period smoothed moving average of the true range values.

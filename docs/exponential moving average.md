@@ -2,7 +2,12 @@
 
 # Class ExponentialMovingFeature
 
-![exponential_moving_feature](https://media.giphy.com/media/kittGjKLRM6IZJSmRK/giphy.gif)
+## Import
+`
+from NitroFe import ExponentialMovingFeature
+`
+
+![ExponentialMovingFeature](https://media.giphy.com/media/kittGjKLRM6IZJSmRK/giphy.gif)
 
 The exponential moving average is caluclated as
 

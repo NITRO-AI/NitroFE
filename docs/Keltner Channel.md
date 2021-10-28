@@ -1,8 +1,12 @@
 
 # Class KeltnerChannel
 
-![KeltnerChannel](https://media.giphy.com/media/liXYyVogt1wmwkkSqd/giphy.gif)
+## Import
+`
+from NitroFe import KeltnerChannel
+`
 
+![KeltnerChannel](https://media.giphy.com/media/liXYyVogt1wmwkkSqd/giphy.gif)
 
 keltner channel (KC) is calculated as 
 

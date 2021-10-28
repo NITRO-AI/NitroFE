@@ -3,7 +3,12 @@
 
 # Class TripleExponentialMovingFeature
 
-![kaufman_adaptive_moving_average](https://media.giphy.com/media/tyuKYKt8qe2dbP1Fqn/giphy.gif)
+## Import
+`
+from NitroFe import TripleExponentialMovingFeature
+`
+
+![TripleExponentialMovingFeature](https://media.giphy.com/media/tyuKYKt8qe2dbP1Fqn/giphy.gif)
 
 The Triple exponential moving average (TEMA) was designed to smooth value fluctuations,
 thereby making it easier to identify trends without the lag associated with traditional moving averages (MA).

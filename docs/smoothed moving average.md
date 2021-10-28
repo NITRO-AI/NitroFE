@@ -2,7 +2,12 @@
 
 # Class SmoothedMovingAverage
 
-![smoothed_moving_average](https://media.giphy.com/media/LqMwgXOw1hMXgi5hGs/giphy.gif)
+## Import
+`
+from NitroFe import SmoothedMovingAverage
+`
+
+![SmoothedMovingAverage](https://media.giphy.com/media/LqMwgXOw1hMXgi5hGs/giphy.gif)
 
 The Smoothed Moving Average (SMMA) is a combination of a SMA and an EMA.
 It gives the recent values an equal weighting as the historic prices as it takes all available price data into account.

@@ -2,7 +2,12 @@
 
 # Class FractalAdaptiveMovingAverage
 
-![kaufman_adaptive_moving_average](https://media.giphy.com/media/aWukNCTgI8nB1TagAC/giphy.gif)
+## Import
+`
+from NitroFe import FractalAdaptiveMovingAverage
+`
+
+![FractalAdaptiveMovingAverage](https://media.giphy.com/media/aWukNCTgI8nB1TagAC/giphy.gif)
 
 Fractal Adaptive Moving Average Technical Indicator (FRAMA) was developed by John Ehlers.
 This indicator is constructed based on the algorithm of the Exponential Moving Average,

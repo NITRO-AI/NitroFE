@@ -2,6 +2,11 @@
 
 # Class AbsolutePriceOscillator
 
+## Import
+`
+from NitroFe import AbsolutePriceOscillator
+`
+
 ![AbsolutePriceOscillator](https://media.giphy.com/media/CUFxB3z16aTJtXrsSW/giphy.gif)
 
 

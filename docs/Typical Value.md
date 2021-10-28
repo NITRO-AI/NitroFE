@@ -2,8 +2,12 @@
 
 # Class TypicalValue
 
-![TypicalValue](https://media.giphy.com/media/kwABekFGGfQylsk50W/giphy.gif)
+## Import
+`
+from NitroFe import TypicalValue
+`
 
+![TypicalValue](https://media.giphy.com/media/kwABekFGGfQylsk50W/giphy.gif)
 
 Typical value is calculated as
 

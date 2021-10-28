@@ -3,6 +3,11 @@
 
 # Class KaufmanEfficiency
 
+## Import
+`
+from NitroFe import KaufmanEfficiency
+`
+
 ![KaufmanEfficiency](https://media.giphy.com/media/dlaAsgQ74zJA3U3ARb/giphy.gif)
 
 It is calculated by dividing the net change in price movement over 'lookback_period' periods,

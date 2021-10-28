@@ -1,6 +1,11 @@
 
 # Class AverageDirectionalMovementIndex
 
+## Import
+`
+from NitroFe import AverageDirectionalMovementIndex
+`
+
 ![AverageDirectionalMovementIndex](https://media.giphy.com/media/grrI4t2AqnVf6YJaUy/giphy.gif)
 
 The average directional index (ADX) is a technical analysis indicator used by some traders to determine the strength of a trend.

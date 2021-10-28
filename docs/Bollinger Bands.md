@@ -2,8 +2,12 @@
 
 # Class BollingerBands
 
-![BollingerBands](https://media.giphy.com/media/dS8KB6cIGLa0sLr2bN/giphy.gif)
+## Import
+`
+from NitroFe import BollingerBands
+`
 
+![BollingerBands](https://media.giphy.com/media/dS8KB6cIGLa0sLr2bN/giphy.gif)
 
 Bollinger Bands are a type of statistical chart characterizing the prices and volatility over time of a financial instrument or commodity, using a formulaic method propounded by John Bollinger in the 1980s. 
 

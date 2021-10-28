@@ -1,8 +1,12 @@
 
 # Class SeriesWeightedAverage
 
-![SeriesWeightedAverage](https://media.giphy.com/media/4bgFEo3yfEzHX7LyqB/giphy.gif)
+## Import
+`
+from NitroFe import SeriesWeightedAverage
+`
 
+![SeriesWeightedAverage](https://media.giphy.com/media/4bgFEo3yfEzHX7LyqB/giphy.gif)
 
 series_weighted_average
 This feature is an implementation of volume weighted moving average

@@ -2,6 +2,11 @@
 
 # Class InverseFisherRelativeStrengthIndex
 
+## Import
+`
+from NitroFe import InverseFisherRelativeStrengthIndex
+`
+
 ![InverseFisherRelativeStrengthIndex](https://media.giphy.com/media/5NiDV7lIFuIzormSzv/giphy.gif)
 
 

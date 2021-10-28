@@ -2,6 +2,11 @@
 
 # Class PercentageValueOscillator
 
+## Import
+`
+from NitroFe import PercentageValueOscillator
+`
+
 ![PercentageValueOscillator](https://media.giphy.com/media/pYs30P7XQcEZImCUIg/giphy.gif)
 
 The percentage price oscillator (PPO) is a technical momentum indicator that shows the relationship between two moving averages in percentage terms. 
