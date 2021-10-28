@@ -8,3 +8,7 @@ __pycache__/
 *.py[cod]
 .env
 site
+
+site
+
+.vscode

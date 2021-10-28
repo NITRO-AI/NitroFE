@@ -1,5 +1,6 @@
 from pandas.core.series import Series
-from weighted_windows import (
+
+from NitroFE.time_based_features.weighted_window_features.weighted_windows import (
     _barthann_window,
     _bartlett_window,
     _equal_window,
@@ -128,7 +129,7 @@ class weighted_window_features:
         first_fit: bool = True,
         window: int = 3,
         min_periods: int = 1,
-        operation: Callable = np.sum,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -136,7 +137,7 @@ class weighted_window_features:
 
         A weighted average is an average that has multiplying factors to give different weights to data at different positions in the sample window.
         Mathematically, the weighted moving average is the convolution of the data with a fixed weighting function. 
-        In an n-day WMA the latest day has weight n, the second latest n-1, etc., down to one
+        In an n-day WMA the latest day has weight n, the second latest n-1, etc, down to one
 
         Parameters
         ----------
@@ -151,20 +152,14 @@ class weighted_window_features:
             Size of the rolling window, by default 3
         min_periods : int, optional
             Minimum number of observations in window required to have a value, by default 1
-        symmetric : bool, optional
-            When True , generates a symmetric window, for use in filter design. When False,
-            generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.sum is used
         operation_args : tuple, optional
             additional agrument values to be sent for self defined operation function
 
-        References
-        -----
-        .. [1] Wikipedia, "Weighted Window function",
-            https://en.wikipedia.org/wiki/Moving_average#Weighted_moving_average
-
         """
+                    
+        operation=np.sum if operation==None else operation
         _function_name = "caluclate_weighted_moving_window_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -185,7 +180,7 @@ class weighted_window_features:
         window: int = 3,
         min_periods: int = 1,
         symmetric: bool = False,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -208,16 +203,12 @@ class weighted_window_features:
             When True , generates a symmetric window, for use in filter design. When False,
             generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
 
-        References
-        -----
-        .. [1] Wikipedia, "Window function",
-            https://en.wikipedia.org/wiki/Window_function#Bartlett%E2%80%93Hann_window
-
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_barthann_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -238,7 +229,7 @@ class weighted_window_features:
         window: int = 3,
         min_periods: int = 1,
         symmetric: bool = False,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -261,15 +252,11 @@ class weighted_window_features:
             When True , generates a symmetric window, for use in filter design. When False,
             generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+           operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
-
-        References
-        -----
-        .. [1] Center for Computer Research in Music and Acoustics, "Bartlett (``Triangular'') Window",
-            https://ccrma.stanford.edu/~jos/sasp/Bartlett_Triangular_Window.html
-        """
+        """       
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_bartlett_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -289,7 +276,7 @@ class weighted_window_features:
         first_fit: bool = True,
         window: int = 3,
         min_periods: int = 1,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -310,11 +297,12 @@ class weighted_window_features:
         min_periods : int, optional
             Minimum number of observations in window required to have a value, by default 1
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
 
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_equal_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -335,7 +323,7 @@ class weighted_window_features:
         window: int = 3,
         min_periods: int = 1,
         symmetric: bool = False,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -358,15 +346,11 @@ class weighted_window_features:
             When True , generates a symmetric window, for use in filter design. When False,
             generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
-
-        References
-        -----
-        .. [1] Wikipedia, "Window function",
-            https://en.wikipedia.org/wiki/Window_function#Blackman_window
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_blackman_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -387,7 +371,7 @@ class weighted_window_features:
         window: int = 3,
         min_periods: int = 1,
         symmetric: bool = False,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -410,15 +394,11 @@ class weighted_window_features:
             When True , generates a symmetric window, for use in filter design. When False,
             generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
-
-        References
-        -----
-        .. [1] Wikipedia, "Window function",
-            https://en.wikipedia.org/wiki/Window_function#Blackman%E2%80%93Harris_window
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_blackmanharris_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -439,7 +419,7 @@ class weighted_window_features:
         window: int = 3,
         min_periods: int = 1,
         symmetric: bool = False,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -462,16 +442,11 @@ class weighted_window_features:
             When True , generates a symmetric window, for use in filter design. When False,
             generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
-
-        References
-        -----
-        .. [1] mathworks, "bohmanwin",
-            https://www.mathworks.com/help/signal/ref/bohmanwin.html
-
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_bohman_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -492,7 +467,7 @@ class weighted_window_features:
         window: int = 3,
         min_periods: int = 1,
         symmetric: bool = False,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -515,16 +490,12 @@ class weighted_window_features:
             When True , generates a symmetric window, for use in filter design. When False,
             generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
 
-        References
-        -----
-        .. [1] Wikipedia, "Window function",
-            https://en.wikipedia.org/wiki/Window_function#Power-of-sine/cosine_windows
-
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_cosine_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -545,7 +516,7 @@ class weighted_window_features:
         window: int = 3,
         min_periods: int = 1,
         symmetric: bool = False,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
         center: float = None,
         tau: float = 1,
@@ -570,7 +541,7 @@ class weighted_window_features:
             When True , generates a symmetric window, for use in filter design. When False,
             generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
         center : float , optional
@@ -579,12 +550,8 @@ class weighted_window_features:
         tau : float , optional
             Parameter defining the decay. For center = 0 use tau = -(M-1) / ln(x) if x is the fraction of the window remaining at the end, by default 1
 
-        References
-        -----
-        .. [1] Wikipedia, "Window function",
-            https://en.wikipedia.org/wiki/Window_function#Exponential_or_Poisson_window
-
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_exponential_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -607,7 +574,7 @@ class weighted_window_features:
         window: int = 3,
         min_periods: int = 1,
         symmetric: bool = False,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -630,16 +597,12 @@ class weighted_window_features:
             When True , generates a symmetric window, for use in filter design. When False,
             generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
 
-        References
-        -----
-        .. [1] mathworks, "flattopwin",
-            https://in.mathworks.com/help/signal/ref/flattopwin.html
-
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_flattop_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -660,7 +623,7 @@ class weighted_window_features:
         window: int = 3,
         min_periods: int = 1,
         symmetric: bool = False,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
         std: float = 1,
     ):
@@ -684,18 +647,14 @@ class weighted_window_features:
             When True , generates a symmetric window, for use in filter design. When False,
             generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
         std : float, optional
             The standard deviation, sigma.
 
-        References
-        -----
-        .. [1] Wikipedia, "Window function",
-            https://en.wikipedia.org/wiki/Window_function#Gaussian_window
-
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_gaussian_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -717,7 +676,7 @@ class weighted_window_features:
         window: int = 3,
         min_periods: int = 1,
         symmetric: bool = False,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -740,16 +699,12 @@ class weighted_window_features:
             When True , generates a symmetric window, for use in filter design. When False,
             generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
 
-        References
-        -----
-        .. [1] Wikipedia, "Window function",
-            https://en.wikipedia.org/wiki/Window_function#Gaussian_window
-
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_hamming_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -770,7 +725,7 @@ class weighted_window_features:
         window: int = 3,
         min_periods: int = 1,
         symmetric: bool = False,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -793,16 +748,12 @@ class weighted_window_features:
             When True , generates a symmetric window, for use in filter design. When False,
             generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
 
-        References
-        -----
-        .. [1] Wikipedia, "Hann function",
-            https://en.wikipedia.org/wiki/Hann_function
-
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_hann_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -824,7 +775,7 @@ class weighted_window_features:
         min_periods: int = 1,
         symmetric: bool = False,
         beta: float = 7,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -850,15 +801,11 @@ class weighted_window_features:
             Shape parameter, determines trade-off between main-lobe width and side lobe level, by default 7
             As beta gets large, the window narrows.
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
-
-        References
-        -----
-        .. [1] Wikipedia, "Kaiser window",
-            https://en.wikipedia.org/wiki/Kaiser_window
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_kaiser_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -880,7 +827,7 @@ class weighted_window_features:
         window: int = 3,
         min_periods: int = 1,
         symmetric: bool = False,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -903,15 +850,12 @@ class weighted_window_features:
             When True , generates a symmetric window, for use in filter design. When False,
             generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
-        References
-        -----
-        .. [1] Wikipedia, "Parzen function",
-            https://en.wikipedia.org/wiki/Window_function#Parzen_window
 
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_parzen_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -932,7 +876,7 @@ class weighted_window_features:
         window: int = 3,
         min_periods: int = 1,
         symmetric: bool = False,
-        operation: Callable = np.mean,
+        operation: Callable = None,
         operation_args: tuple = (),
     ):
         """
@@ -955,16 +899,12 @@ class weighted_window_features:
             When True , generates a symmetric window, for use in filter design. When False,
             generates a periodic window, for use in spectral analysis, by default False
         operation : Callable, optional
-            operation to perform over the weighted rolling window values, by default np.mean
+            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
 
-        References
-        -----
-        .. [1] Wikipedia, "triang function",
-            https://en.wikipedia.org/wiki/Window_function#Parzen_window
-
         """
+        operation=np.mean if operation==None else operation
         _function_name = "caluclate_triang_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -977,5 +917,4 @@ class weighted_window_features:
             operation=operation,
             operation_args=operation_args,
         )
-
 
