@@ -1,4 +1,4 @@
-![zoofs Logo Header](asserts/NitroFE-logos.jpeg)
+![zoofs Logo Header](asserts/rescaled_logo.jpeg)
 
 # NitroFE ( Nitro Feature Engineering )
 
