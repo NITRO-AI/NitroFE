@@ -72,17 +72,16 @@ class ExponentialMovingFeature:
         self.initialize_span = initialize_span
 
     def _perform_temp_operation(self, x):
-        _return = (
-            x.mean()
-            if self.operation == "mean"
-            else x.var()
-            if self.operation == "var"
-            else x.std()
-            if self.operation == "std"
-            else None
-        )
-        if _return is None:
+        
+        if self.operation == "mean":
+            _return = x.mean()
+        elif self.operation == "var":
+            _return = x.var()
+        elif self.operation == "std":
+            _return = x.std()
+        else:
             raise ValueError(f"Operation {self.operation} not supported")
+            
         return _return
 
     def fit(self, dataframe: Union[pd.DataFrame, pd.Series], first_fit: bool = True):
