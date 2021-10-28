@@ -61,7 +61,7 @@ NitroFe provides a rich variety of features which are inspired and translated fr
 
 ## [Moving average features](https://nitro-ai.github.io/NitroFE/moving%20average%20features/)
 
-![exponential_moving_feature](https://media.giphy.com/media/iYTXFJofI7I987H92k/giphy-downsized-large.gif)
+![exponential_moving_feature](https://media.giphy.com/media/f67U9Xc53i4ViUs5T2/giphy-downsized-large.gif)
 
 In statistics, a moving average (rolling average or running average) is a calculation to analyze data points by creating a series of averages of different subsets of the full data set. NitroFE provides an array of variety of moving averages type for you to utilize.
 
