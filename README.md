@@ -40,6 +40,8 @@ The Time based domain is divided into 'Moving average features', 'Weighted windo
 
 ## [Indicators based Features](https://nitro-ai.github.io/NitroFE/indicators%20features/)
 
+![Time based Features](https://media.giphy.com/media/XfmGjCqHUVSrTrfxIU/giphy.gif)
+
 NitroFe provides a rich variety of features which are inspired and translated from market indicators.
 * [Absolute Price Oscillator](https://nitro-ai.github.io/NitroFE/Absolute%20Price%20Oscillator/)
 * [Percentage price oscillator](https://nitro-ai.github.io/NitroFE/Percentage%20Value%20Oscillator/)
@@ -58,6 +60,8 @@ NitroFe provides a rich variety of features which are inspired and translated fr
 * [Keltner channel](https://nitro-ai.github.io/NitroFE/Keltner%20Channel/)
 
 ## [Moving average features](https://nitro-ai.github.io/NitroFE/moving%20average%20features/)
+
+![exponential_moving_feature](https://media.giphy.com/media/iYTXFJofI7I987H92k/giphy-downsized-large.gif)
 
 In statistics, a moving average (rolling average or running average) is a calculation to analyze data points by creating a series of averages of different subsets of the full data set. NitroFE provides an array of variety of moving averages type for you to utilize.
 
