@@ -412,7 +412,7 @@ FAMA[t] = A[t] * dataframe[t] + (1 - A[t]) * FAMA[t-1]
   </tbody>
 </table>
         <details class="quote">
-          <summary>Source code in <code>time_based_features\moving_average_features\moving_average_features.py</code></summary>
+          <summary>Source code in <code>nitrofe\time_based_features\moving_average_features\moving_average_features.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lookback_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">min_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters</span>
@@ -475,7 +475,7 @@ were saved during the last phase, will be utilized for calculation }, by default
   </tbody>
 </table>
         <details class="quote">
-          <summary>Source code in <code>time_based_features\moving_average_features\moving_average_features.py</code></summary>
+          <summary>Source code in <code>nitrofe\time_based_features\moving_average_features\moving_average_features.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">],</span> <span class="n">first_fit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    For your training/initial fit phase (very first fit) use fit_first=True, and for any production/test implementation pass fit_first=False</span>

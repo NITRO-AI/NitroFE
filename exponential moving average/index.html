@@ -321,7 +321,7 @@
                 
                 <h1 id="class-exponentialmovingfeature">Class ExponentialMovingFeature</h1>
 <p><img alt="exponential_moving_feature" src="https://media.giphy.com/media/kittGjKLRM6IZJSmRK/giphy.gif" /></p>
-<p>The exponential moving avergae is caluclated as</p>
+<p>The exponential moving average is caluclated as</p>
 <div class="arithmatex">\[
 \operatorname{ema[0]} = dataframe[0]
 \]</div>
@@ -460,7 +460,7 @@ in which case the exponential moving avergae will be calculated as</p>
   </tbody>
 </table>
         <details class="quote">
-          <summary>Source code in <code>time_based_features\moving_average_features\moving_average_features.py</code></summary>
+          <summary>Source code in <code>nitrofe\time_based_features\moving_average_features\moving_average_features.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -566,7 +566,7 @@ were saved during the last phase, will be utilized for calculation }, by default
   </tbody>
 </table>
         <details class="quote">
-          <summary>Source code in <code>time_based_features\moving_average_features\moving_average_features.py</code></summary>
+          <summary>Source code in <code>nitrofe\time_based_features\moving_average_features\moving_average_features.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">],</span> <span class="n">first_fit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    For your training/initial fit phase (very first fit) use fit_first=True, and for any production/test implementation pass fit_first=False</span>
@@ -626,17 +626,7 @@ were saved during the last phase, will be utilized for calculation }, by default
         <span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">,</span>
         <span class="n">times</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">_return</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">_dataframe</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;mean&quot;</span>
-        <span class="k">else</span> <span class="n">_dataframe</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;var&quot;</span>
-        <span class="k">else</span> <span class="n">_dataframe</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;std&quot;</span>
-        <span class="k">else</span> <span class="kc">None</span>
-    <span class="p">)</span>
-    <span class="k">if</span> <span class="n">_return</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Operation </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">operation</span><span class="si">}</span><span class="s2"> not supported&quot;</span><span class="p">)</span>
+    <span class="n">_return</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perform_temp_operation</span><span class="p">(</span><span class="n">_dataframe</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">first_fit</span><span class="p">:</span>
         <span class="n">_return</span> <span class="o">=</span> <span class="n">_return</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>

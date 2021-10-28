@@ -278,6 +278,9 @@
                 
                 <h1 id="time-based-features">Time based Features</h1>
 <p><img alt="Time based Features" src="https://media.giphy.com/media/xTk9Zx0YYJJqjZN4xa/giphy-downsized.gif" /></p>
+<p>Indicator / windows / moving averages features are dependent on past values for calculation, e.g. a rolling window of size 4 is dependent on past 4 values.</p>
+<p>While creating such features during training is quite straighforward , taking it to production becomes challenging as it would requires one to externally save and implement logic. Creating indicators becomes even more complex as they are dependent on several other differently sized window components.</p>
+<p>NitroFE internally handles saving past dependant values, and makes feature creation hassle free. Just use <strong>fit_first=True</strong> for your initial fit</p>
 <p>NitroFE divides time based domain into 'Moving average features', 'Weighted window features' and 'indicator based features'</p>
 <ul>
 <li><a href="../indicators%20features/">indicators features</a></li>
