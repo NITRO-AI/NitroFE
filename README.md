@@ -34,7 +34,7 @@ While creating such features during training is quite straighforward , taking it
 
 NitroFE internally handles saving past dependant values, and makes feature creation hassle free. Just use **fit_first=True** for your initial fit
 
-The Time based domain into 'Moving average features', 'Weighted window features' and 'indicator based features'
+The Time based domain is divided into 'Moving average features', 'Weighted window features' and 'indicator based features'
 
 ## [Indicators based Features](https://nitro-ai.github.io/NitroFE/indicators%20features/)
 
