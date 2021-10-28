@@ -2,7 +2,7 @@ from setuptools import setup
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 setup(name='NitroFE',
-      version='0.0.1',
+      version='0.0.2',
       url='https://github.com/NITRO-AI/NitroFE',
       license='Apache License 2.0',
       packages=['NitroFE'],
@@ -15,5 +15,4 @@ setup(name='NitroFE',
 		"numpy",
 		"scipy",
         "plotly"
-		],
-      )
+		])
