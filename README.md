@@ -24,6 +24,8 @@ pip install NitroFE
 
 # Available feature domains
 
+* Jump right in with an introduction [![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/1LDM9er9x7NJogRlHkRcLB4bhU1mK0l-9?usp=sharing)
+
 ## [Time based Features](https://nitro-ai.github.io/NitroFE/Time%20based%20features/)
 
 ![Time based Features](https://media.giphy.com/media/xTk9Zx0YYJJqjZN4xa/giphy-downsized.gif)
