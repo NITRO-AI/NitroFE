@@ -143,17 +143,7 @@ class ExponentialMovingFeature:
             axis=self.axis,
             times=self.times,
         )
-        _return = (
-            _dataframe.mean()
-            if self.operation == "mean"
-            else _dataframe.var()
-            if self.operation == "var"
-            else _dataframe.std()
-            if self.operation == "std"
-            else None
-        )
-        if _return is None:
-            raise ValueError(f"Operation {self.operation} not supported")
+        _return = self._perform_temp_operation(_dataframe)
 
         if not first_fit:
             _return = _return.iloc[1:]
