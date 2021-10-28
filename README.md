@@ -6,7 +6,7 @@
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=NITRO-AI_NitroFE)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=security_rating)](https://sonarcloud.io/dashboard?id=NITRO-AI_NitroFE)
 
-``NitroFE`` is a Python feature engineering engine which provides a variety of feature engineering modules designed to handle continous calcualtion.
+``NitroFE`` is a Python feature engineering engine which provides a variety of feature engineering modules designed to handle continuous calculation.
 
 ## Documentation
 https://nitro-ai.github.io/NitroFE/
