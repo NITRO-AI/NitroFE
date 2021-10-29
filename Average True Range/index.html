@@ -333,13 +333,13 @@
 <p>Average true range is a  volatility indicator.The indicator does not provide an indication of price trend,
 simply the degree of volatility.The average true range is an N-period smoothed moving average of the true range values.</p>
 <div class="arithmatex">\[
-first\_range[t]=  \max{(dataframe[t-true\_range\_lookback \to t]} -\min{dataframe[t-true\_range\_lookback \to t])}
+first\_range[t]=  \max{(dataframe[t-true\_range\_lookback \to t])} -\min{(dataframe[t-true\_range\_lookback \to t])}
 \]</div>
 <div class="arithmatex">\[
-second\_range[t]=  |{\max{(dataframe[t-true\_range\_lookback \to t]} - dataframe[t] )}|
+second\_range[t]=  |{\max{(dataframe[t-true\_range\_lookback \to t])} - dataframe[t] )}|
 \]</div>
 <div class="arithmatex">\[
-third\_range[t]=  |{\min{(dataframe[t-true\_range\_lookback \to t]} - dataframe[t] )}|
+third\_range[t]=  |{\min{(dataframe[t-true\_range\_lookback \to t])} - dataframe[t] )}|
 \]</div>
 <div class="arithmatex">\[
 True\_Range[t] = \max{ (first\_range[t], second\_range[t], third\_range[t]) }

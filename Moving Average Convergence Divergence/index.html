@@ -327,6 +327,9 @@
                 
                 
                 <h1 id="class-movingaverageconvergencedivergence">Class MovingAverageConvergenceDivergence</h1>
+<ul>
+<li>Jump right in for a hands-on <a href="https://colab.research.google.com/drive/1Haj2YNNp36emN47ok9J7fhXGiQUgYIac?usp=sharing"><img alt="Open In Colab" src="https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" /></a></li>
+</ul>
 <h2 id="import">Import</h2>
 <p><code>from NitroFe import MovingAverageConvergenceDivergence</code></p>
 <p><img alt="MovingAverageConvergenceDivergence" src="https://media.giphy.com/media/YxGDsuUB8WkHnCnLXE/giphy.gif" /></p>
@@ -370,7 +373,7 @@ Moving average \ convergence \ divergence \ histogram = (Absolute \ Price \ Osci
 
 
 <h2 id="NitroFE.time_based_features.indicator_features._MovingAverageConvergenceDivergence.MovingAverageConvergenceDivergence.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fast_period</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">slow_period</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">smoothing_period</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">fast_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">slow_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">smoothing_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">initialize_using_operation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">initialize_span</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_histogram</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fast_period</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">slow_period</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">smoothing_period</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">fast_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">slow_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">smoothing_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">initialize_using_operation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">initialize_span</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_histogram</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
@@ -396,13 +399,13 @@ Moving average \ convergence \ divergence \ histogram = (Absolute \ Price \ Osci
         <td><code>fast_period</code></td>
         <td><code>int</code></td>
         <td><p>specify decay in terms of span, for the fast moving feature, by default 12</p></td>
-        <td><code>12</code></td>
+        <td><code>26</code></td>
       </tr>
       <tr>
         <td><code>slow_period</code></td>
         <td><code>int</code></td>
         <td><p>specify decay in terms of span, for the slow moving feature, by default 26</p></td>
-        <td><code>26</code></td>
+        <td><code>12</code></td>
       </tr>
       <tr>
         <td><code>smoothing_period</code></td>
@@ -470,8 +473,8 @@ Moving average \ convergence \ divergence \ histogram = (Absolute \ Price \ Osci
           <summary>Source code in <code>nitrofe\time_based_features\indicator_features\_movingaverageconvergencedivergence.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">fast_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
-    <span class="n">slow_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">26</span><span class="p">,</span>
+    <span class="n">fast_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">26</span><span class="p">,</span>
+    <span class="n">slow_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
     <span class="n">smoothing_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span>
     <span class="n">fast_operation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
     <span class="n">slow_operation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
