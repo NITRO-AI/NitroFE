@@ -6,7 +6,8 @@
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=NITRO-AI_NitroFE)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=security_rating)](https://sonarcloud.io/dashboard?id=NITRO-AI_NitroFE)
 
-``NitroFE`` is a Python feature engineering engine which provides a variety of feature engineering modules designed to handle continuous calculation.
+``NitroFE`` is a Python feature engineering engine which provides a variety of modules designed to internally save past dependent values for providing continuous calculation.
+
 
 ## Documentation
 https://nitro-ai.github.io/NitroFE/
@@ -24,13 +25,13 @@ pip install NitroFE
 
 # Available feature domains
 
-## [Time based Features](https://nitro-ai.github.io/NitroFE/Time%20based%20features/)
+# [Time based Features](https://nitro-ai.github.io/NitroFE/Time%20based%20features/)
 
 ![Time based Features](https://media.giphy.com/media/xTk9Zx0YYJJqjZN4xa/giphy-downsized.gif)
 
 Indicator / windows / moving averages features are dependent on past values for calculation, e.g. a rolling window of size 4 is dependent on past 4 values.
 
-While creating such features during training is quite straighforward , taking it to production becomes challenging as it would requires one to externally save and implement logic. Creating indicators becomes even more complex as they are dependent on several other differently sized window components.
+While creating such features during training is quite straighforward , taking it to production becomes challenging as it would requires one to externally save past values and implement logic. Creating indicators becomes even more complex as they are dependent on several other differently sized window components.
 
 NitroFE internally handles saving past dependant values, and makes feature creation hassle free. Just use **first_fit=True** for your initial fit
 
@@ -40,7 +41,7 @@ The Time based domain is divided into 'Moving average features', 'Weighted windo
 
 ## [Indicators based Features](https://nitro-ai.github.io/NitroFE/indicators%20features/)
 
-![Time based Features](https://media.giphy.com/media/XfmGjCqHUVSrTrfxIU/giphy.gif)
+![Time based Features](https://media.giphy.com/media/8gNQZ9IpkcdiAjfOgN/giphy.gif)
 
 NitroFe provides a rich variety of features which are inspired and translated from market indicators.
 * [Absolute Price Oscillator](https://nitro-ai.github.io/NitroFE/Absolute%20Price%20Oscillator/)
@@ -74,4 +75,4 @@ In statistics, a moving average (rolling average or running average) is a calcul
 
 ## [Weighted window Features](https://nitro-ai.github.io/NitroFE/weighted%20window%20features/)
 
-NitroFe provides easy to use functions to creatind weighted window features 
+NitroFe provides easy to use functions to create specified weighted window featuresm and send custom operations as per your need
