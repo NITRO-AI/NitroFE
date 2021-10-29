@@ -339,7 +339,10 @@ Fast \ exponential \ moving \ feature \ (FEMF) = Exponential \ moving \ feature 
 Slow \ exponential \ moving \ feature \ (SEMF) = Exponential \ moving \ feature \ of \ 'slow\_period' \ span
 \]</div>
 <div class="arithmatex">\[
-Percentage \ Value \ Oscillator =  \frac{SEMF - FEMF}{FEMF}
+Raw \ Percentage \ Value \ Oscillator =  \frac{SEMF - FEMF}{FEMF}
+\]</div>
+<div class="arithmatex">\[
+Percentage \ Value \ Oscillator =  Exponential \ moving \ feature \ of \  'smoothing\_period' \ span \ over \ 'Raw \ Percentage \ Value \ Oscillator'
 \]</div>
 <h2 id="methods">Methods</h2>
 
@@ -369,7 +372,7 @@ Percentage \ Value \ Oscillator =  \frac{SEMF - FEMF}{FEMF}
 
 
 <h2 id="NitroFE.time_based_features.indicator_features._PercentageValueOscillator.PercentageValueOscillator.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fast_period</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">slow_period</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">fast_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">slow_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">initialize_using_operation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">initialize_span</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fast_period</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">slow_period</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">smoothing_period</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">fast_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">slow_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">initialize_using_operation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">initialize_span</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
@@ -402,6 +405,12 @@ Percentage \ Value \ Oscillator =  \frac{SEMF - FEMF}{FEMF}
         <td><code>int</code></td>
         <td><p>specify decay in terms of span, for the slow moving feature, by default 8</p></td>
         <td><code>8</code></td>
+      </tr>
+      <tr>
+        <td><code>smoothing_period</code></td>
+        <td><code>int</code></td>
+        <td><p>specify decay in terms of span, for the smoothing ema, by default 9</p></td>
+        <td><code>9</code></td>
       </tr>
       <tr>
         <td><code>fast_operation</code></td>
@@ -453,6 +462,7 @@ Percentage \ Value \ Oscillator =  \frac{SEMF - FEMF}{FEMF}
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">fast_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
     <span class="n">slow_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="n">smoothing_period</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span>
     <span class="n">fast_operation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
     <span class="n">slow_operation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
     <span class="n">initialize_using_operation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -469,6 +479,8 @@ Percentage \ Value \ Oscillator =  \frac{SEMF - FEMF}{FEMF}
 <span class="sd">        specify decay in terms of span, for the fast moving feature , by default 4</span>
 <span class="sd">    slow_period : int, optional</span>
 <span class="sd">        specify decay in terms of span, for the slow moving feature, by default 8</span>
+<span class="sd">    smoothing_period : int , optional</span>
+<span class="sd">        specify decay in terms of span, for the smoothing ema, by default 9</span>
 <span class="sd">    fast_operation : str, optional</span>
 <span class="sd">        operation to be performed for the fast moving feature, by default &#39;mean&#39;</span>
 <span class="sd">    slow_operation : str, optional</span>
@@ -486,6 +498,7 @@ Percentage \ Value \ Oscillator =  \frac{SEMF - FEMF}{FEMF}
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">span_fast</span> <span class="o">=</span> <span class="n">fast_period</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">span_slow</span> <span class="o">=</span> <span class="n">slow_period</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">span_smoothing</span><span class="o">=</span><span class="n">smoothing_period</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">min_periods</span> <span class="o">=</span> <span class="n">min_periods</span>
 
@@ -588,11 +601,21 @@ were saved during the last phase, will be utilized for calculation }, by default
             <span class="n">times</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">,</span>
             <span class="n">operation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">slow_operation</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_smoothing_object</span> <span class="o">=</span> <span class="n">ExponentialMovingFeature</span><span class="p">(</span>
+            <span class="n">span</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">span_smoothing</span><span class="p">,</span>
+            <span class="n">initialize_using_operation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">initialize_using_operation</span><span class="p">,</span>
+            <span class="n">initialize_span</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">initialize_span</span><span class="p">,</span>
+            <span class="n">ignore_na</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ignore_na</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">,</span>
+            <span class="n">times</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">,</span>
+            <span class="n">operation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">slow_operation</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="n">fast_em</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fast_em_object</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataframe</span><span class="o">=</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">first_fit</span><span class="o">=</span><span class="n">first_fit</span><span class="p">)</span>
     <span class="n">slow_em</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slow_em_object</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataframe</span><span class="o">=</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">first_fit</span><span class="o">=</span><span class="n">first_fit</span><span class="p">)</span>
 
     <span class="n">res</span> <span class="o">=</span> <span class="p">(</span><span class="n">slow_em</span> <span class="o">-</span> <span class="n">fast_em</span><span class="p">)</span> <span class="o">/</span> <span class="n">slow_em</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_smoothing_object</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataframe</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="n">first_fit</span><span class="o">=</span><span class="n">first_fit</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">res</span>
 </code></pre></div>
         </details>

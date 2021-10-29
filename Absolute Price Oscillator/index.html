@@ -327,6 +327,9 @@
                 
                 
                 <h1 id="class-absolutepriceoscillator">Class AbsolutePriceOscillator</h1>
+<ul>
+<li>Jump right in for a hands-on <a href="https://colab.research.google.com/drive/1NQ8j5kXuuONVHsjTs2MNLmfEfQR6id0S?usp=sharing"><img alt="Open In Colab" src="https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" /></a></li>
+</ul>
 <h2 id="import">Import</h2>
 <p><code>from NitroFe import AbsolutePriceOscillator</code></p>
 <p><img alt="AbsolutePriceOscillator" src="https://media.giphy.com/media/CUFxB3z16aTJtXrsSW/giphy.gif" /></p>
@@ -368,7 +371,7 @@ Absolute \ Price \ Oscillator =  SEMF - FEMF
 
 
 <h2 id="NitroFE.time_based_features.indicator_features._AbsolutePriceOscillator.AbsolutePriceOscillator.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fast_period</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">slow_period</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">fast_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">slow_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">initialize_using_operation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">initialize_span</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fast_period</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">slow_period</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">fast_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">slow_operation</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">initialize_using_operation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">initialize_span</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
@@ -394,13 +397,13 @@ Absolute \ Price \ Oscillator =  SEMF - FEMF
         <td><code>fast_period</code></td>
         <td><code>int</code></td>
         <td><p>specify decay in terms of span, for the fast moving feature , by default 10</p></td>
-        <td><code>2</code></td>
+        <td><code>5</code></td>
       </tr>
       <tr>
         <td><code>slow_period</code></td>
         <td><code>int</code></td>
         <td><p>specify decay in terms of span, for the slow moving feature, by default 20</p></td>
-        <td><code>5</code></td>
+        <td><code>2</code></td>
       </tr>
       <tr>
         <td><code>fast_operation</code></td>
@@ -450,8 +453,8 @@ Absolute \ Price \ Oscillator =  SEMF - FEMF
           <summary>Source code in <code>nitrofe\time_based_features\indicator_features\_absolutepriceoscillator.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">fast_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="n">slow_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="n">fast_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="n">slow_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
     <span class="n">fast_operation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
     <span class="n">slow_operation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
     <span class="n">initialize_using_operation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
