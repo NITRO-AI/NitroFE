@@ -75,4 +75,4 @@ In statistics, a moving average (rolling average or running average) is a calcul
 
 ## [Weighted window Features](https://nitro-ai.github.io/NitroFE/weighted%20window%20features/)
 
-NitroFe provides easy to use functions to creatind weighted window features 
+NitroFe provides easy to use functions to create specified weighted window features 
