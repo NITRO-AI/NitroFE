@@ -327,6 +327,9 @@
                 
                 
                 <h1 id="class-averagedirectionalmovementindex">Class AverageDirectionalMovementIndex</h1>
+<ul>
+<li>Jump right in for a hands-on <a href="https://colab.research.google.com/drive/12vnEIF-QwKJrCHaksQkrkua5-hjlTOdL?usp=sharing"><img alt="Open In Colab" src="https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" /></a></li>
+</ul>
 <h2 id="import">Import</h2>
 <p><code>from NitroFe import AverageDirectionalMovementIndex</code></p>
 <p><img alt="AverageDirectionalMovementIndex" src="https://media.giphy.com/media/grrI4t2AqnVf6YJaUy/giphy.gif" /></p>
@@ -381,7 +384,7 @@ average \ directional \ index \ (ADX) = Smoothed \ moving \ average \ of \ 100*\
 
 
 <h2 id="NitroFE.time_based_features.indicator_features._AverageDirectionalMovementIndex.AverageDirectionalMovementIndex.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directional_movement_lookback_period</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">directional_movement_min_periods</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">directional_movement_smoothing_period</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">directional_movement_smoothing_min_periods</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">average_directional_movement_smoothing_period</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">average_directional_movement_min_periods</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">true_range_lookback</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">average_true_range_span</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">true_range_min_periods</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">average_true_range_periods</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directional_movement_lookback_period</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">directional_movement_min_periods</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">directional_movement_smoothing_period</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">directional_movement_smoothing_min_periods</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">average_directional_movement_smoothing_period</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">average_directional_movement_min_periods</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">true_range_lookback</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">average_true_range_span</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">true_range_min_periods</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">average_true_range_periods</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
@@ -424,8 +427,8 @@ average \ directional \ index \ (ADX) = Smoothed \ moving \ average \ of \ 100*\
       <tr>
         <td><code>directional_movement_smoothing_min_periods</code></td>
         <td><code>int</code></td>
-        <td><p>min periods size to be used for +DM and -DM smoothing, by default None</p></td>
-        <td><code>None</code></td>
+        <td><p>min periods size to be used for +DM and -DM smoothing, by default 0</p></td>
+        <td><code>0</code></td>
       </tr>
       <tr>
         <td><code>average_directional_movement_smoothing_period</code></td>
@@ -436,8 +439,8 @@ average \ directional \ index \ (ADX) = Smoothed \ moving \ average \ of \ 100*\
       <tr>
         <td><code>average_directional_movement_min_periods</code></td>
         <td><code>int</code></td>
-        <td><p>min periods size to be used for raw ADX, by default None</p></td>
-        <td><code>None</code></td>
+        <td><p>min periods size to be used for raw ADX, by default 0</p></td>
+        <td><code>0</code></td>
       </tr>
       <tr>
         <td><code>true_range_lookback</code></td>
@@ -471,9 +474,9 @@ average \ directional \ index \ (ADX) = Smoothed \ moving \ average \ of \ 100*\
         <span class="n">directional_movement_lookback_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
     <span class="n">directional_movement_min_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">directional_movement_smoothing_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14</span><span class="p">,</span>
-    <span class="n">directional_movement_smoothing_min_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">directional_movement_smoothing_min_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">average_directional_movement_smoothing_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14</span><span class="p">,</span>
-    <span class="n">average_directional_movement_min_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">average_directional_movement_min_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">true_range_lookback</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
     <span class="n">average_true_range_span</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
     <span class="n">true_range_min_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -488,11 +491,11 @@ average \ directional \ index \ (ADX) = Smoothed \ moving \ average \ of \ 100*\
 <span class="sd">    directional_movement_smoothing_period : int, optional</span>
 <span class="sd">        smoothing window period to be used for +DM and -DM smoothing, by default 14</span>
 <span class="sd">    directional_movement_smoothing_min_periods : int, optional</span>
-<span class="sd">        min periods size to be used for +DM and -DM smoothing, by default None</span>
+<span class="sd">        min periods size to be used for +DM and -DM smoothing, by default 0</span>
 <span class="sd">    average_directional_movement_smoothing_period : int, optional</span>
 <span class="sd">        smoothing window period to be used for raw ADX, by default 14</span>
 <span class="sd">    average_directional_movement_min_periods : int, optional</span>
-<span class="sd">         min periods size to be used for raw ADX, by default None</span>
+<span class="sd">         min periods size to be used for raw ADX, by default 0</span>
 <span class="sd">    true_range_lookback : int, optional</span>
 <span class="sd">        Size of the rolling window for true range value calculation, by default 4</span>
 <span class="sd">    average_true_range_span : int, optional</span>

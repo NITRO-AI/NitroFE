@@ -515,7 +515,7 @@ in which case the exponential moving avergae will be calculated as</p>
     <span class="bp">self</span><span class="o">.</span><span class="n">span</span> <span class="o">=</span> <span class="n">span</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">halflife</span> <span class="o">=</span> <span class="n">halflife</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">min_periods</span> <span class="o">=</span> <span class="n">min_periods</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">min_periods</span> <span class="o">=</span> <span class="n">min_periods</span> <span class="k">if</span> <span class="n">min_periods</span><span class="o">!=</span><span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">adjust</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">ignore_na</span> <span class="o">=</span> <span class="n">ignore_na</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span>
