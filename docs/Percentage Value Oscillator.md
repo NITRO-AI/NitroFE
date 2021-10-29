@@ -22,7 +22,11 @@ Slow \ exponential \ moving \ feature \ (SEMF) = Exponential \ moving \ feature 
 $$
 
 $$
-Percentage \ Value \ Oscillator =  \frac{SEMF - FEMF}{FEMF}
+Raw \ Percentage \ Value \ Oscillator =  \frac{SEMF - FEMF}{FEMF}
+$$
+
+$$
+Percentage \ Value \ Oscillator =  Exponential \ moving \ feature \ of \  'smoothing\_period' \ span \ over \ 'Raw \ Percentage \ Value \ Oscillator'
 $$
 
 ## Methods

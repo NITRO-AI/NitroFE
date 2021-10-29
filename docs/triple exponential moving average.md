@@ -1,6 +1,3 @@
-
-
-
 # Class TripleExponentialMovingFeature
 
 ## Import

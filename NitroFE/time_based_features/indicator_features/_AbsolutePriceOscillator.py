@@ -14,8 +14,8 @@ class AbsolutePriceOscillator:
     """
     def __init__(
         self,
-        fast_period: int = 2,
-        slow_period: int = 5,
+        fast_period: int = 5,
+        slow_period: int = 2,
         fast_operation: str = "mean",
         slow_operation: str = "mean",
         initialize_using_operation: bool = False,

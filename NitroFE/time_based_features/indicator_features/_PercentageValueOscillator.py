@@ -16,6 +16,7 @@ class PercentageValueOscillator:
         self,
         fast_period: int = 4,
         slow_period: int = 8,
+        smoothing_period:int = 9,
         fast_operation: str = "mean",
         slow_operation: str = "mean",
         initialize_using_operation: bool = False,
@@ -32,6 +33,8 @@ class PercentageValueOscillator:
             specify decay in terms of span, for the fast moving feature , by default 4
         slow_period : int, optional
             specify decay in terms of span, for the slow moving feature, by default 8
+        smoothing_period : int , optional
+            specify decay in terms of span, for the smoothing ema, by default 9
         fast_operation : str, optional
             operation to be performed for the fast moving feature, by default 'mean'
         slow_operation : str, optional
@@ -49,6 +52,7 @@ class PercentageValueOscillator:
         """
         self.span_fast = fast_period
         self.span_slow = slow_period
+        self.span_smoothing=smoothing_period
 
         self.min_periods = min_periods
 
@@ -100,9 +104,19 @@ class PercentageValueOscillator:
                 times=self.times,
                 operation=self.slow_operation,
             )
+            self._smoothing_object = ExponentialMovingFeature(
+                span=self.span_smoothing,
+                initialize_using_operation=self.initialize_using_operation,
+                initialize_span=self.initialize_span,
+                ignore_na=self.ignore_na,
+                axis=self.axis,
+                times=self.times,
+                operation=self.slow_operation,
+            )
 
         fast_em = self._fast_em_object.fit(dataframe=dataframe, first_fit=first_fit)
         slow_em = self._slow_em_object.fit(dataframe=dataframe, first_fit=first_fit)
 
         res = (slow_em - fast_em) / slow_em
+        res = self._smoothing_object.fit(dataframe=res, first_fit=first_fit)
         return res
