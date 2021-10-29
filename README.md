@@ -41,7 +41,7 @@ The Time based domain is divided into 'Moving average features', 'Weighted windo
 
 ## [Indicators based Features](https://nitro-ai.github.io/NitroFE/indicators%20features/)
 
-![Time based Features](https://media.giphy.com/media/XfmGjCqHUVSrTrfxIU/giphy.gif)
+![Time based Features](https://media.giphy.com/media/8gNQZ9IpkcdiAjfOgN/giphy.gif)
 
 NitroFe provides a rich variety of features which are inspired and translated from market indicators.
 * [Absolute Price Oscillator](https://nitro-ai.github.io/NitroFE/Absolute%20Price%20Oscillator/)
