@@ -25,7 +25,7 @@ pip install NitroFE
 
 # Available feature domains
 
-## [Time based Features](https://nitro-ai.github.io/NitroFE/Time%20based%20features/)
+# [Time based Features](https://nitro-ai.github.io/NitroFE/Time%20based%20features/)
 
 ![Time based Features](https://media.giphy.com/media/xTk9Zx0YYJJqjZN4xa/giphy-downsized.gif)
 
