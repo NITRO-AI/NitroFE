@@ -10,9 +10,13 @@ from NitroFE.time_based_features.weighted_window_features.weighted_window_featur
     weighted_window_features,
 )
 
+
 class AroonOscillator:
-    def __init__(self,        lookback_period: int = 4,
-        min_periods: int = None,):
+    def __init__(
+        self,
+        lookback_period: int = 4,
+        min_periods: int = None,
+    ):
         """
         Parameters
         ----------
@@ -30,11 +34,7 @@ class AroonOscillator:
     def _calculate_aroon_down(self, x, look_back_period):
         return x.argmin() / (look_back_period)
 
-
-    def fit(
-        self,
-        dataframe: Union[pd.DataFrame, pd.Series],
-        first_fit: bool = True):
+    def fit(self, dataframe: Union[pd.DataFrame, pd.Series], first_fit: bool = True):
         """
         For your training/initial fit phase (very first fit) use fit_first=True, and for any production/test implementation pass fit_first=False
 
