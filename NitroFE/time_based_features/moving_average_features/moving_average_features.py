@@ -61,7 +61,7 @@ class ExponentialMovingFeature:
         self.span = span
         self.halflife = halflife
         self.alpha = alpha
-        self.min_periods = min_periods
+        self.min_periods = min_periods if min_periods!=None else 0
         self.adjust = False
         self.ignore_na = ignore_na
         self.axis = axis

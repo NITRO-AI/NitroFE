@@ -207,4 +207,15 @@ class AverageDirectionalMovementIndex:
         )
         return adx
 
+df=pd.DataFrame({'a':np.random.random(20)})
+ob = AverageDirectionalMovementIndex(
+    directional_movement_lookback_period=8,
 
+    directional_movement_smoothing_period=8,
+
+    average_directional_movement_smoothing_period=8,
+
+    true_range_lookback=8,
+    average_true_range_span=8,
+)
+print(ob.fit(df["a"], first_fit=True))

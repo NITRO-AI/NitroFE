@@ -17,8 +17,8 @@ class MovingAverageConvergenceDivergence:
     """
     def __init__(
         self,
-        fast_period: int = 12,
-        slow_period: int = 26,
+        fast_period: int = 26,
+        slow_period: int = 12,
         smoothing_period: int = 9,
         fast_operation: str = "mean",
         slow_operation: str = "mean",
