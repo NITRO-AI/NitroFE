@@ -23,9 +23,9 @@ class AverageDirectionalMovementIndex:
             directional_movement_lookback_period: int = 4,
         directional_movement_min_periods: int = None,
         directional_movement_smoothing_period: int = 14,
-        directional_movement_smoothing_min_periods: int = None,
+        directional_movement_smoothing_min_periods: int = 0,
         average_directional_movement_smoothing_period: int = 14,
-        average_directional_movement_min_periods: int = None,
+        average_directional_movement_min_periods: int = 0,
         true_range_lookback: int = 4,
         average_true_range_span: int = 6,
         true_range_min_periods: int = None,
@@ -40,11 +40,11 @@ class AverageDirectionalMovementIndex:
         directional_movement_smoothing_period : int, optional
             smoothing window period to be used for +DM and -DM smoothing, by default 14
         directional_movement_smoothing_min_periods : int, optional
-            min periods size to be used for +DM and -DM smoothing, by default None
+            min periods size to be used for +DM and -DM smoothing, by default 0
         average_directional_movement_smoothing_period : int, optional
             smoothing window period to be used for raw ADX, by default 14
         average_directional_movement_min_periods : int, optional
-             min periods size to be used for raw ADX, by default None
+             min periods size to be used for raw ADX, by default 0
         true_range_lookback : int, optional
             Size of the rolling window for true range value calculation, by default 4
         average_true_range_span : int, optional
@@ -206,3 +206,5 @@ class AverageDirectionalMovementIndex:
             first_fit=first_fit,
         )
         return adx
+
+

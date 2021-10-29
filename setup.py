@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 setup(name='NitroFE',
-      version='0.0.7',
+      version='0.0.8',
       url='https://github.com/NITRO-AI/NitroFE',
       author='Nitro-AI',
       author_email='nitro.ai.solutions@gmail.com',
@@ -13,8 +13,8 @@ setup(name='NitroFE',
       long_description=long_description  ,
 	long_description_content_type='text/markdown',
 	  install_requires=[
-		"pandas",
-		"numpy",
+		"pandas>=1.3.2",
+		"numpy>=1.21.2",
 		"scipy",
             "plotly"
 		],
