@@ -111,7 +111,7 @@ class ExponentialMovingFeature:
         else:
 
             if self.initialize_using_operation:
-                self.min_periods = None
+                self.min_periods = 0
                 if (self.initialize_span is None) and (self.span is None):
                     raise ValueError(
                         "For initialize_using_operation=True,"
@@ -149,7 +149,6 @@ class ExponentialMovingFeature:
             _return = _return.iloc[1:]
         self.last_values_from_previous_run = _return.iloc[-1:]
         return _return
-
 
 class HullMovingFeature:
     """
@@ -339,8 +338,10 @@ class KaufmanAdaptiveMovingAverage:
             kma = pd.concat(
                 [pd.DataFrame(np.zeros((1, kma.shape[1])), columns=kma.columns), kma]
             )
-            if self.kaufman_efficiency_min_periods>1:
-                _first_pervious=(self.kaufman_efficiency_lookback_period-2) if self.kaufman_efficiency_min_periods==None else (self.kaufman_efficiency_min_periods-2)
+            if self.kaufman_efficiency_min_periods==None:
+                _first_pervious=(self.kaufman_efficiency_lookback_period-2)
+            elif self.kaufman_efficiency_min_periods>1:
+                _first_pervious=(self.kaufman_efficiency_min_periods-2)
             else:
                 _first_pervious=0
 
