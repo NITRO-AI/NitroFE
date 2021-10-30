@@ -327,6 +327,9 @@
                 
                 
                 <h1 id="class-exponentialmovingfeature">Class ExponentialMovingFeature</h1>
+<ul>
+<li>Jump right in for a hands-on <a href="https://colab.research.google.com/drive/1QCmszvpWErCk9_u4rzeoEWRDgV63i0H0?usp=sharing"><img alt="Open In Colab" src="https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" /></a></li>
+</ul>
 <h2 id="import">Import</h2>
 <p><code>from NitroFe import ExponentialMovingFeature</code></p>
 <p><img alt="ExponentialMovingFeature" src="https://media.giphy.com/media/kittGjKLRM6IZJSmRK/giphy.gif" /></p>
@@ -603,7 +606,7 @@ were saved during the last phase, will be utilized for calculation }, by default
     <span class="k">else</span><span class="p">:</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialize_using_operation</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">min_periods</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min_periods</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">initialize_span</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">span</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">&quot;For initialize_using_operation=True,&quot;</span>

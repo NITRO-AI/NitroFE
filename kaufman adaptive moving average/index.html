@@ -327,6 +327,9 @@
                 
                 
                 <h1 id="class-kaufmanadaptivemovingaverage">Class KaufmanAdaptiveMovingAverage</h1>
+<ul>
+<li>Jump right in for a hands-on <a href="https://colab.research.google.com/drive/1_vA_Vw2kKiFb4XoJArM_hMvwE3j6x3O9?usp=sharing"><img alt="Open In Colab" src="https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" /></a></li>
+</ul>
 <h2 id="import">Import</h2>
 <p><code>from NitroFe import KaufmanAdaptiveMovingAverage</code></p>
 <p><img alt="KaufmanAdaptiveMovingAverage" src="https://media.giphy.com/media/la1LKPepMbyCWd6HVv/giphy.gif" /></p>
@@ -535,8 +538,10 @@ were saved during the last phase, will be utilized for calculation }, by default
         <span class="n">kma</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
             <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">kma</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="n">columns</span><span class="o">=</span><span class="n">kma</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span> <span class="n">kma</span><span class="p">]</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_min_periods</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
-            <span class="n">_first_pervious</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_lookback_period</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_min_periods</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_min_periods</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_min_periods</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+            <span class="n">_first_pervious</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_lookback_period</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_min_periods</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">_first_pervious</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_min_periods</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_first_pervious</span><span class="o">=</span><span class="mi">0</span>
 
