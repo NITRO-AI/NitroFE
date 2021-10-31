@@ -9,9 +9,10 @@ from NitroFE.time_based_features.moving_average_features.moving_average_features
 
 
 class AbsolutePriceOscillator:
-    """ 
+    """
     Provided dataframe must be in ascending order.
     """
+
     def __init__(
         self,
         fast_period: int = 5,

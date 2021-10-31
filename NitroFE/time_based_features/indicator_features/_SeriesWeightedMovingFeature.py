@@ -32,16 +32,15 @@ class SeriesWeightedMovingFeature:
         """
         self.lookback_period = lookback_period
         self.min_periods = min_periods
-        self.operation = np.mean if operation==None else operation
+        self.operation = np.mean if operation == None else operation
         self.operation_args = operation_args
-
-        
 
     def fit(
         self,
         dataframe: Union[pd.DataFrame, pd.Series],
         dataframe_for_weight: Union[pd.DataFrame, pd.Series],
-        first_fit: bool = True):
+        first_fit: bool = True,
+    ):
         """
         For your training/initial fit phase (very first fit) use fit_first=True, and for any production/test implementation pass fit_first=False
 

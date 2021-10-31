@@ -2,18 +2,24 @@ import numpy as np
 import pandas as pd
 from typing import Union, Callable
 
-from NitroFE.time_based_features.weighted_window_features.weighted_windows import _equal_window, _identity_window
+from NitroFE.time_based_features.weighted_window_features.weighted_windows import (
+    _equal_window,
+    _identity_window,
+)
 from NitroFE.time_based_features.weighted_window_features.weighted_window_features import (
     weighted_window_features,
 )
 
+
 class AverageTrueRange:
-    def __init__(self,
+    def __init__(
+        self,
         true_range_lookback: int = 4,
         average_true_range_span: int = 6,
         true_range_min_periods: int = None,
         average_true_range_periods: int = 1,
-        return_true_range:bool=False):
+        return_true_range: bool = False,
+    ):
         """
         Parameters
         ----------
@@ -28,13 +34,13 @@ class AverageTrueRange:
         return_true_range : bool, optional
             If true, True range is returned instead of Average True range
         """
-        
+
         self.true_range_lookback = true_range_lookback
         self.average_true_range_span = average_true_range_span
 
         self.true_range_min_periods = true_range_min_periods
         self.average_true_range_periods = average_true_range_periods
-        self.return_true_range=return_true_range
+        self.return_true_range = return_true_range
 
     def true_range(self, x):
         return np.max(
@@ -45,11 +51,7 @@ class AverageTrueRange:
             ]
         )
 
-    def fit(
-        self,
-        dataframe: Union[pd.DataFrame, pd.Series],
-        first_fit: bool = True
-    ):
+    def fit(self, dataframe: Union[pd.DataFrame, pd.Series], first_fit: bool = True):
         """
         For your training/initial fit phase (very first fit) use fit_first=True, and for any production/test implementation pass fit_first=False
 

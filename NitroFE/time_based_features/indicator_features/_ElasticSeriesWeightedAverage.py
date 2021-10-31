@@ -11,8 +11,7 @@ from NitroFE.time_based_features.weighted_window_features.weighted_windows impor
 
 
 class ElasticSeriesWeightedAverage:
-    def __init__(self,
-        weight_sum_lookback: int = 4):
+    def __init__(self, weight_sum_lookback: int = 4):
         """
         Parameters
         ----------
@@ -25,7 +24,8 @@ class ElasticSeriesWeightedAverage:
         self,
         dataframe: Union[pd.DataFrame, pd.Series],
         dataframe_for_weight: Union[pd.DataFrame, pd.Series],
-        first_fit: bool = True):
+        first_fit: bool = True,
+    ):
         """
         elastic_series_weighted_average
         This feature is an implementation of elastic volume weighted moving average
@@ -55,7 +55,6 @@ class ElasticSeriesWeightedAverage:
         if first_fit:
             self._object = weighted_window_features()
 
-
         rolling_sum = self._object._template_feature_calculation(
             function_name="_lag_object",
             win_function=_identity_window,
@@ -70,7 +69,7 @@ class ElasticSeriesWeightedAverage:
 
         if isinstance(dataframe, pd.Series):
             dataframe = dataframe.to_frame()
-        
+
         eswa = pd.DataFrame(np.zeros(dataframe.shape), columns=dataframe.columns)
         print(dataframe.shape)
         print(eswa)
@@ -95,8 +94,7 @@ class ElasticSeriesWeightedAverage:
                 + ((r1[1] - previous_eswa) * (r3[1] / r4[1])).fillna(0)
             ).values[0]
 
-        
-        res=eswa.iloc[1:][ll]
-        
+        res = eswa.iloc[1:][ll]
+
         self.values_from_last_run = eswa.iloc[-1:]
         return res

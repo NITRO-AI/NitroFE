@@ -8,8 +8,14 @@ from NitroFE.time_based_features.weighted_window_features.weighted_windows impor
     _equal_window,
     _identity_window,
 )
-from NitroFE.time_based_features.moving_average_features.moving_average_features import ExponentialMovingFeature,HullMovingFeature,\
-    KaufmanAdaptiveMovingAverage,FractalAdaptiveMovingAverage,TripleExponentialMovingFeature,SmoothedMovingAverage
+from NitroFE.time_based_features.moving_average_features.moving_average_features import (
+    ExponentialMovingFeature,
+    HullMovingFeature,
+    KaufmanAdaptiveMovingAverage,
+    FractalAdaptiveMovingAverage,
+    TripleExponentialMovingFeature,
+    SmoothedMovingAverage,
+)
 
 
 class SeriesWeightedAverage:
@@ -43,12 +49,18 @@ class SeriesWeightedAverage:
             dataframe_for_weight = dataframe_for_weight.to_frame()
 
         multiplication_res = (
-            pd.DataFrame(np.multiply(dataframe.values,dataframe_for_weight.values),columns=dataframe.columns)
+            pd.DataFrame(
+                np.multiply(dataframe.values, dataframe_for_weight.values),
+                columns=dataframe.columns,
+            )
             if first_fit
             else pd.concat(
                 [
                     self.multiplication_values_from_last_run,
-                    pd.DataFrame(np.multiply(dataframe.values,dataframe_for_weight.values),columns=dataframe.columns),
+                    pd.DataFrame(
+                        np.multiply(dataframe.values, dataframe_for_weight.values),
+                        columns=dataframe.columns,
+                    ),
                 ]
             )
         )
@@ -75,7 +87,9 @@ class SeriesWeightedAverage:
             dataframe_for_weight.iloc[1:] if (not first_fit) else dataframe_for_weight
         )
 
-        res = pd.DataFrame(cumilative_multiplication_res.values/(cumilative_res.values))
+        res = pd.DataFrame(
+            cumilative_multiplication_res.values / (cumilative_res.values)
+        )
         self.values_from_last_run = cumilative_res.iloc[-1:]
 
         return res

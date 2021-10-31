@@ -1,4 +1,3 @@
-
 import numpy as np
 import pandas as pd
 from typing import Union, Callable
@@ -10,10 +9,9 @@ from NitroFE.time_based_features.weighted_window_features.weighted_windows impor
     _identity_window,
 )
 
+
 class TypicalValue:
-    def __init__(self,
-            lookback_period: int = 6,
-        min_periods: int = None):
+    def __init__(self, lookback_period: int = 6, min_periods: int = None):
         """
         Parameters
         ----------
@@ -28,10 +26,7 @@ class TypicalValue:
     def _calculate_typical_value(self, x):
         return (np.max(x) + np.min(x) + x.iloc[-1:]) / 3
 
-    def fit(
-        self,
-        dataframe: Union[pd.DataFrame, pd.Series],
-        first_fit: bool = True):
+    def fit(self, dataframe: Union[pd.DataFrame, pd.Series], first_fit: bool = True):
         """
         For your training/initial fit phase (very first fit) use fit_first=True, and for any production/test implementation pass fit_first=False
 
@@ -49,7 +44,6 @@ class TypicalValue:
 
         if first_fit:
             self._typical_value_object = weighted_window_features()
-
 
         _typical_value = self._typical_value_object._template_feature_calculation(
             function_name="typical_value",

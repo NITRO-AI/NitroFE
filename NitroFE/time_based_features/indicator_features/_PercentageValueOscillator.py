@@ -9,14 +9,15 @@ from NitroFE.time_based_features.moving_average_features.moving_average_features
 
 
 class PercentageValueOscillator:
-    """ 
+    """
     Provided dataframe must be in ascending order.
     """
+
     def __init__(
         self,
         fast_period: int = 4,
         slow_period: int = 8,
-        smoothing_period:int = 9,
+        smoothing_period: int = 9,
         fast_operation: str = "mean",
         slow_operation: str = "mean",
         initialize_using_operation: bool = False,
@@ -52,7 +53,7 @@ class PercentageValueOscillator:
         """
         self.span_fast = fast_period
         self.span_slow = slow_period
-        self.span_smoothing=smoothing_period
+        self.span_smoothing = smoothing_period
 
         self.min_periods = min_periods
 

@@ -12,9 +12,10 @@ from NitroFE.time_based_features.moving_average_features.moving_average_features
 
 
 class MovingAverageConvergenceDivergence:
-    """ 
+    """
     Provided dataframe must be in ascending order.
     """
+
     def __init__(
         self,
         fast_period: int = 26,
@@ -32,7 +33,7 @@ class MovingAverageConvergenceDivergence:
         return_histogram=False,
     ):
         """
-        
+
         Parameters
         ----------
         fast_period : int, optional
@@ -86,7 +87,7 @@ class MovingAverageConvergenceDivergence:
         For your training/initial fit phase (very first fit) use fit_first=True, and for any production/test implementation pass fit_first=False
 
         Returns --> Smoothed signal line , macd histogram
-        
+
         Parameters
         ----------
         dataframe : Union[pd.DataFrame, pd.Series]

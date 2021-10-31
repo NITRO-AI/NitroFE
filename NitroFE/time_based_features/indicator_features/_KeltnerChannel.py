@@ -15,6 +15,7 @@ from NitroFE.time_based_features.moving_average_features.moving_average_features
     ExponentialMovingFeature,
 )
 
+
 class KeltnerChannel:
     def __init__(
         self,

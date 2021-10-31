@@ -48,7 +48,7 @@ class weighted_window_features:
         symmetric: bool = False,
         operation: Callable = np.mean,
         operation_args: tuple = (),
-        last_values_from_calculated:bool=False,
+        last_values_from_calculated: bool = False,
         **kwargs
     ):
         _function_name = function_name
@@ -64,7 +64,9 @@ class weighted_window_features:
             self.params[_function_name]["symmetric"] = symmetric
             self.params[_function_name]["operation"] = operation
             self.params[_function_name]["operation_args"] = operation_args
-            self.params[_function_name]["last_values_from_calculated"] = last_values_from_calculated
+            self.params[_function_name][
+                "last_values_from_calculated"
+            ] = last_values_from_calculated
 
             self.first_fit_params_save(_function_name, kwargs=kwargs)
 
@@ -100,9 +102,9 @@ class weighted_window_features:
         )
         if not first_fit:
             _return = _return.iloc[
-                self.params[_function_name]["len_last_values_from_previous_run"] :]
+                self.params[_function_name]["len_last_values_from_previous_run"] :
+            ]
 
-        
         if not self.params[_function_name]["last_values_from_calculated"]:
             _last_values_from_previous_run = (
                 dataframe.iloc[1 - self.params[_function_name]["window"] :]
@@ -136,7 +138,7 @@ class weighted_window_features:
         Create weighted moving window feature
 
         A weighted average is an average that has multiplying factors to give different weights to data at different positions in the sample window.
-        Mathematically, the weighted moving average is the convolution of the data with a fixed weighting function. 
+        Mathematically, the weighted moving average is the convolution of the data with a fixed weighting function.
         In an n-day WMA the latest day has weight n, the second latest n-1, etc, down to one
 
         Parameters
@@ -158,8 +160,8 @@ class weighted_window_features:
             additional agrument values to be sent for self defined operation function
 
         """
-                    
-        operation=np.sum if operation==None else operation
+
+        operation = np.sum if operation == None else operation
         _function_name = "caluclate_weighted_moving_window_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -208,7 +210,7 @@ class weighted_window_features:
             additional agrument values to be sent for operation function
 
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_barthann_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -255,8 +257,8 @@ class weighted_window_features:
            operation to perform over the weighted rolling window values, when None is passed, np.mean is used
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
-        """       
-        operation=np.mean if operation==None else operation
+        """
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_bartlett_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -302,7 +304,7 @@ class weighted_window_features:
             additional agrument values to be sent for operation function
 
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_equal_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -350,7 +352,7 @@ class weighted_window_features:
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_blackman_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -398,7 +400,7 @@ class weighted_window_features:
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_blackmanharris_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -446,7 +448,7 @@ class weighted_window_features:
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_bohman_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -495,7 +497,7 @@ class weighted_window_features:
             additional agrument values to be sent for operation function
 
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_cosine_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -551,7 +553,7 @@ class weighted_window_features:
             Parameter defining the decay. For center = 0 use tau = -(M-1) / ln(x) if x is the fraction of the window remaining at the end, by default 1
 
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_exponential_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -602,7 +604,7 @@ class weighted_window_features:
             additional agrument values to be sent for operation function
 
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_flattop_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -654,7 +656,7 @@ class weighted_window_features:
             The standard deviation, sigma.
 
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_gaussian_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -704,7 +706,7 @@ class weighted_window_features:
             additional agrument values to be sent for operation function
 
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_hamming_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -753,7 +755,7 @@ class weighted_window_features:
             additional agrument values to be sent for operation function
 
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_hann_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -805,7 +807,7 @@ class weighted_window_features:
         operation_args : tuple, optional
             additional agrument values to be sent for operation function
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_kaiser_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -855,7 +857,7 @@ class weighted_window_features:
             additional agrument values to be sent for operation function
 
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_parzen_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -904,7 +906,7 @@ class weighted_window_features:
             additional agrument values to be sent for operation function
 
         """
-        operation=np.mean if operation==None else operation
+        operation = np.mean if operation == None else operation
         _function_name = "caluclate_triang_feature"
         return self._template_feature_calculation(
             function_name=_function_name,
@@ -917,4 +919,3 @@ class weighted_window_features:
             operation=operation,
             operation_args=operation_args,
         )
-

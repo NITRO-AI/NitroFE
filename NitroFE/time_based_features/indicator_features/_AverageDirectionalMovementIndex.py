@@ -19,8 +19,9 @@ from NitroFE.time_based_features.weighted_window_features.weighted_window_featur
 
 
 class AverageDirectionalMovementIndex:
-    def __init__(self,
-            directional_movement_lookback_period: int = 4,
+    def __init__(
+        self,
+        directional_movement_lookback_period: int = 4,
         directional_movement_min_periods: int = None,
         directional_movement_smoothing_period: int = 14,
         directional_movement_smoothing_min_periods: int = 0,
@@ -29,7 +30,8 @@ class AverageDirectionalMovementIndex:
         true_range_lookback: int = 4,
         average_true_range_span: int = 6,
         true_range_min_periods: int = None,
-        average_true_range_periods: int = 1):
+        average_true_range_periods: int = 1,
+    ):
         """
         Parameters
         ----------
@@ -54,9 +56,7 @@ class AverageDirectionalMovementIndex:
         average_true_range_periods : int, optional
             Minimum number of observations in window required to have a value for average true range calculation , by default 1
         """
-        self.directional_movement_lookback_period = (
-            directional_movement_lookback_period
-        )
+        self.directional_movement_lookback_period = directional_movement_lookback_period
         self.directional_movement_min_periods = directional_movement_min_periods
         self.directional_movement_smoothing_period = (
             directional_movement_smoothing_period
@@ -78,13 +78,13 @@ class AverageDirectionalMovementIndex:
         self.average_true_range_periods = average_true_range_periods
 
     def _plus_dm(self, x, look_back_period):
-        look_back_period=int(look_back_period/2)
+        look_back_period = int(look_back_period / 2)
         return np.max(x.iloc[look_back_period:]) - np.max(
             x.iloc[0 : look_back_period - 1]
         )
 
     def _minus_dm(self, x, look_back_period):
-        look_back_period=int(look_back_period/2)
+        look_back_period = int(look_back_period / 2)
         return np.min(x.iloc[0 : look_back_period - 1]) - np.min(
             x.iloc[look_back_period:]
         )
@@ -135,8 +135,6 @@ class AverageDirectionalMovementIndex:
                 min_periods=self.average_directional_movement_min_periods,
                 operation="mean",
             )
-
-
 
         plus_dma = self._plus_dma_object._template_feature_calculation(
             function_name="plus_dma",
@@ -191,7 +189,11 @@ class AverageDirectionalMovementIndex:
             dataframe=dataframe,
             first_fit=first_fit,
         )
-        average_true_range=average_true_range.to_frame() if isinstance(average_true_range,pd.Series) else average_true_range
+        average_true_range = (
+            average_true_range.to_frame()
+            if isinstance(average_true_range, pd.Series)
+            else average_true_range
+        )
 
         plus_directional_index = 100 * (smoothed_plus_dma.div(average_true_range))
         minus_directional_index = 100 * (smoothed_minus_dma.div(average_true_range))
@@ -206,5 +208,3 @@ class AverageDirectionalMovementIndex:
             first_fit=first_fit,
         )
         return adx
-
-

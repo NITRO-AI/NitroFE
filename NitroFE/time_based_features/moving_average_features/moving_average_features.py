@@ -61,7 +61,7 @@ class ExponentialMovingFeature:
         self.span = span
         self.halflife = halflife
         self.alpha = alpha
-        self.min_periods = min_periods if min_periods!=None else 0
+        self.min_periods = min_periods if min_periods != None else 0
         self.adjust = False
         self.ignore_na = ignore_na
         self.axis = axis
@@ -72,7 +72,7 @@ class ExponentialMovingFeature:
         self.initialize_span = initialize_span
 
     def _perform_temp_operation(self, x):
-        
+
         if self.operation == "mean":
             _return = x.mean()
         elif self.operation == "var":
@@ -81,7 +81,7 @@ class ExponentialMovingFeature:
             _return = x.std()
         else:
             raise ValueError(f"Operation {self.operation} not supported")
-            
+
         return _return
 
     def fit(self, dataframe: Union[pd.DataFrame, pd.Series], first_fit: bool = True):
@@ -149,6 +149,7 @@ class ExponentialMovingFeature:
             _return = _return.iloc[1:]
         self.last_values_from_previous_run = _return.iloc[-1:]
         return _return
+
 
 class HullMovingFeature:
     """
@@ -309,7 +310,6 @@ class KaufmanAdaptiveMovingAverage:
         self.fast_ema_span = fast_ema_span
         self.slow_ema_span = slow_ema_span
 
-
     def fit(self, dataframe: Union[pd.DataFrame, pd.Series], first_fit: bool = True):
         """
         For your training/initial fit phase (very first fit) use fit_first=True, and for any production/test implementation pass fit_first=False
@@ -338,16 +338,16 @@ class KaufmanAdaptiveMovingAverage:
             kma = pd.concat(
                 [pd.DataFrame(np.zeros((1, kma.shape[1])), columns=kma.columns), kma]
             )
-            if self.kaufman_efficiency_min_periods==None:
-                _first_pervious=(self.kaufman_efficiency_lookback_period-2)
-            elif self.kaufman_efficiency_min_periods>1:
-                _first_pervious=(self.kaufman_efficiency_min_periods-2)
+            if self.kaufman_efficiency_min_periods == None:
+                _first_pervious = self.kaufman_efficiency_lookback_period - 2
+            elif self.kaufman_efficiency_min_periods > 1:
+                _first_pervious = self.kaufman_efficiency_min_periods - 2
             else:
-                _first_pervious=0
+                _first_pervious = 0
 
         else:
             kma = pd.concat([self.values_from_last_run, kma])
-            _first_pervious=-1
+            _first_pervious = -1
         kma["_iloc"] = np.arange(len(kma))
 
         _kaufman_efficiency = self._kaufman_object.fit(
@@ -362,12 +362,16 @@ class KaufmanAdaptiveMovingAverage:
             _kaufman_efficiency.copy()
             * (2 / (self.fast_ema_span + 1) - 2 / (self.slow_ema_span + 1))
             + 2 / (self.slow_ema_span + 1)
-        )** 2
+        ) ** 2
 
         if first_fit:
-            SC.iloc[_first_pervious]=[0]*SC.shape[1]
- 
-        for r1, r2, r3 in zip(dataframe[(_first_pervious+1):].iterrows(), kma[(1+_first_pervious+1):].iterrows(), SC[(_first_pervious+1):].iterrows()):
+            SC.iloc[_first_pervious] = [0] * SC.shape[1]
+
+        for r1, r2, r3 in zip(
+            dataframe[(_first_pervious + 1) :].iterrows(),
+            kma[(1 + _first_pervious + 1) :].iterrows(),
+            SC[(_first_pervious + 1) :].iterrows(),
+        ):
 
             previous_kama = kma[kma["_iloc"] == (r2[1]["_iloc"] - 1)][ll]
 
@@ -376,9 +380,8 @@ class KaufmanAdaptiveMovingAverage:
                 + np.multiply(r3[1].values, (r1[1].values - previous_kama.values))
             ).values[0]
 
-        
         res = kma.iloc[1:][ll]
-        
+
         self.values_from_last_run = res.iloc[-1:]
 
         return res
@@ -565,7 +568,6 @@ class TripleExponentialMovingFeature:
         self.initialize_using_operation = initialize_using_operation
         self.initialize_span = initialize_span
 
-
     def fit(self, dataframe: Union[pd.DataFrame, pd.Series], first_fit: bool = True):
 
         """
@@ -645,8 +647,7 @@ class SmoothedMovingAverage:
     Provided dataframe must be in ascending order.
     """
 
-    def __init__(self,
-            lookback_period: int = 4):
+    def __init__(self, lookback_period: int = 4):
         """
         Parameters
         ----------
@@ -677,7 +678,6 @@ class SmoothedMovingAverage:
 
         if first_fit:
             self._first_object = weighted_window_features()
-            
 
         if isinstance(dataframe, pd.Series):
             dataframe = dataframe.to_frame()
