@@ -5,7 +5,7 @@
 
 ## Import
 `
-from NitroFe import AroonOscillator
+from NitroFE import AroonOscillator
 `
 
 ![AroonOscillator](https://media.giphy.com/media/4ZsySSakheySRgatvI/giphy.gif)

@@ -5,7 +5,7 @@
 
 ## Import
 `
-from NitroFe import KeltnerChannel
+from NitroFE import KeltnerChannel
 `
 
 ![KeltnerChannel](https://media.giphy.com/media/liXYyVogt1wmwkkSqd/giphy.gif)

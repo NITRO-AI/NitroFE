@@ -6,7 +6,7 @@
 
 ## Import
 `
-from NitroFe import RelativeStrengthIndex
+from NitroFE import RelativeStrengthIndex
 `
 
 ![RelativeStrengthIndex](https://media.giphy.com/media/588gu1EXpuqJxvl9mk/giphy.gif)

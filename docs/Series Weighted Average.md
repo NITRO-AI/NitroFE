@@ -5,7 +5,7 @@
 
 ## Import
 `
-from NitroFe import SeriesWeightedAverage
+from NitroFE import SeriesWeightedAverage
 `
 
 ![SeriesWeightedAverage](https://media.giphy.com/media/4bgFEo3yfEzHX7LyqB/giphy.gif)

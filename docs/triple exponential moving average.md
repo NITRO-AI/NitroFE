@@ -4,7 +4,7 @@
 
 ## Import
 `
-from NitroFe import TripleExponentialMovingFeature
+from NitroFE import TripleExponentialMovingFeature
 `
 
 ![TripleExponentialMovingFeature](https://media.giphy.com/media/tyuKYKt8qe2dbP1Fqn/giphy.gif)

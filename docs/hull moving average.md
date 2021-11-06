@@ -6,7 +6,7 @@
 
 ## Import
 `
-from NitroFe import HullMovingFeature
+from NitroFE import HullMovingFeature
 `
 
 ![HullMovingFeature](https://media.giphy.com/media/y9rdw8zH5dlYWBJkJI/giphy.gif)

@@ -6,7 +6,7 @@
 
 ## Import
 `
-from NitroFe import ExponentialMovingFeature
+from NitroFE import ExponentialMovingFeature
 `
 
 ![ExponentialMovingFeature](https://media.giphy.com/media/kittGjKLRM6IZJSmRK/giphy.gif)

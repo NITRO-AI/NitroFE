@@ -6,7 +6,7 @@
 
 ## Import
 `
-from NitroFe import PercentageValueOscillator
+from NitroFE import PercentageValueOscillator
 `
 
 ![PercentageValueOscillator](https://media.giphy.com/media/OyycyPJomAv6YVXCtV/giphy.gif)

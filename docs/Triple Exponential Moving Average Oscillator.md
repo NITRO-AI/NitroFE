@@ -6,7 +6,7 @@
 
 ## Import
 `
-from NitroFe import TripleExponentialMovingAverageOscillator
+from NitroFE import TripleExponentialMovingAverageOscillator
 `
 
 ![TripleExponentialMovingAverageOscillator](https://media.giphy.com/media/wOC7i7lyqRwZkhnawu/giphy.gif)

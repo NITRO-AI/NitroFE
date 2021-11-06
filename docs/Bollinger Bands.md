@@ -6,7 +6,7 @@
 
 ## Import
 `
-from NitroFe import BollingerBands
+from NitroFE import BollingerBands
 `
 
 ![BollingerBands](https://media.giphy.com/media/dS8KB6cIGLa0sLr2bN/giphy.gif)

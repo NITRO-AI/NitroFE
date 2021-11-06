@@ -6,7 +6,7 @@
 
 ## Import
 `
-from NitroFe import FractalAdaptiveMovingAverage
+from NitroFE import FractalAdaptiveMovingAverage
 `
 
 ![FractalAdaptiveMovingAverage](https://media.giphy.com/media/aWukNCTgI8nB1TagAC/giphy.gif)

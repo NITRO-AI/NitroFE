@@ -6,7 +6,7 @@
 
 ## Import
 `
-from NitroFe import MovingAverageConvergenceDivergence
+from NitroFE import MovingAverageConvergenceDivergence
 `
 
 ![MovingAverageConvergenceDivergence](https://media.giphy.com/media/YxGDsuUB8WkHnCnLXE/giphy.gif)

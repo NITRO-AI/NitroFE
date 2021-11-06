@@ -5,7 +5,7 @@
 
 ## Import
 `
-from NitroFe import SeriesWeightedMovingFeature
+from NitroFE import SeriesWeightedMovingFeature
 `
 
 ![SeriesWeightedMovingFeature](https://media.giphy.com/media/rfnnNjPxRoOVfPy5p7/giphy.gif)

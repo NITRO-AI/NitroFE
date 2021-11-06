@@ -4,7 +4,7 @@
 
 ## Import
 `
-from NitroFe import weighted_window_features
+from NitroFE import weighted_window_features
 `
 
 ::: NitroFE.time_based_features.moving_average_features.moving_average_features.weighted_window_features

@@ -6,7 +6,7 @@
 
 ## Import
 `
-from NitroFe import SmoothedMovingAverage
+from NitroFE import SmoothedMovingAverage
 `
 
 ![SmoothedMovingAverage](https://media.giphy.com/media/LqMwgXOw1hMXgi5hGs/giphy.gif)

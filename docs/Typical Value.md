@@ -6,7 +6,7 @@
 
 ## Import
 `
-from NitroFe import TypicalValue
+from NitroFE import TypicalValue
 `
 
 ![TypicalValue](https://media.giphy.com/media/kwABekFGGfQylsk50W/giphy.gif)

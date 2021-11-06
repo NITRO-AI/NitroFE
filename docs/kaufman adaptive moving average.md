@@ -6,7 +6,7 @@
 
 ## Import
 `
-from NitroFe import KaufmanAdaptiveMovingAverage
+from NitroFE import KaufmanAdaptiveMovingAverage
 `
 
 ![KaufmanAdaptiveMovingAverage](https://media.giphy.com/media/la1LKPepMbyCWd6HVv/giphy.gif)

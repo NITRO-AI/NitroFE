@@ -5,7 +5,7 @@
 
 ## Import
 `
-from NitroFe import AverageTrueRange
+from NitroFE import AverageTrueRange
 `
 
 ![AverageTrueRange](https://media.giphy.com/media/AQpueYRD0K39d5veh7/giphy.gif)

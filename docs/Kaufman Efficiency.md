@@ -7,7 +7,7 @@
 
 ## Import
 `
-from NitroFe import KaufmanEfficiency
+from NitroFE import KaufmanEfficiency
 `
 
 ![KaufmanEfficiency](https://media.giphy.com/media/dlaAsgQ74zJA3U3ARb/giphy.gif)

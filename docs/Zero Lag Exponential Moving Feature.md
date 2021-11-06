@@ -6,7 +6,7 @@
 
 ## Import
 `
-from NitroFe import ZeroLagExponentialMovingFeature
+from NitroFE import ZeroLagExponentialMovingFeature
 `
 
 ![ZeroLagExponentialMovingFeature](https://media.giphy.com/media/lW7PIM2hbP0fMw0roa/giphy.gif)

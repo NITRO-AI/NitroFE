@@ -5,7 +5,7 @@
 
 ## Import
 `
-from NitroFe import AverageDirectionalMovementIndex
+from NitroFE import AverageDirectionalMovementIndex
 `
 
 ![AverageDirectionalMovementIndex](https://media.giphy.com/media/grrI4t2AqnVf6YJaUy/giphy.gif)

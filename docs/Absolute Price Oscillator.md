@@ -6,7 +6,7 @@
 
 ## Import
 `
-from NitroFe import AbsolutePriceOscillator
+from NitroFE import AbsolutePriceOscillator
 `
 
 ![AbsolutePriceOscillator](https://media.giphy.com/media/CUFxB3z16aTJtXrsSW/giphy.gif)
