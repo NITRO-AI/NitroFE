@@ -324,7 +324,7 @@
 <li>Jump right in for a hands-on <a href="https://colab.research.google.com/drive/1ifwYR9RhQw4WV5qM2CuhWWXAo-J8Oj-Q?usp=sharing"><img alt="Open In Colab" src="https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" /></a></li>
 </ul>
 <h2 id="import">Import</h2>
-<p><code>from NitroFe import SeriesWeightedMovingFeature</code></p>
+<p><code>from NitroFE import SeriesWeightedMovingFeature</code></p>
 <p><img alt="SeriesWeightedMovingFeature" src="https://media.giphy.com/media/rfnnNjPxRoOVfPy5p7/giphy.gif" /></p>
 <p>Series Weighted Moving Feature  is a moving window variation and is calculated as </p>
 <div class="arithmatex">\[
@@ -428,7 +428,7 @@ Series\_Weighted\_Moving\_Feature[t] = \frac{\operatorname{operation} (dataframe
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span> <span class="o">=</span> <span class="n">lookback_period</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">min_periods</span> <span class="o">=</span> <span class="n">min_periods</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">operation_args</span> <span class="o">=</span> <span class="n">operation_args</span>
 </code></pre></div>
         </details>
@@ -492,7 +492,8 @@ were saved during the last phase, will be utilized for calculation }, by default
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">dataframe</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">],</span>
     <span class="n">dataframe_for_weight</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">],</span>
-    <span class="n">first_fit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="n">first_fit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    For your training/initial fit phase (very first fit) use fit_first=True, and for any production/test implementation pass fit_first=False</span>
 

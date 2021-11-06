@@ -324,7 +324,7 @@
 <li>Jump right in for a hands-on <a href="https://colab.research.google.com/drive/1ifwYR9RhQw4WV5qM2CuhWWXAo-J8Oj-Q?usp=sharing"><img alt="Open In Colab" src="https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" /></a></li>
 </ul>
 <h2 id="import">Import</h2>
-<p><code>from NitroFe import SeriesWeightedAverage</code></p>
+<p><code>from NitroFE import SeriesWeightedAverage</code></p>
 <p><img alt="SeriesWeightedAverage" src="https://media.giphy.com/media/4bgFEo3yfEzHX7LyqB/giphy.gif" /></p>
 <p>series_weighted_average
 This feature is an implementation of volume weighted moving average</p>
@@ -431,12 +431,18 @@ were saved during the last phase, will be utilized for calculation }, by default
         <span class="n">dataframe_for_weight</span> <span class="o">=</span> <span class="n">dataframe_for_weight</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
 
     <span class="n">multiplication_res</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="n">dataframe_for_weight</span><span class="o">.</span><span class="n">values</span><span class="p">),</span><span class="n">columns</span><span class="o">=</span><span class="n">dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">dataframe_for_weight</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+            <span class="n">columns</span><span class="o">=</span><span class="n">dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="n">first_fit</span>
         <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">multiplication_values_from_last_run</span><span class="p">,</span>
-                <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="n">dataframe_for_weight</span><span class="o">.</span><span class="n">values</span><span class="p">),</span><span class="n">columns</span><span class="o">=</span><span class="n">dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span>
+                <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">dataframe_for_weight</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+                    <span class="n">columns</span><span class="o">=</span><span class="n">dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+                <span class="p">),</span>
             <span class="p">]</span>
         <span class="p">)</span>
     <span class="p">)</span>
@@ -463,7 +469,9 @@ were saved during the last phase, will be utilized for calculation }, by default
         <span class="n">dataframe_for_weight</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">first_fit</span><span class="p">)</span> <span class="k">else</span> <span class="n">dataframe_for_weight</span>
     <span class="p">)</span>
 
-    <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cumilative_multiplication_res</span><span class="o">.</span><span class="n">values</span><span class="o">/</span><span class="p">(</span><span class="n">cumilative_res</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="n">cumilative_multiplication_res</span><span class="o">.</span><span class="n">values</span> <span class="o">/</span> <span class="p">(</span><span class="n">cumilative_res</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">values_from_last_run</span> <span class="o">=</span> <span class="n">cumilative_res</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
 
     <span class="k">return</span> <span class="n">res</span>

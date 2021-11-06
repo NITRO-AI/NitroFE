@@ -597,7 +597,7 @@
                 
                 <h2 id="class-weighted_window_features">Class weighted_window_features</h2>
 <h2 id="import">Import</h2>
-<p><code>from NitroFe import weighted_window_features</code></p>
+<p><code>from NitroFE import weighted_window_features</code></p>
 
 
   <div class="doc doc-object doc-class">
@@ -730,7 +730,7 @@ generates a periodic window, for use in spectral analysis, by default False</p><
 <span class="sd">        additional agrument values to be sent for operation function</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_barthann_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -859,8 +859,8 @@ generates a periodic window, for use in spectral analysis, by default False</p><
 <span class="sd">       operation to perform over the weighted rolling window values, when None is passed, np.mean is used</span>
 <span class="sd">    operation_args : tuple, optional</span>
 <span class="sd">        additional agrument values to be sent for operation function</span>
-<span class="sd">    &quot;&quot;&quot;</span>       
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_bartlett_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -990,7 +990,7 @@ generates a periodic window, for use in spectral analysis, by default False</p><
 <span class="sd">    operation_args : tuple, optional</span>
 <span class="sd">        additional agrument values to be sent for operation function</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_blackman_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -1120,7 +1120,7 @@ generates a periodic window, for use in spectral analysis, by default False</p><
 <span class="sd">    operation_args : tuple, optional</span>
 <span class="sd">        additional agrument values to be sent for operation function</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_blackmanharris_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -1250,7 +1250,7 @@ generates a periodic window, for use in spectral analysis, by default False</p><
 <span class="sd">    operation_args : tuple, optional</span>
 <span class="sd">        additional agrument values to be sent for operation function</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_bohman_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -1381,7 +1381,7 @@ generates a periodic window, for use in spectral analysis, by default False</p><
 <span class="sd">        additional agrument values to be sent for operation function</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_cosine_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -1503,7 +1503,7 @@ are were saved during the last phase, will be utilized for calculation }, by def
 <span class="sd">        additional agrument values to be sent for operation function</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_equal_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -1654,7 +1654,7 @@ The default value if not given is center = (M-1) / 2. This parameter must take i
 <span class="sd">        Parameter defining the decay. For center = 0 use tau = -(M-1) / ln(x) if x is the fraction of the window remaining at the end, by default 1</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_exponential_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -1787,7 +1787,7 @@ generates a periodic window, for use in spectral analysis, by default False</p><
 <span class="sd">        additional agrument values to be sent for operation function</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_flattop_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -1927,7 +1927,7 @@ generates a periodic window, for use in spectral analysis, by default False</p><
 <span class="sd">        The standard deviation, sigma.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_gaussian_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -2059,7 +2059,7 @@ generates a periodic window, for use in spectral analysis, by default False</p><
 <span class="sd">        additional agrument values to be sent for operation function</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_hamming_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -2190,7 +2190,7 @@ generates a periodic window, for use in spectral analysis, by default False</p><
 <span class="sd">        additional agrument values to be sent for operation function</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_hann_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -2331,7 +2331,7 @@ As beta gets large, the window narrows.</p></td>
 <span class="sd">    operation_args : tuple, optional</span>
 <span class="sd">        additional agrument values to be sent for operation function</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_kaiser_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -2463,7 +2463,7 @@ generates a periodic window, for use in spectral analysis, by default False</p><
 <span class="sd">        additional agrument values to be sent for operation function</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_parzen_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -2594,7 +2594,7 @@ generates a periodic window, for use in spectral analysis, by default False</p><
 <span class="sd">        additional agrument values to be sent for operation function</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_triang_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>
@@ -2629,7 +2629,7 @@ generates a periodic window, for use in spectral analysis, by default False</p><
 
       <p>Create weighted moving window feature</p>
 <p>A weighted average is an average that has multiplying factors to give different weights to data at different positions in the sample window.
-Mathematically, the weighted moving average is the convolution of the data with a fixed weighting function. 
+Mathematically, the weighted moving average is the convolution of the data with a fixed weighting function.
 In an n-day WMA the latest day has weight n, the second latest n-1, etc, down to one</p>
 
 <p><strong>Parameters:</strong></p>
@@ -2699,7 +2699,7 @@ are were saved during the last phase, will be utilized for calculation }, by def
 <span class="sd">    Create weighted moving window feature</span>
 
 <span class="sd">    A weighted average is an average that has multiplying factors to give different weights to data at different positions in the sample window.</span>
-<span class="sd">    Mathematically, the weighted moving average is the convolution of the data with a fixed weighting function. </span>
+<span class="sd">    Mathematically, the weighted moving average is the convolution of the data with a fixed weighting function.</span>
 <span class="sd">    In an n-day WMA the latest day has weight n, the second latest n-1, etc, down to one</span>
 
 <span class="sd">    Parameters</span>
@@ -2722,7 +2722,7 @@ are were saved during the last phase, will be utilized for calculation }, by def
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">operation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span> <span class="k">if</span> <span class="n">operation</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span> <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operation</span>
     <span class="n">_function_name</span> <span class="o">=</span> <span class="s2">&quot;caluclate_weighted_moving_window_feature&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="n">_function_name</span><span class="p">,</span>

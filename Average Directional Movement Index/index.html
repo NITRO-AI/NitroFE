@@ -331,7 +331,7 @@
 <li>Jump right in for a hands-on <a href="https://colab.research.google.com/drive/12vnEIF-QwKJrCHaksQkrkua5-hjlTOdL?usp=sharing"><img alt="Open In Colab" src="https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" /></a></li>
 </ul>
 <h2 id="import">Import</h2>
-<p><code>from NitroFe import AverageDirectionalMovementIndex</code></p>
+<p><code>from NitroFE import AverageDirectionalMovementIndex</code></p>
 <p><img alt="AverageDirectionalMovementIndex" src="https://media.giphy.com/media/grrI4t2AqnVf6YJaUy/giphy.gif" /></p>
 <p>The average directional index (ADX) is a technical analysis indicator used by some traders to determine the strength of a trend.</p>
 <p>The trend can be either up or down, and this is shown by two accompanying indicators, the negative directional indicator (-DI) and the positive directional indicator (+DI). Therefore, the ADX commonly includes three separate lines. These are used to help assess whether a trade should be taken long or short, or if a trade should be taken at all.</p>
@@ -470,8 +470,9 @@ average \ directional \ index \ (ADX) = Smoothed \ moving \ average \ of \ 100*\
 </table>
         <details class="quote">
           <summary>Source code in <code>nitrofe\time_based_features\indicator_features\_averagedirectionalmovementindex.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-        <span class="n">directional_movement_lookback_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">directional_movement_lookback_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
     <span class="n">directional_movement_min_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">directional_movement_smoothing_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14</span><span class="p">,</span>
     <span class="n">directional_movement_smoothing_min_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
@@ -480,7 +481,8 @@ average \ directional \ index \ (ADX) = Smoothed \ moving \ average \ of \ 100*\
     <span class="n">true_range_lookback</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
     <span class="n">average_true_range_span</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
     <span class="n">true_range_min_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">average_true_range_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">average_true_range_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -505,9 +507,7 @@ average \ directional \ index \ (ADX) = Smoothed \ moving \ average \ of \ 100*\
 <span class="sd">    average_true_range_periods : int, optional</span>
 <span class="sd">        Minimum number of observations in window required to have a value for average true range calculation , by default 1</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">directional_movement_lookback_period</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">directional_movement_lookback_period</span>
-    <span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">directional_movement_lookback_period</span> <span class="o">=</span> <span class="n">directional_movement_lookback_period</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">directional_movement_min_periods</span> <span class="o">=</span> <span class="n">directional_movement_min_periods</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">directional_movement_smoothing_period</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">directional_movement_smoothing_period</span>
@@ -626,8 +626,6 @@ were saved during the last phase, will be utilized for calculation }, by default
             <span class="n">operation</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
-
-
     <span class="n">plus_dma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plus_dma_object</span><span class="o">.</span><span class="n">_template_feature_calculation</span><span class="p">(</span>
         <span class="n">function_name</span><span class="o">=</span><span class="s2">&quot;plus_dma&quot;</span><span class="p">,</span>
         <span class="n">win_function</span><span class="o">=</span><span class="n">_identity_window</span><span class="p">,</span>
@@ -681,7 +679,11 @@ were saved during the last phase, will be utilized for calculation }, by default
         <span class="n">dataframe</span><span class="o">=</span><span class="n">dataframe</span><span class="p">,</span>
         <span class="n">first_fit</span><span class="o">=</span><span class="n">first_fit</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">average_true_range</span><span class="o">=</span><span class="n">average_true_range</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">average_true_range</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="k">else</span> <span class="n">average_true_range</span>
+    <span class="n">average_true_range</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">average_true_range</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">average_true_range</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span>
+        <span class="k">else</span> <span class="n">average_true_range</span>
+    <span class="p">)</span>
 
     <span class="n">plus_directional_index</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">smoothed_plus_dma</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">average_true_range</span><span class="p">))</span>
     <span class="n">minus_directional_index</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">smoothed_minus_dma</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">average_true_range</span><span class="p">))</span>

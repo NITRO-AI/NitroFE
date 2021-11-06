@@ -331,7 +331,7 @@
 <li>Jump right in for a hands-on <a href="https://colab.research.google.com/drive/1KBPprLc9lDPZTOXWsMh06JjANor15Yxp?usp=sharing"><img alt="Open In Colab" src="https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" /></a></li>
 </ul>
 <h2 id="import">Import</h2>
-<p><code>from NitroFe import RelativeStrengthIndex</code></p>
+<p><code>from NitroFE import RelativeStrengthIndex</code></p>
 <p><img alt="RelativeStrengthIndex" src="https://media.giphy.com/media/588gu1EXpuqJxvl9mk/giphy.gif" /></p>
 <p>The RSI is classified as a momentum oscillator, measuring the velocity and magnitude of price movements. Momentum is the rate of the rise or fall in price. </p>
 <div class="arithmatex">\[
@@ -408,8 +408,7 @@ RSI = 100 -\frac{100}{1+RS}
 </table>
         <details class="quote">
           <summary>Source code in <code>nitrofe\time_based_features\indicator_features\_relativestrengthindex.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-    <span class="n">lookback_period</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lookback_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -470,10 +469,7 @@ were saved during the last phase, will be utilized for calculation }, by default
 </table>
         <details class="quote">
           <summary>Source code in <code>nitrofe\time_based_features\indicator_features\_relativestrengthindex.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span>
-    <span class="n">dataframe</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">],</span>
-    <span class="n">first_fit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">],</span> <span class="n">first_fit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Provided dataframe must be in ascending order.</span>
@@ -495,9 +491,12 @@ were saved during the last phase, will be utilized for calculation }, by default
         <span class="bp">self</span><span class="o">.</span><span class="n">_up_object</span> <span class="o">=</span> <span class="n">weighted_window_features</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_down_object</span> <span class="o">=</span> <span class="n">weighted_window_features</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_up_smoothed</span><span class="o">=</span><span class="n">SmoothedMovingAverage</span><span class="p">(</span><span class="n">lookback_period</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_down_smoothed</span><span class="o">=</span><span class="n">SmoothedMovingAverage</span><span class="p">(</span><span class="n">lookback_period</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span><span class="p">)</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">_up_smoothed</span> <span class="o">=</span> <span class="n">SmoothedMovingAverage</span><span class="p">(</span>
+            <span class="n">lookback_period</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_down_smoothed</span> <span class="o">=</span> <span class="n">SmoothedMovingAverage</span><span class="p">(</span>
+            <span class="n">lookback_period</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lookback_period</span>
+        <span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
         <span class="n">dataframe</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
@@ -507,7 +506,7 @@ were saved during the last phase, will be utilized for calculation }, by default
         <span class="n">win_function</span><span class="o">=</span><span class="n">_identity_window</span><span class="p">,</span>
         <span class="n">first_fit</span><span class="o">=</span><span class="n">first_fit</span><span class="p">,</span>
         <span class="n">dataframe</span><span class="o">=</span><span class="n">dataframe</span><span class="p">,</span>
-        <span class="n">window</span><span class="o">=</span><span class="mi">2</span> <span class="p">,</span>
+        <span class="n">window</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="n">min_periods</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">symmetric</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">operation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_diff_pos</span><span class="p">,</span>
@@ -519,18 +518,22 @@ were saved during the last phase, will be utilized for calculation }, by default
         <span class="n">win_function</span><span class="o">=</span><span class="n">_identity_window</span><span class="p">,</span>
         <span class="n">first_fit</span><span class="o">=</span><span class="n">first_fit</span><span class="p">,</span>
         <span class="n">dataframe</span><span class="o">=</span><span class="n">dataframe</span><span class="p">,</span>
-        <span class="n">window</span><span class="o">=</span><span class="mi">2</span> <span class="p">,</span>
+        <span class="n">window</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="n">min_periods</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">symmetric</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">operation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_diff_neg</span><span class="p">,</span>
         <span class="n">operation_args</span><span class="o">=</span><span class="p">(),</span>
     <span class="p">)</span>
 
-    <span class="n">smoothed_up_value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_up_smoothed</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataframe</span><span class="o">=</span><span class="n">up_value</span><span class="p">,</span><span class="n">first_fit</span><span class="o">=</span><span class="n">first_fit</span><span class="p">)</span>
-    <span class="n">smoothed_down_value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_down_smoothed</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataframe</span><span class="o">=</span><span class="n">down_value</span><span class="p">,</span><span class="n">first_fit</span><span class="o">=</span><span class="n">first_fit</span><span class="p">)</span>
+    <span class="n">smoothed_up_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_up_smoothed</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+        <span class="n">dataframe</span><span class="o">=</span><span class="n">up_value</span><span class="p">,</span> <span class="n">first_fit</span><span class="o">=</span><span class="n">first_fit</span>
+    <span class="p">)</span>
+    <span class="n">smoothed_down_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_down_smoothed</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+        <span class="n">dataframe</span><span class="o">=</span><span class="n">down_value</span><span class="p">,</span> <span class="n">first_fit</span><span class="o">=</span><span class="n">first_fit</span>
+    <span class="p">)</span>
 
-    <span class="n">rsi</span> <span class="o">=</span>  <span class="mi">100</span> <span class="o">-</span><span class="mi">100</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">smoothed_up_value</span><span class="o">/</span><span class="n">smoothed_down_value</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">rsi</span>     
+    <span class="n">rsi</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">-</span> <span class="mi">100</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">smoothed_up_value</span> <span class="o">/</span> <span class="n">smoothed_down_value</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">rsi</span>
 </code></pre></div>
         </details>
     </div>

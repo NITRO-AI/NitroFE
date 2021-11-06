@@ -331,7 +331,7 @@
 <li>Jump right in for a hands-on <a href="https://colab.research.google.com/drive/1_vA_Vw2kKiFb4XoJArM_hMvwE3j6x3O9?usp=sharing"><img alt="Open In Colab" src="https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" /></a></li>
 </ul>
 <h2 id="import">Import</h2>
-<p><code>from NitroFe import KaufmanAdaptiveMovingAverage</code></p>
+<p><code>from NitroFE import KaufmanAdaptiveMovingAverage</code></p>
 <p><img alt="KaufmanAdaptiveMovingAverage" src="https://media.giphy.com/media/la1LKPepMbyCWd6HVv/giphy.gif" /></p>
 <p>Kaufman's Adaptive Moving Average (KAMA) is a moving average designed to account for noise or volatility.</p>
 <p>KAMA will closely follow values when the values swings are relatively small and the noise is low.</p>
@@ -538,16 +538,16 @@ were saved during the last phase, will be utilized for calculation }, by default
         <span class="n">kma</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
             <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">kma</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="n">columns</span><span class="o">=</span><span class="n">kma</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span> <span class="n">kma</span><span class="p">]</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_min_periods</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
-            <span class="n">_first_pervious</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_lookback_period</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_min_periods</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
-            <span class="n">_first_pervious</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_min_periods</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_min_periods</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_first_pervious</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_lookback_period</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_min_periods</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">_first_pervious</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kaufman_efficiency_min_periods</span> <span class="o">-</span> <span class="mi">2</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">_first_pervious</span><span class="o">=</span><span class="mi">0</span>
+            <span class="n">_first_pervious</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="k">else</span><span class="p">:</span>
         <span class="n">kma</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">values_from_last_run</span><span class="p">,</span> <span class="n">kma</span><span class="p">])</span>
-        <span class="n">_first_pervious</span><span class="o">=-</span><span class="mi">1</span>
+        <span class="n">_first_pervious</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
     <span class="n">kma</span><span class="p">[</span><span class="s2">&quot;_iloc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">kma</span><span class="p">))</span>
 
     <span class="n">_kaufman_efficiency</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kaufman_object</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
@@ -562,12 +562,16 @@ were saved during the last phase, will be utilized for calculation }, by default
         <span class="n">_kaufman_efficiency</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fast_ema_span</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slow_ema_span</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
         <span class="o">+</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slow_ema_span</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="p">)</span><span class="o">**</span> <span class="mi">2</span>
+    <span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
 
     <span class="k">if</span> <span class="n">first_fit</span><span class="p">:</span>
-        <span class="n">SC</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">_first_pervious</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">SC</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">SC</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">_first_pervious</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">SC</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="k">for</span> <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dataframe</span><span class="p">[(</span><span class="n">_first_pervious</span><span class="o">+</span><span class="mi">1</span><span class="p">):]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">(),</span> <span class="n">kma</span><span class="p">[(</span><span class="mi">1</span><span class="o">+</span><span class="n">_first_pervious</span><span class="o">+</span><span class="mi">1</span><span class="p">):]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">(),</span> <span class="n">SC</span><span class="p">[(</span><span class="n">_first_pervious</span><span class="o">+</span><span class="mi">1</span><span class="p">):]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()):</span>
+    <span class="k">for</span> <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="n">dataframe</span><span class="p">[(</span><span class="n">_first_pervious</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">:]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">(),</span>
+        <span class="n">kma</span><span class="p">[(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">_first_pervious</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">:]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">(),</span>
+        <span class="n">SC</span><span class="p">[(</span><span class="n">_first_pervious</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">:]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">(),</span>
+    <span class="p">):</span>
 
         <span class="n">previous_kama</span> <span class="o">=</span> <span class="n">kma</span><span class="p">[</span><span class="n">kma</span><span class="p">[</span><span class="s2">&quot;_iloc&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="n">r2</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;_iloc&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)][</span><span class="n">ll</span><span class="p">]</span>
 
@@ -575,7 +579,6 @@ were saved during the last phase, will be utilized for calculation }, by default
             <span class="n">previous_kama</span>
             <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">r3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="p">(</span><span class="n">r1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">-</span> <span class="n">previous_kama</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
         <span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
 
     <span class="n">res</span> <span class="o">=</span> <span class="n">kma</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:][</span><span class="n">ll</span><span class="p">]</span>
 

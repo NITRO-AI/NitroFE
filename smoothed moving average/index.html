@@ -331,7 +331,7 @@
 <li>Jump right in for a hands-on <a href="https://colab.research.google.com/drive/1mdA639urFTbtybZP7oR_0XHOLOYiiA0h?usp=sharing"><img alt="Open In Colab" src="https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" /></a></li>
 </ul>
 <h2 id="import">Import</h2>
-<p><code>from NitroFe import SmoothedMovingAverage</code></p>
+<p><code>from NitroFE import SmoothedMovingAverage</code></p>
 <p><img alt="SmoothedMovingAverage" src="https://media.giphy.com/media/LqMwgXOw1hMXgi5hGs/giphy.gif" /></p>
 <p>The Smoothed Moving Average (SMMA) is a combination of a SMA and an EMA.
 It gives the recent values an equal weighting as the historic prices as it takes all available price data into account.
@@ -401,8 +401,7 @@ SMMA[t] = \frac{(SMMA[t-1]*(lookback\_period-1) + dataframe[t] )}{lookback\_peri
 </table>
         <details class="quote">
           <summary>Source code in <code>nitrofe\time_based_features\moving_average_features\moving_average_features.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-        <span class="n">lookback_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lookback_period</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -484,7 +483,6 @@ were saved during the last phase, will be utilized for calculation }, by default
 
     <span class="k">if</span> <span class="n">first_fit</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_first_object</span> <span class="o">=</span> <span class="n">weighted_window_features</span><span class="p">()</span>
-
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
         <span class="n">dataframe</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
