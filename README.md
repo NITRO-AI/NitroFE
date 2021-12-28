@@ -7,6 +7,7 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=NITRO-AI_NitroFE&metric=security_rating)](https://sonarcloud.io/dashboard?id=NITRO-AI_NitroFE)
 [![<Sonarcloud quality gate>](https://sonarcloud.io/api/project_badges/measure?project=NITRO-AI_NitroFE&metric=alert_status)](https://sonarcloud.io/dashboard?id=NITRO-AI_NitroFE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5632604.svg)](https://doi.org/10.5281/zenodo.5632604)
+[![Downloads](https://pepy.tech/badge/nitrofe)](https://pepy.tech/project/nitrofe)
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 
 ``NitroFE`` is a Python feature engineering engine which provides a variety of modules designed to internally save past dependent values for providing continuous calculation.
